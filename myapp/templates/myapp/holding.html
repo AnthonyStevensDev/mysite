@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coming Soon</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: #050508;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow: hidden;
+      min-height: 100svh;
+    }
+
+    .bg-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      mask-image: radial-gradient(circle at center, black 40%, transparent 90%);
+      -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 90%);
+    }
+
+    .bg-glow {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 700px; height: 700px;
+      background: rgba(0, 212, 170, 0.10);
+      border-radius: 50%;
+      filter: blur(180px);
+      animation: pulseGlow 4s ease-in-out infinite;
+    }
+
+    .bg-fade {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(5,5,8,0.4) 0%, transparent 50%, #050508 100%);
+    }
+
+    main {
+      position: relative; z-index: 10;
+      min-height: 100svh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .content {
+      text-align: center;
+      display: flex; flex-direction: column; align-items: center;
+      gap: 2.5rem;
+      animation: fadeIn 1.2s ease forwards;
+    }
+
+    .dots {
+      display: inline-flex; align-items: center; gap: 0.75rem;
+      animation: float 6s ease-in-out infinite;
+    }
+    .dot {
+      width: 12px; height: 12px; border-radius: 50%;
+      background: #00d4aa;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    .dot-line { width: 64px; height: 1px; background: rgba(0,212,170,0.4); }
+
+    h1 {
+      font-size: clamp(3rem, 10vw, 6rem);
+      font-weight: 800; letter-spacing: -0.03em; line-height: 1;
+    }
+    .word-coming { color: #fff; }
+    .word-soon { display: block; margin-top: 0.5rem; color: #00d4aa; }
+
+    .clock-wrapper {
+      width: 100%; max-width: 340px;
+      opacity: 0;
+      animation: fadeInUp 1.4s ease 0.5s forwards;
+    }
+    .clock-card {
+      border: 1px solid rgba(0,212,170,0.12);
+      background: rgba(0,212,170,0.04);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      border-radius: 16px;
+      box-shadow: 0 0 40px rgba(0,212,170,0.05), inset 0 1px 0 rgba(0,212,170,0.08);
+      position: relative; overflow: hidden;
+      padding: 1.5rem 2rem;
+      display: flex; flex-direction: column; align-items: center; gap: 0.75rem;
+    }
+    .clock-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(0,212,170,0.3), transparent);
+    }
+
+    .clock-digits {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      font-weight: 600; letter-spacing: 0.08em;
+      color: #00d4aa;
+      text-shadow: 0 0 30px rgba(0,212,170,0.4), 0 0 60px rgba(0,212,170,0.15);
+      line-height: 1;
+    }
+    .clock-sep {
+      display: inline-block; color: rgba(0,212,170,0.5);
+      animation: blink 1s step-start infinite;
+    }
+    .clock-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(0.6rem, 1.5vw, 0.75rem);
+      font-weight: 400; letter-spacing: 0.2em;
+      color: rgba(0,212,170,0.45); text-transform: uppercase;
+    }
+
+    .tagline {
+      font-size: clamp(0.9rem, 2vw, 1.1rem);
+      font-weight: 500; letter-spacing: 0.02em; color: #6b7280;
+    }
+
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-10px); }
+    }
+    @keyframes pulseGlow {
+      0%,100% { opacity: 0.4; transform: translate(-50%,-50%) scale(1); }
+      50%      { opacity: 0.7; transform: translate(-50%,-50%) scale(1.08); }
+    }
+    @keyframes pulse {
+      0%,100% { opacity: 1;   transform: scale(1); }
+      50%      { opacity: 0.5; transform: scale(0.85); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes blink {
+      0%,100% { opacity: 1; }
+      50%      { opacity: 0; }
+    }
+    @keyframes tick {
+      from { transform: translateY(-3px); opacity: 0.6; }
+      to   { transform: translateY(0);    opacity: 1; }
+    }
+    .tick { animation: tick 0.12s ease; }
+  </style>
+</head>
+
+<body>
+  <div class="bg-grid"></div>
+  <div class="bg-glow"></div>
+  <div class="bg-fade"></div>
+
+  <main>
+    <div class="content">
+
+      <div class="dots">
+        <div class="dot"></div>
+        <div class="dot-line"></div>
+        <div class="dot"></div>
+      </div>
+
+      <h1>
+        <span class="word-coming">Coming</span>
+        <span class="word-soon">Soon</span>
+      </h1>
+
+      <div class="clock-wrapper">
+        <div class="clock-card">
+          <div class="clock-digits">
+            <span id="clock-h">00</span><span class="clock-sep">:</span><span id="clock-m">00</span>
+          </div>
+          <div class="clock-date" id="clock-date">— — —</div>
+        </div>
+      </div>
+
+      <p class="tagline">Currently being built with caffeine and questionable decisions.</p>
+
+    </div>
+  </main>
+
+  <script>
+    const pad = n => String(n).padStart(2, '0');
+    const DAYS   = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+    const hEl    = document.getElementById('clock-h');
+    const mEl    = document.getElementById('clock-m');
+    const dateEl = document.getElementById('clock-date');
+    let prevH = '', prevM = '';
+
+    function animateTick(el) {
+      el.classList.remove('tick');
+      void el.offsetWidth;
+      el.classList.add('tick');
+    }
+
+    function updateClock() {
+      const now = new Date();
+      const h = pad(now.getHours()), m = pad(now.getMinutes());
+      if (h !== prevH) { hEl.textContent = h; animateTick(hEl); prevH = h; }
+      if (m !== prevM) { mEl.textContent = m; animateTick(mEl); prevM = m; }
+      dateEl.textContent = `${DAYS[now.getDay()]}, ${now.getDate()} ${MONTHS[now.getMonth()]} ${now.getFullYear()}`;
+    }
+
+    updateClock();
+    setInterval(updateClock, 1000);
+  </script>
+</body>
+</html>

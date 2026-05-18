@@ -1,0 +1,713 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Python Developer Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'myapp/style.css' %}">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            dark: {
+              950: '#050508',
+              900: '#0a0a0f',
+              800: '#0f0f18',
+              700: '#151522',
+              600: '#1a1a2e',
+            },
+            accent: {
+              DEFAULT: '#00d4aa',
+              light: '#33e0be',
+              dark: '#00a888',
+              glow: 'rgba(0, 212, 170, 0.15)',
+              subtle: 'rgba(0, 212, 170, 0.08)',
+            },
+            surface: {
+              DEFAULT: 'rgba(255, 255, 255, 0.03)',
+              hover: 'rgba(255, 255, 255, 0.06)',
+              border: 'rgba(255, 255, 255, 0.06)',
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-dark-950 text-gray-300 font-sans antialiased overflow-x-hidden">
+
+  <!-- Navigation -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 md:h-20">
+        <a href="#hero" class="flex items-center gap-2 group">
+          <div class="w-8 h-8 rounded-lg bg-accent/10 border border-accent/30 flex items-center justify-center group-hover:bg-accent/20 transition-all duration-300">
+            <span class="text-accent font-mono font-semibold text-sm">&lt;/&gt;</span>
+          </div>
+          <span class="text-white font-semibold text-lg tracking-tight hidden sm:block">Anthony  <span class="text-accent">Stevens</span></span>
+        </a>
+
+        <div class="hidden md:flex items-center gap-1">
+          <a href="#about" class="nav-link px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300">About</a>
+          <a href="#skills" class="nav-link px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300">Skills</a>
+          <a href="#projects" class="nav-link px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300">Projects</a>
+          <a href="#contact" class="nav-link px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300">Contact</a>
+          <a href="#contact" class="ml-3 px-5 py-2 rounded-lg text-sm font-semibold bg-accent/10 text-accent border border-accent/30 hover:bg-accent hover:text-dark-950 transition-all duration-300">Let's Talk</a>
+        </div>
+
+        <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg hover:bg-white/5 text-gray-400 hover:text-white transition-colors" aria-label="Toggle menu">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="md:hidden hidden bg-dark-900/95 backdrop-blur-xl border-t border-white/5">
+      <div class="px-4 py-4 space-y-1">
+        <a href="#about" class="mobile-nav-link block px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300">About</a>
+        <a href="#skills" class="mobile-nav-link block px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300">Skills</a>
+        <a href="#projects" class="mobile-nav-link block px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300">Projects</a>
+        <a href="#contact" class="mobile-nav-link block px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300">Contact</a>
+        <a href="#contact" class="block px-4 py-3 rounded-lg text-center text-accent bg-accent/10 border border-accent/30 font-semibold mt-3 hover:bg-accent hover:text-dark-950 transition-all duration-300">Let's Talk</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <canvas id="hero-grid" class="absolute inset-0 z-0"></canvas>
+    <div class="absolute inset-0 bg-gradient-to-b from-dark-950/50 via-transparent to-dark-950 z-[1]"></div>
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent/5 rounded-full blur-[150px] z-[1]"></div>
+    <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-dark-950 to-transparent z-[2]"></div>
+
+
+    <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center">
+
+  <!-- Profile Photo Section -->
+  <div class="flex justify-center mb-8 mt-20 animate-fade-in-up" style="animation-delay: 0.05s;">
+    <div class="relative group">
+
+      <!-- Glow Effect -->
+      <div class="absolute inset-0 rounded-full bg-accent/30 blur-2xl group-hover:bg-accent/40 transition-all duration-500"></div>
+
+      <!-- Your Profile Image -->
+      <img
+        src="{% static 'myapp/images/profile.jpg' %}"
+        alt="Anthony Stevens"
+        class="relative w-40 h-40 sm:w-48 sm:h-48 rounded-full object-cover border-4 border-accent/40 shadow-2xl shadow-accent/20 hover:scale-105 transition-all duration-500"
+      >
+
+    </div>
+  </div>  
+
+  
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/5 border border-accent/20 text-accent text-sm font-medium mb-8 animate-fade-in-up" style="animation-delay: 0.1s;">
+        <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
+        Available for opportunities
+      </div>
+
+      <h1 class="text-4xl sm:text-5xl md:text-7xl font-bold text-white leading-tight mb-6 animate-fade-in-up" style="animation-delay: 0.2s;">
+        Python Developer<br>
+        <span class="text-accent">&amp; AI Engineer</span><br>
+        
+      </h1>
+
+      <p class="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto mb-10 animate-fade-in-up leading-relaxed" style="animation-delay: 0.35s;">
+        Building robust backend systems, RESTful APIs, and intelligent automation solutions. Transitioning from IT infrastructure to software engineering with a passion for clean, scalable Python code.
+      </p>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up" style="animation-delay: 0.5s;">
+        <a href="#projects" class="group px-8 py-4 rounded-xl bg-accent text-dark-950 font-semibold text-base hover:bg-accent-light transition-all duration-300 shadow-lg shadow-accent/25 hover:shadow-accent/40 flex items-center gap-2">
+          View Projects
+          <i data-lucide="arrow-down-right" class="w-4 h-4 group-hover:translate-x-0.5 group-hover:translate-y-0.5 transition-transform"></i>
+        </a>
+        <a href="#contact" class="px-8 py-4 rounded-xl bg-white/5 border border-white/10 text-white font-semibold text-base hover:bg-white/10 hover:border-white/20 transition-all duration-300 flex items-center gap-2">
+          Contact Me
+          <i data-lucide="mail" class="w-4 h-4"></i>
+        </a>
+      </div>
+
+      <div class="mt-16 animate-fade-in-up" style="animation-delay: 0.65s;">
+        <div class="flex items-center justify-center gap-8 text-gray-500 text-sm">
+          <div class="flex items-center gap-2">
+            <i data-lucide="map-pin" class="w-4 h-4 text-accent/60"></i>
+            <span>United Kingdom</span>
+          </div>
+          <div class="w-1 h-1 rounded-full bg-gray-700"></div>
+          <div class="flex items-center gap-2">
+            <i data-lucide="code-2" class="w-4 h-4 text-accent/60"></i>
+            <span>Python / FastAPI</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-bounce-slow">
+      <a href="#about" class="flex flex-col items-center gap-2 text-gray-600 hover:text-accent transition-colors duration-300">
+        <span class="text-xs font-medium">Scroll</span>
+        <i data-lucide="chevron-down" class="w-5 h-5"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="relative py-24 md:py-32">
+    <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/20 to-transparent"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+        <div class="reveal-element">
+          <div class="relative">
+            <div class="aspect-[4/5] rounded-2xl overflow-hidden bg-dark-700 border border-white/5">
+              <img src="http://static.photos/technology/640x360/101" alt="Developer workspace" class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity duration-500">
+              <div class="absolute inset-0 bg-gradient-to-t from-dark-950/80 via-transparent to-transparent"></div>
+            </div>
+            <div class="absolute -bottom-4 -right-4 px-6 py-4 rounded-xl bg-dark-800/80 backdrop-blur-md border border-accent/20 shadow-xl">
+              <div class="text-3xl font-bold text-accent font-mono">5+</div>
+              <div class="text-sm text-gray-400">Years in IT</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal-element">
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/5 border border-accent/20 text-accent text-sm font-medium mb-6">
+            <i data-lucide="user" class="w-3.5 h-3.5"></i>
+            About Me
+          </div>
+
+          <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6 leading-tight">
+            From IT Infrastructure<br>
+            to <span class="text-accent">Software Engineering</span>
+          </h2>
+
+          <div class="space-y-4 text-gray-400 leading-relaxed">
+            <p>
+              With over five years of experience in IT infrastructure and support, I've developed a deep understanding of how systems operate under the hood. This foundation has been instrumental in my transition into software engineering.
+            </p>
+            <p>
+              I specialise in <span class="text-white font-medium">Python backend development</span>, building RESTful APIs with FastAPI and Flask, designing database schemas with PostgreSQL and SQLAlchemy, and creating robust automation pipelines that eliminate manual overhead.
+            </p>
+            <p>
+              My current focus lies in data-driven applications and event management systems — including a <span class="text-white font-medium">pool tournament management platform</span> that handles brackets, scoring, and real-time updates. I'm driven by solving real-world problems with clean, maintainable code.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4 mt-8">
+            <div class="p-4 rounded-xl bg-surface border border-surface-border hover:border-accent/20 transition-colors duration-300">
+              <i data-lucide="server" class="w-5 h-5 text-accent mb-2"></i>
+              <div class="text-sm font-medium text-white">Backend Dev</div>
+              <div class="text-xs text-gray-500 mt-0.5">APIs & Microservices</div>
+            </div>
+            <div class="p-4 rounded-xl bg-surface border border-surface-border hover:border-accent/20 transition-colors duration-300">
+              <i data-lucide="bot" class="w-5 h-5 text-accent mb-2"></i>
+              <div class="text-sm font-medium text-white">Automation</div>
+              <div class="text-xs text-gray-500 mt-0.5">Scripts & Pipelines</div>
+            </div>
+            <div class="p-4 rounded-xl bg-surface border border-surface-border hover:border-accent/20 transition-colors duration-300">
+              <i data-lucide="database" class="w-5 h-5 text-accent mb-2"></i>
+              <div class="text-sm font-medium text-white">Data-Driven</div>
+              <div class="text-xs text-gray-500 mt-0.5">PostgreSQL & ORM</div>
+            </div>
+            <div class="p-4 rounded-xl bg-surface border border-surface-border hover:border-accent/20 transition-colors duration-300">
+              <i data-lucide="cloud" class="w-5 h-5 text-accent mb-2"></i>
+              <div class="text-sm font-medium text-white">Cloud & DevOps</div>
+              <div class="text-xs text-gray-500 mt-0.5">Docker & AWS</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills" class="relative py-24 md:py-32 bg-dark-900/50">
+    <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/20 to-transparent"></div>
+    <div class="absolute top-1/2 right-0 w-[400px] h-[400px] bg-accent/3 rounded-full blur-[120px]"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div class="text-center mb-16 reveal-element">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/5 border border-accent/20 text-accent text-sm font-medium mb-6">
+          <i data-lucide="zap" class="w-3.5 h-3.5"></i>
+          Technical Skills
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">
+          Tools & Technologies
+        </h2>
+        <p class="text-gray-400 max-w-2xl mx-auto">
+          A curated toolkit built through hands-on projects and continuous learning, focused on backend development and infrastructure automation.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+        <!-- Python -->
+        <div class="skill-card group p-5 rounded-2xl bg-surface border border-surface-border hover:border-accent/30 transition-all duration-500 reveal-element" data-skill="95">
+          <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-all duration-300">
+            <span class="text-2xl">🐍</span>
+          </div>
+          <h3 class="text-white font-semibold mb-1">Python</h3>
+          <p class="text-xs text-gray-500 mb-3">Core Language</p>
+          <div class="w-full h-1.5 rounded-full bg-dark-700 overflow-hidden">
+            <div class="skill-bar h-full rounded-full bg-gradient-to-r from-accent to-accent-light" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <!-- FastAPI -->
+        <div class="skill-card group p-5 rounded-2xl bg-surface border border-surface-border hover:border-accent/30 transition-all duration-500 reveal-element" data-skill="88">
+          <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-all duration-300">
+            <i data-lucide="zap" class="w-5 h-5 text-accent"></i>
+          </div>
+          <h3 class="text-white font-semibold mb-1">FastAPI</h3>
+          <p class="text-xs text-gray-500 mb-3">REST Framework</p>
+          <div class="w-full h-1.5 rounded-full bg-dark-700 overflow-hidden">
+            <div class="skill-bar h-full rounded-full bg-gradient-to-r from-accent to-accent-light" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <!-- Flask -->
+        <div class="skill-card group p-5 rounded-2xl bg-surface border border-surface-border hover:border-accent/30 transition-all duration-500 reveal-element" data-skill="80">
+          <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-all duration-300">
+            <i data-lucide="flask-conical" class="w-5 h-5 text-accent"></i>
+          </div>
+          <h3 class="text-white font-semibold mb-1">Flask</h3>
+          <p class="text-xs text-gray-500 mb-3">Web Framework</p>
+          <div class="w-full h-1.5 rounded-full bg-dark-700 overflow-hidden">
+            <div class="skill-bar h-full rounded-full bg-gradient-to-r from-accent to-accent-light" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <!-- PostgreSQL -->
+        <div class="skill-card group p-5 rounded-2xl bg-surface border border-surface-border hover:border-accent/30 transition-all duration-500 reveal-element" data-skill="82">
+          <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-all duration-300">
+            <i data-lucide="database" class="w-5 h-5 text-accent"></i>
+          </div>
+          <h3 class="text-white font-semibold mb-1">PostgreSQL</h3>
+          <p class="text-xs text-gray-500 mb-3">Database</p>
+          <div class="w-full h-1.5 rounded-full bg-dark-700 overflow-hidden">
+            <div class="skill-bar h-full rounded-full bg-gradient-to-r from-accent to-accent-light" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <!-- SQLAlchemy -->
+        <div class="skill-card group p-5 rounded-2xl bg-surface border border-surface-border hover:border-accent/30 transition-all duration-500 reveal-element" data-skill="78">
+          <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-all duration-300">
+            <i data-lucide="link" class="w-5 h-5 text-accent"></i>
+          </div>
+          <h3 class="text-white font-semibold mb-1">SQLAlchemy</h3>
+          <p class="text-xs text-gray-500 mb-3">ORM</p>
+          <div class="w-full h-1.5 rounded-full bg-dark-700 overflow-hidden">
+            <div class="skill-bar h-full rounded-full bg-gradient-to-r from-accent to-accent-light" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <!-- Docker -->
+        <div class="skill-card group p-5 rounded-2xl bg-surface border border-surface-border hover:border-accent/30 transition-all duration-500 reveal-element" data-skill="85">
+          <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-all duration-300">
+            <i data-lucide="container" class="w-5 h-5 text-accent"></i>
+          </div>
+          <h3 class="text-white font-semibold mb-1">Docker</h3>
+          <p class="text-xs text-gray-500 mb-3">Containerisation</p>
+          <div class="w-full h-1.5 rounded-full bg-dark-700 overflow-hidden">
+            <div class="skill-bar h-full rounded-full bg-gradient-to-r from-accent to-accent-light" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <!-- Git/GitHub -->
+        <div class="skill-card group p-5 rounded-2xl bg-surface border border-surface-border hover:border-accent/30 transition-all duration-500 reveal-element" data-skill="90">
+          <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-all duration-300">
+            <i data-lucide="git-branch" class="w-5 h-5 text-accent"></i>
+          </div>
+          <h3 class="text-white font-semibold mb-1">Git/GitHub</h3>
+          <p class="text-xs text-gray-500 mb-3">Version Control</p>
+          <div class="w-full h-1.5 rounded-full bg-dark-700 overflow-hidden">
+            <div class="skill-bar h-full rounded-full bg-gradient-to-r from-accent to-accent-light" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <!-- REST APIs -->
+        <div class="skill-card group p-5 rounded-2xl bg-surface border border-surface-border hover:border-accent/30 transition-all duration-500 reveal-element" data-skill="90">
+          <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-all duration-300">
+            <i data-lucide="route" class="w-5 h-5 text-accent"></i>
+          </div>
+          <h3 class="text-white font-semibold mb-1">REST APIs</h3>
+          <p class="text-xs text-gray-500 mb-3">API Design</p>
+          <div class="w-full h-1.5 rounded-full bg-dark-700 overflow-hidden">
+            <div class="skill-bar h-full rounded-full bg-gradient-to-r from-accent to-accent-light" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <!-- HTML/CSS/JS -->
+        <div class="skill-card group p-5 rounded-2xl bg-surface border border-surface-border hover:border-accent/30 transition-all duration-500 reveal-element" data-skill="12">
+          <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-all duration-300">
+            <i data-lucide="file-code-2" class="w-5 h-5 text-accent"></i>
+          </div>
+          <h3 class="text-white font-semibold mb-1">HTML/CSS/JS</h3>
+          <p class="text-xs text-gray-500 mb-3">Frontend Basics</p>
+          <div class="w-full h-1.5 rounded-full bg-dark-700 overflow-hidden">
+            <div class="skill-bar h-full rounded-full bg-gradient-to-r from-accent to-accent-light" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <!-- Linux -->
+        <div class="skill-card group p-5 rounded-2xl bg-surface border border-surface-border hover:border-accent/30 transition-all duration-500 reveal-element" data-skill="88">
+          <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-all duration-300">
+            <i data-lucide="terminal" class="w-5 h-5 text-accent"></i>
+          </div>
+          <h3 class="text-white font-semibold mb-1">Linux</h3>
+          <p class="text-xs text-gray-500 mb-3">Server Admin</p>
+          <div class="w-full h-1.5 rounded-full bg-dark-700 overflow-hidden">
+            <div class="skill-bar h-full rounded-full bg-gradient-to-r from-accent to-accent-light" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <!-- AWS -->
+        <div class="skill-card group p-5 rounded-2xl bg-surface border border-surface-border hover:border-accent/30 transition-all duration-500 reveal-element" data-skill="65">
+          <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-all duration-300">
+            <i data-lucide="cloud" class="w-5 h-5 text-accent"></i>
+          </div>
+          <h3 class="text-white font-semibold mb-1">AWS</h3>
+          <p class="text-xs text-gray-500 mb-3">Cloud Services</p>
+          <div class="w-full h-1.5 rounded-full bg-dark-700 overflow-hidden">
+            <div class="skill-bar h-full rounded-full bg-gradient-to-r from-accent to-accent-light" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <!-- Automation -->
+        <div class="skill-card group p-5 rounded-2xl bg-surface border border-surface-border hover:border-accent/30 transition-all duration-500 reveal-element" data-skill="92">
+          <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-all duration-300">
+            <i data-lucide="bot" class="w-5 h-5 text-accent"></i>
+          </div>
+          <h3 class="text-white font-semibold mb-1">Automation</h3>
+          <p class="text-xs text-gray-500 mb-3">Scripts & CI/CD</p>
+          <div class="w-full h-1.5 rounded-full bg-dark-700 overflow-hidden">
+            <div class="skill-bar h-full rounded-full bg-gradient-to-r from-accent to-accent-light" style="width: 0%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="relative py-24 md:py-32">
+    <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/20 to-transparent"></div>
+    <div class="absolute top-1/3 left-0 w-[400px] h-[400px] bg-accent/3 rounded-full blur-[120px]"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div class="text-center mb-16 reveal-element">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/5 border border-accent/20 text-accent text-sm font-medium mb-6">
+          <i data-lucide="folder-open" class="w-3.5 h-3.5"></i>
+          Featured Projects
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">
+          Recent Work
+        </h2>
+        <p class="text-gray-400 max-w-2xl mx-auto">
+          A selection of projects showcasing backend development, automation, and problem-solving capabilities.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6 md:gap-8">
+
+        <!-- Project 1: IT Monitoring Dashboard -->
+        <div class="project-card group rounded-2xl overflow-hidden bg-surface border border-surface-border hover:border-accent/30 transition-all duration-500 reveal-element">
+          <div class="relative h-52 sm:h-60 overflow-hidden">
+            <img src="{% static 'myapp/images/dashboard.jpg' %}" alt="IT Monitoring Dashboard" class="w-full h-full object-cover group-hover:scale-105 
+					
+			
+			transition-transform duration-700">
+            <div class="absolute inset-0 bg-gradient-to-t from-dark-950/90 via-dark-950/40 to-transparent"></div>
+            <div class="absolute top-4 left-4 flex gap-2">
+              <span class="px-2.5 py-1 rounded-md bg-accent/20 text-accent text-xs font-medium backdrop-blur-sm border border-accent/20">FastAPI</span>
+              <span class="px-2.5 py-1 rounded-md bg-white/10 text-gray-300 text-xs font-medium backdrop-blur-sm border border-white/10">Docker</span>
+            </div>
+            <div class="absolute bottom-4 left-4 right-4">
+              <div class="flex items-center gap-2 mb-1">
+                <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
+                <span class="text-xs text-accent font-medium uppercase tracking-wider">Live Project</span>
+              </div>
+            </div>
+          </div>
+          <div class="p-6 md:p-8">
+            <h3 class="text-xl font-bold text-white mb-3 group-hover:text-accent transition-colors duration-300">IT Monitoring Dashboard</h3>
+            <p class="text-gray-400 text-sm leading-relaxed mb-5">Real-time infrastructure monitoring platform with alerting, health checks, and automated incident response. Built with FastAPI, WebSockets, and PostgreSQL for persistent metric storage.</p>
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="px-3 py-1 rounded-lg bg-dark-700 text-gray-400 text-xs font-medium">Python</span>
+              <span class="px-3 py-1 rounded-lg bg-dark-700 text-gray-400 text-xs font-medium">FastAPI</span>
+              <span class="px-3 py-1 rounded-lg bg-dark-700 text-gray-400 text-xs font-medium">PostgreSQL</span>
+              <span class="px-3 py-1 rounded-lg bg-dark-700 text-gray-400 text-xs font-medium">Docker</span>
+              <span class="px-3 py-1 rounded-lg bg-dark-700 text-gray-400 text-xs font-medium">WebSocket</span>
+            </div>
+            <div class="flex items-center gap-4">
+              <a href="#" class="flex items-center gap-2 text-accent text-sm font-medium hover:text-accent-light transition-colors duration-300">
+                <i data-lucide="github" class="w-4 h-4"></i>
+                Source Code
+              </a>
+              <a href="#" class="flex items-center gap-2 text-gray-400 text-sm font-medium hover:text-white transition-colors duration-300">
+                <i data-lucide="external-link" class="w-4 h-4"></i>
+                Live Demo
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2: Pool Tournament System -->
+        <div class="project-card group rounded-2xl overflow-hidden bg-surface border border-surface-border hover:border-accent/30 transition-all duration-500 reveal-element">
+          <div class="relative h-52 sm:h-60 overflow-hidden">
+            <img src="http://static.photos/sport/1024x576/18" alt="Pool Tournament System" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+            <div class="absolute inset-0 bg-gradient-to-t from-dark-950/90 via-dark-950/40 to-transparent"></div>
+            <div class="absolute top-4 left-4 flex gap-2">
+              <span class="px-2.5 py-1 rounded-md bg-accent/20 text-accent text-xs font-medium backdrop-blur-sm border border-accent/20">FastAPI</span>
+              <span class="px-2.5 py-1 rounded-md bg-white/10 text-gray-300 text-xs font-medium backdrop-blur-sm border border-white/10">SQLAlchemy</span>
+            </div>
+          </div>
+          <div class="p-6 md:p-8">
+            <h3 class="text-xl font-bold text-white mb-3 group-hover:text-accent transition-colors duration-300">Pool Tournament System</h3>
+            <p class="text-gray-400 text-sm leading-relaxed mb-5">Full-stack tournament management platform for pool leagues. Handles bracket generation, live scoring, player rankings, and real-time match updates with a FastAPI backend and PostgreSQL database.</p>
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="px-3 py-1 rounded-lg bg-dark-700 text-gray-400 text-xs font-medium">Python</span>
+              <span class="px-3 py-1 rounded-lg bg-dark-700 text-gray-400 text-xs font-medium">FastAPI</span>
+              <span class="px-3 py-1 rounded-lg bg-dark-700 text-gray-400 text-xs font-medium">SQLAlchemy</span>
+              <span class="px-3 py-1 rounded-lg bg-dark-700 text-gray-400 text-xs font-medium">Alembic</span>
+              <span class="px-3 py-1 rounded-lg bg-dark-700 text-gray-400 text-xs font-medium">Pydantic</span>
+            </div>
+            <div class="flex items-center gap-4">
+              <a href="#" class="flex items-center gap-2 text-accent text-sm font-medium hover:text-accent-light transition-colors duration-300">
+                <i data-lucide="github" class="w-4 h-4"></i>
+                Source Code
+              </a>
+              <a href="#" class="flex items-center gap-2 text-gray-400 text-sm font-medium hover:text-white transition-colors duration-300">
+                <i data-lucide="external-link" class="w-4 h-4"></i>
+                Live Demo
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 3: Rest API Template -->
+        <div class="project-card group rounded-2xl overflow-hidden bg-surface border border-surface-border hover:border-accent/30 transition-all duration-500 reveal-element">
+          <div class="relative h-52 sm:h-60 overflow-hidden">
+            <img src="http://static.photos/workspace/1024x576/203" alt="REST API Boilerplate" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+            <div class="absolute inset-0 bg-gradient-to-t from-dark-950/90 via-dark-950/40 to-transparent"></div>
+            <div class="absolute top-4 left-4 flex gap-2">
+              <span class="px-2.5 py-1 rounded-md bg-accent/20 text-accent text-xs font-medium backdrop-blur-sm border border-accent/20">API</span>
+              <span class="px-2.5 py-1 rounded-md bg-white/10 text-gray-300 text-xs font-medium backdrop-blur-sm border border-white/10">Template</span>
+            </div>
+          </div>
+          <div class="p-6 md:p-8">
+            <h3 class="text-xl font-bold text-white mb-3 group-hover:text-accent transition-colors duration-300">FastAPI REST Boilerplate</h3>
+            <p class="text-gray-400 text-sm leading-relaxed mb-5">Production-ready FastAPI boilerplate with JWT authentication, role-based access control, Alembic migrations, Docker compose setup, and pytest integration. Designed as a starting point for SaaS backends.</p>
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="px-3 py-1 rounded-lg bg-dark-700 text-gray-400 text-xs font-medium">Python</span>
+              <span class="px-3 py-1 rounded-lg bg-dark-700 text-gray-400 text-xs font-medium">FastAPI</span>
+              <span class="px-3 py-1 rounded-lg bg-dark-700 text-gray-400 text-xs font-medium">JWT</span>
+              <span class="px-3 py-1 rounded-lg bg-dark-700 text-gray-400 text-xs font-medium">Docker</span>
+              <span class="px-3 py-1 rounded-lg bg-dark-700 text-gray-400 text-xs font-medium">Pytest</span>
+            </div>
+            <div class="flex items-center gap-4">
+              <a href="#" class="flex items-center gap-2 text-accent text-sm font-medium hover:text-accent-light transition-colors duration-300">
+                <i data-lucide="github" class="w-4 h-4"></i>
+                Source Code
+              </a>
+              <a href="#" class="flex items-center gap-2 text-gray-400 text-sm font-medium hover:text-white transition-colors duration-300">
+                <i data-lucide="book-open" class="w-4 h-4"></i>
+                Documentation
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 4: Automation Pipeline -->
+        <div class="project-card group rounded-2xl overflow-hidden bg-surface border border-surface-border hover:border-accent/30 transition-all duration-500 reveal-element">
+          <div class="relative h-52 sm:h-60 overflow-hidden">
+            <img src="http://static.photos/craft/1024x576/204" alt="Automation Pipeline" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+            <div class="absolute inset-0 bg-gradient-to-t from-dark-950/90 via-dark-950/40 to-transparent"></div>
+            <div class="absolute top-4 left-4 flex gap-2">
+              <span class="px-2.5 py-1 rounded-md bg-accent/20 text-accent text-xs font-medium backdrop-blur-sm border border-accent/20">Automation</span>
+              <span class="px-2.5 py-1 rounded-md bg-white/10 text-gray-300 text-xs font-medium backdrop-blur-sm border border-white/10">CI/CD</span>
+            </div>
+          </div>
+          <div class="p-6 md:p-8">
+            <h3 class="text-xl font-bold text-white mb-3 group-hover:text-accent transition-colors duration-300">IT Automation Pipeline</h3>
+            <p class="text-gray-400 text-sm leading-relaxed mb-5">Suite of Python automation tools for IT infrastructure management — including log parsing, server health monitoring, automated backups, and report generation. Runs as scheduled tasks with Docker and GitHub Actions.</p>
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="px-3 py-1 rounded-lg bg-dark-700 text-gray-400 text-xs font-medium">Python</span>
+              <span class="px-3 py-1 rounded-lg bg-dark-700 text-gray-400 text-xs font-medium">Cron</span>
+              <span class="px-3 py-1 rounded-lg bg-dark-700 text-gray-400 text-xs font-medium">Docker</span>
+              <span class="px-3 py-1 rounded-lg bg-dark-700 text-gray-400 text-xs font-medium">GitHub Actions</span>
+              <span class="px-3 py-1 rounded-lg bg-dark-700 text-gray-400 text-xs font-medium">Linux</span>
+            </div>
+            <div class="flex items-center gap-4">
+              <a href="#" class="flex items-center gap-2 text-accent text-sm font-medium hover:text-accent-light transition-colors duration-300">
+                <i data-lucide="github" class="w-4 h-4"></i>
+                Source Code
+              </a>
+              <a href="#" class="flex items-center gap-2 text-gray-400 text-sm font-medium hover:text-white transition-colors duration-300">
+                <i data-lucide="external-link" class="w-4 h-4"></i>
+                Case Study
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="relative py-24 md:py-32 bg-dark-900/50">
+    <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/20 to-transparent"></div>
+    <div class="absolute bottom-1/4 right-10 w-[500px] h-[500px] bg-accent/3 rounded-full blur-[150px]"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div class="grid md:grid-cols-2 gap-12 md:gap-16">
+        <div class="reveal-element">
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/5 border border-accent/20 text-accent text-sm font-medium mb-6">
+            <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
+            Get In Touch
+          </div>
+
+          <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6 leading-tight">
+            Let's Build<br>
+            Something <span class="text-accent">Together</span>
+          </h2>
+
+          <p class="text-gray-400 leading-relaxed mb-8">
+            Whether you have a project in mind, need a Python backend built, or just want to connect — I'd love to hear from you. I'm currently open to junior/mid-level AI engineering roles in the UK.
+          </p>
+
+          <div class="space-y-4">
+            <div class="flex items-center gap-4 p-4 rounded-xl bg-surface border border-surface-border hover:border-accent/20 transition-colors duration-300">
+              <div class="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0">
+                <i data-lucide="mail" class="w-5 h-5 text-accent"></i>
+              </div>
+              <div>
+                <div class="text-xs text-gray-500 mb-0.5">Email</div>
+                <a href="mailto:antstevensdev@gmail.com" class="text-white hover:text-accent transition-colors duration-300">AntStevensDev@gmail.com</a>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-4 p-4 rounded-xl bg-surface border border-surface-border hover:border-accent/20 transition-colors duration-300">
+              <div class="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0">
+                <i data-lucide="map-pin" class="w-5 h-5 text-accent"></i>
+              </div>
+              <div>
+                <div class="text-xs text-gray-500 mb-0.5">Location</div>
+                <div class="text-white">United Kingdom — Remote / Hybrid</div>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-4 p-4 rounded-xl bg-surface border border-surface-border hover:border-accent/20 transition-colors duration-300">
+              <div class="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0">
+                <i data-lucide="github" class="w-5 h-5 text-accent"></i>
+              </div>
+              <div>
+                <div class="text-xs text-gray-500 mb-0.5">GitHub</div>
+                <a href="https://github.com/AnthonyStevensDev" target="blank" class="text-white hover:text-accent transition-colors duration-300">github.com/AnthonyStevensDev</a>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-4 p-4 rounded-xl bg-surface border border-surface-border hover:border-accent/20 transition-colors duration-300">
+              <div class="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0">
+                <i data-lucide="linkedin" class="w-5 h-5 text-accent"></i>
+              </div>
+              <div>
+                <div class="text-xs text-gray-500 mb-0.5">LinkedIn</div>
+                <a href="https://www.linkedin.com/in/anthony-stevens-dev/" target="blank" class="text-white hover:text-accent transition-colors duration-300">linkedin.com/in/anthony-stevens-dev/</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal-element">
+          <form id="contact-form" class="p-6 md:p-8 rounded-2xl bg-surface border border-surface-border">
+            <div class="space-y-5">
+              <div>
+                <label for="name" class="block text-sm font-medium text-gray-400 mb-2">Full Name</label>
+                <input type="text" id="name" name="name" required class="w-full px-4 py-3 rounded-xl bg-dark-800 border border-white/5 text-white placeholder-gray-600 focus:border-accent/50 focus:ring-1 focus:ring-accent/20 focus:outline-none transition-all duration-300" placeholder="John Doe">
+              </div>
+
+              <div>
+                <label for="email" class="block text-sm font-medium text-gray-400 mb-2">Email Address</label>
+                <input type="email" id="email" name="email" required class="w-full px-4 py-3 rounded-xl bg-dark-800 border border-white/5 text-white placeholder-gray-600 focus:border-accent/50 focus:ring-1 focus:ring-accent/20 focus:outline-none transition-all duration-300" placeholder="john@example.com">
+              </div>
+
+              <div>
+                <label for="subject" class="block text-sm font-medium text-gray-400 mb-2">Subject</label>
+                <select id="subject" name="subject" class="w-full px-4 py-3 rounded-xl bg-dark-800 border border-white/5 text-white focus:border-accent/50 focus:ring-1 focus:ring-accent/20 focus:outline-none transition-all duration-300 appearance-none cursor-pointer">
+                  <option value="" class="bg-dark-800">Select a topic</option>
+                  <option value="job" class="bg-dark-800">Job Opportunity</option>
+                  <option value="project" class="bg-dark-800">Project Collaboration</option>
+                  <option value="freelance" class="bg-dark-800">Freelance Work</option>
+                  <option value="general" class="bg-dark-800">General Enquiry</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="message" class="block text-sm font-medium text-gray-400 mb-2">Message</label>
+                <textarea id="message" name="message" rows="5" required class="w-full px-4 py-3 rounded-xl bg-dark-800 border border-white/5 text-white placeholder-gray-600 focus:border-accent/50 focus:ring-1 focus:ring-accent/20 focus:outline-none transition-all duration-300 resize-none" placeholder="Tell me about your project or opportunity..."></textarea>
+              </div>
+
+              <button type="submit" class="w-full px-8 py-4 rounded-xl bg-accent text-dark-950 font-semibold text-base hover:bg-accent-light transition-all duration-300 shadow-lg shadow-accent/25 hover:shadow-accent/40 flex items-center justify-center gap-2">
+                <span>Send Message</span>
+                <i data-lucide="send" class="w-4 h-4"></i>
+              </button>
+
+              <div id="form-status" class="hidden text-center text-sm font-medium py-3 rounded-xl"></div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="relative py-12 border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded-md bg-accent/10 border border-accent/30 flex items-center justify-center">
+            <span class="text-accent font-mono font-semibold text-xs">&lt;/&gt;</span>
+          </div>
+          <span class="text-white font-semibold tracking-tight">PyDev<span class="text-accent">.</span></span>
+        </div>
+
+        <div class="flex items-center gap-6">
+          <a href="#hero" class="text-sm text-gray-500 hover:text-white transition-colors duration-300">Home</a>
+          <a href="#about" class="text-sm text-gray-500 hover:text-white transition-colors duration-300">About</a>
+          <a href="#skills" class="text-sm text-gray-500 hover:text-white transition-colors duration-300">Skills</a>
+          <a href="#projects" class="text-sm text-gray-500 hover:text-white transition-colors duration-300">Projects</a>
+          <a href="#contact" class="text-sm text-gray-500 hover:text-white transition-colors duration-300">Contact</a>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <a href="#" class="w-10 h-10 rounded-lg bg-surface border border-surface-border flex items-center justify-center text-gray-400 hover:text-accent hover:border-accent/30 transition-all duration-300" aria-label="GitHub">
+            <i data-lucide="github" class="w-5 h-5"></i>
+          </a>
+          <a href="#" class="w-10 h-10 rounded-lg bg-surface border border-surface-border flex items-center justify-center text-gray-400 hover:text-accent hover:border-accent/30 transition-all duration-300" aria-label="LinkedIn">
+            <i data-lucide="linkedin" class="w-5 h-5"></i>
+          </a>
+          <a href="mailto:hello@pydev.uk" class="w-10 h-10 rounded-lg bg-surface border border-surface-border flex items-center justify-center text-gray-400 hover:text-accent hover:border-accent/30 transition-all duration-300" aria-label="Email">
+            <i data-lucide="mail" class="w-5 h-5"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="mt-8 pt-8 border-t border-white/5 text-center">
+        <p class="text-sm text-gray-600">&copy; <span id="current-year"></span> PyDev. Built with Python &amp; Passion.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="{% static 'myapp/script.js' %}"></script>
+
+</body>
+</html>
