@@ -10,6 +10,13 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+SECRET_KEY = os.environ.get('SECRET_KEY')
+
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
