@@ -19,4 +19,5 @@ from django.urls import path, include
 
 urlpatterns = [
     path('', include('myapp.urls')),
+    path('summariser/', include('summariser.urls')),
 ]
