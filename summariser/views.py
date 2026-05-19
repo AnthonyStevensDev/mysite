@@ -112,3 +112,6 @@ def summariser(request):
         'key_points': key_points,
         'error': error,
     })
+
+def documentation(request):
+    return render(request, 'summariser/documentation.html')

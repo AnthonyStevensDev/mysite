@@ -1,0 +1,987 @@
+{% load static %}
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Documentation — Smart Document Summariser</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'myapp/style.css' %}" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="{% static 'myapp/images/snake.png' %}"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+              mono: ["JetBrains Mono", "monospace"],
+            },
+            colors: {
+              dark: {
+                950: "#050508",
+                900: "#0a0a0f",
+                800: "#0f0f18",
+                700: "#151522",
+                600: "#1a1a2e",
+              },
+              accent: {
+                DEFAULT: "#00d4aa",
+                light: "#33e0be",
+                dark: "#00a888",
+                glow: "rgba(0, 212, 170, 0.15)",
+                subtle: "rgba(0, 212, 170, 0.08)",
+              },
+              surface: {
+                DEFAULT: "rgba(255, 255, 255, 0.03)",
+                hover: "rgba(255, 255, 255, 0.06)",
+                border: "rgba(255, 255, 255, 0.06)",
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .sidebar-link.active {
+        color: #00d4aa;
+        background: rgba(0, 212, 170, 0.08);
+        border-left: 2px solid #00d4aa;
+      }
+      .doc-section {
+        scroll-margin-top: 100px;
+      }
+      pre {
+        overflow-x: auto;
+      }
+    </style>
+  </head>
+
+  <body
+    class="bg-dark-950 text-gray-300 font-sans antialiased overflow-x-hidden"
+  >
+    <!-- Navigation -->
+    <nav
+      id="navbar"
+      class="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16 md:h-20">
+          <a href="/" class="flex items-center gap-2 group">
+            <div
+              class="w-8 h-8 rounded-lg bg-accent/10 border border-accent/30 flex items-center justify-center group-hover:bg-accent/20 transition-all duration-300"
+            >
+              <span class="text-accent font-mono font-semibold text-sm"
+                >&lt;/&gt;</span
+              >
+            </div>
+            <span
+              class="text-white font-semibold text-lg tracking-tight hidden sm:block"
+            >
+              Anthony <span class="text-accent">Stevens</span>
+            </span>
+          </a>
+          <div class="flex items-center gap-3">
+            <a
+              href="/summariser"
+              class="flex items-center gap-2 text-accent text-sm font-medium hover:text-accent-light transition-colors duration-300"
+            >
+              <i data-lucide="external-link" class="w-4 h-4"></i>
+              Live Demo
+            </a>
+            <a
+              href="/"
+              class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300"
+            >
+              <i data-lucide="arrow-left" class="w-4 h-4"></i>
+              Back to Portfolio
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Layout -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-24">
+      <div class="lg:grid lg:grid-cols-4 lg:gap-12">
+        <!-- Sidebar -->
+        <aside class="hidden lg:block col-span-1">
+          <div class="sticky top-28">
+            <div class="mb-6">
+              <span
+                class="text-xs font-semibold text-accent uppercase tracking-widest"
+                >Documentation</span
+              >
+              <h2 class="text-white font-bold text-lg mt-1">
+                Smart Document Summariser
+              </h2>
+            </div>
+            <nav class="space-y-1">
+              <a
+                href="#overview"
+                class="sidebar-link block px-4 py-2.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/5 border-l-2 border-transparent transition-all duration-200"
+              >
+                Overview
+              </a>
+              <a
+                href="#tech-stack"
+                class="sidebar-link block px-4 py-2.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/5 border-l-2 border-transparent transition-all duration-200"
+              >
+                Tech Stack
+              </a>
+              <a
+                href="#architecture"
+                class="sidebar-link block px-4 py-2.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/5 border-l-2 border-transparent transition-all duration-200"
+              >
+                Project Architecture
+              </a>
+              <a
+                href="#steps"
+                class="sidebar-link block px-4 py-2.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/5 border-l-2 border-transparent transition-all duration-200"
+              >
+                Step by Step Build
+              </a>
+              <a
+                href="#concepts"
+                class="sidebar-link block px-4 py-2.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/5 border-l-2 border-transparent transition-all duration-200"
+              >
+                Key Concepts Learned
+              </a>
+              <a
+                href="#problems"
+                class="sidebar-link block px-4 py-2.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/5 border-l-2 border-transparent transition-all duration-200"
+              >
+                Problems & Solutions
+              </a>
+              <a
+                href="#improvements"
+                class="sidebar-link block px-4 py-2.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/5 border-l-2 border-transparent transition-all duration-200"
+              >
+                Future Improvements
+              </a>
+            </nav>
+
+            <!-- Back Links -->
+            <div class="mt-8 pt-6 border-t border-white/5 space-y-2">
+              <a
+                href="/summariser"
+                class="flex items-center gap-2 text-sm text-gray-500 hover:text-accent transition-colors duration-300"
+              >
+                <i data-lucide="external-link" class="w-4 h-4"></i>
+                Try the live tool
+              </a>
+              <a
+                href="/"
+                class="flex items-center gap-2 text-sm text-gray-500 hover:text-accent transition-colors duration-300"
+              >
+                <i data-lucide="home" class="w-4 h-4"></i>
+                Back to portfolio
+              </a>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="col-span-3 space-y-16">
+          <!-- Page Header -->
+          <div class="border-b border-white/5 pb-10">
+            <div
+              class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/5 border border-accent/20 text-accent text-xs font-medium mb-4"
+            >
+              <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
+              Project Documentation
+            </div>
+            <h1 class="text-4xl font-bold text-white mb-4">
+              Smart Document Summariser
+            </h1>
+            <p class="text-gray-400 text-lg leading-relaxed max-w-2xl">
+              A full walkthrough of how this AI powered tool was designed,
+              built, deployed, and debugged — including every problem
+              encountered along the way and how it was solved.
+            </p>
+          </div>
+
+          <!-- 1. Overview -->
+          <section id="overview" class="doc-section">
+            <div class="flex items-center gap-3 mb-6">
+              <div
+                class="w-8 h-8 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0"
+              >
+                <span class="text-accent font-mono text-sm font-bold">1</span>
+              </div>
+              <h2 class="text-2xl font-bold text-white">Overview</h2>
+            </div>
+            <div class="space-y-4 text-gray-400 leading-relaxed">
+              <p>
+                The Smart Document Summariser is a web based AI tool that allows
+                users to upload a document — either a PDF, Word file, or plain
+                text file — and receive an instant AI generated summary along
+                with five key points extracted from the content.
+              </p>
+              <p>
+                This was built as my first portfolio project to demonstrate real
+                world AI integration using the Anthropic Claude API, file
+                handling in Python, and full stack Django development. The goal
+                was to build something genuinely useful rather than a tutorial
+                clone.
+              </p>
+              <p>
+                The tool is built into my main portfolio site as a standalone
+                Django app, styled to match the existing design system, and
+                deployed live on Vercel.
+              </p>
+            </div>
+          </section>
+
+          <!-- 2. Tech Stack -->
+          <section id="tech-stack" class="doc-section">
+            <div class="flex items-center gap-3 mb-6">
+              <div
+                class="w-8 h-8 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0"
+              >
+                <span class="text-accent font-mono text-sm font-bold">2</span>
+              </div>
+              <h2 class="text-2xl font-bold text-white">Tech Stack</h2>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div
+                class="p-4 rounded-xl bg-surface border border-surface-border"
+              >
+                <div class="flex items-center gap-3 mb-2">
+                  <i data-lucide="code-2" class="w-5 h-5 text-accent"></i>
+                  <span class="text-white font-semibold">Python</span>
+                </div>
+                <p class="text-gray-400 text-sm">
+                  Core programming language used for all backend logic, file
+                  processing, and API communication.
+                </p>
+              </div>
+              <div
+                class="p-4 rounded-xl bg-surface border border-surface-border"
+              >
+                <div class="flex items-center gap-3 mb-2">
+                  <i data-lucide="layers" class="w-5 h-5 text-accent"></i>
+                  <span class="text-white font-semibold">Django</span>
+                </div>
+                <p class="text-gray-400 text-sm">
+                  Web framework used to handle routing, file uploads, template
+                  rendering, and the request response cycle.
+                </p>
+              </div>
+              <div
+                class="p-4 rounded-xl bg-surface border border-surface-border"
+              >
+                <div class="flex items-center gap-3 mb-2">
+                  <i data-lucide="sparkles" class="w-5 h-5 text-accent"></i>
+                  <span class="text-white font-semibold"
+                    >Claude API (Anthropic)</span
+                  >
+                </div>
+                <p class="text-gray-400 text-sm">
+                  AI model used to generate document summaries and key points
+                  from extracted text content.
+                </p>
+              </div>
+              <div
+                class="p-4 rounded-xl bg-surface border border-surface-border"
+              >
+                <div class="flex items-center gap-3 mb-2">
+                  <i data-lucide="file-text" class="w-5 h-5 text-accent"></i>
+                  <span class="text-white font-semibold">PyPDF2</span>
+                </div>
+                <p class="text-gray-400 text-sm">
+                  Python library used to extract raw text from uploaded PDF
+                  files page by page.
+                </p>
+              </div>
+              <div
+                class="p-4 rounded-xl bg-surface border border-surface-border"
+              >
+                <div class="flex items-center gap-3 mb-2">
+                  <i data-lucide="file" class="w-5 h-5 text-accent"></i>
+                  <span class="text-white font-semibold">python-docx</span>
+                </div>
+                <p class="text-gray-400 text-sm">
+                  Python library used to extract text from Word documents
+                  paragraph by paragraph.
+                </p>
+              </div>
+              <div
+                class="p-4 rounded-xl bg-surface border border-surface-border"
+              >
+                <div class="flex items-center gap-3 mb-2">
+                  <i data-lucide="paintbrush" class="w-5 h-5 text-accent"></i>
+                  <span class="text-white font-semibold">Tailwind CSS</span>
+                </div>
+                <p class="text-gray-400 text-sm">
+                  Utility first CSS framework used to style the summariser page
+                  to match the existing portfolio design.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- 3. Architecture -->
+          <section id="architecture" class="doc-section">
+            <div class="flex items-center gap-3 mb-6">
+              <div
+                class="w-8 h-8 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0"
+              >
+                <span class="text-accent font-mono text-sm font-bold">3</span>
+              </div>
+              <h2 class="text-2xl font-bold text-white">
+                Project Architecture
+              </h2>
+            </div>
+            <div class="space-y-6">
+              <p class="text-gray-400 leading-relaxed">
+                The summariser was built as a separate Django app inside the
+                existing portfolio project. This follows Django's separation of
+                concerns principle — each distinct feature lives in its own self
+                contained app.
+              </p>
+
+              <div class="p-5 rounded-xl bg-dark-900 border border-white/5">
+                <p
+                  class="text-xs text-accent font-mono uppercase tracking-widest mb-3"
+                >
+                  Folder Structure
+                </p>
+                <pre class="text-sm text-gray-300 font-mono leading-relaxed">
+summariser/
+  templates/
+    summariser/
+      summariser.html      — upload form and results page
+      documentation.html   — this page
+  views.py                 — file extraction and API logic
+  urls.py                  — URL routing for the app</pre
+                >
+              </div>
+
+              <div class="p-5 rounded-xl bg-dark-900 border border-white/5">
+                <p
+                  class="text-xs text-accent font-mono uppercase tracking-widest mb-3"
+                >
+                  Request Flow
+                </p>
+                <pre class="text-sm text-gray-300 font-mono leading-relaxed">
+User uploads file
+      ↓
+Django receives file via request.FILES
+      ↓
+Python extracts text based on file type
+      ↓
+Text is sent to Claude API with a prompt
+      ↓
+Claude returns a summary and key points
+      ↓
+Django passes results to the HTML template
+      ↓
+User sees the summary on the page</pre
+                >
+              </div>
+            </div>
+          </section>
+
+          <!-- 4. Step by Step -->
+          <section id="steps" class="doc-section">
+            <div class="flex items-center gap-3 mb-6">
+              <div
+                class="w-8 h-8 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0"
+              >
+                <span class="text-accent font-mono text-sm font-bold">4</span>
+              </div>
+              <h2 class="text-2xl font-bold text-white">Step by Step Build</h2>
+            </div>
+            <div class="space-y-6">
+              <div
+                class="p-5 rounded-xl bg-surface border border-surface-border"
+              >
+                <h3
+                  class="text-white font-semibold mb-2 flex items-center gap-2"
+                >
+                  <span class="text-accent font-mono text-sm">01</span> Get the
+                  Anthropic API Key
+                </h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                  Created an account at console.anthropic.com and generated an
+                  API key. The key was stored in the local .env file and added
+                  to Vercel's environment variables for production. It is never
+                  committed to GitHub.
+                </p>
+              </div>
+
+              <div
+                class="p-5 rounded-xl bg-surface border border-surface-border"
+              >
+                <h3
+                  class="text-white font-semibold mb-2 flex items-center gap-2"
+                >
+                  <span class="text-accent font-mono text-sm">02</span> Install
+                  Required Libraries
+                </h3>
+                <p class="text-gray-400 text-sm leading-relaxed mb-3">
+                  Three libraries were installed to handle AI communication and
+                  file reading:
+                </p>
+                <pre
+                  class="text-sm text-gray-300 font-mono bg-dark-900 rounded-lg p-3"
+                >
+pip install anthropic PyPDF2 python-docx</pre
+                >
+                <p class="text-gray-400 text-sm leading-relaxed mt-3">
+                  After installing, requirements.txt was updated with pip freeze
+                  so Vercel could install the same packages during deployment.
+                </p>
+              </div>
+
+              <div
+                class="p-5 rounded-xl bg-surface border border-surface-border"
+              >
+                <h3
+                  class="text-white font-semibold mb-2 flex items-center gap-2"
+                >
+                  <span class="text-accent font-mono text-sm">03</span> Create
+                  the Summariser Django App
+                </h3>
+                <p class="text-gray-400 text-sm leading-relaxed mb-3">
+                  Rather than adding the tool to the existing myapp, a dedicated
+                  summariser app was created to keep concerns separated:
+                </p>
+                <pre
+                  class="text-sm text-gray-300 font-mono bg-dark-900 rounded-lg p-3"
+                >
+python manage.py startapp summariser</pre
+                >
+                <p class="text-gray-400 text-sm leading-relaxed mt-3">
+                  The app was registered in settings.py under INSTALLED_APPS.
+                  This project uses three settings files — settings.py as a
+                  shared base, settings_dev.py for local development, and
+                  settings_prod.py for production. Both dev and prod files
+                  import everything from settings.py and only override what
+                  needs to be different, such as DEBUG and ALLOWED_HOSTS. This
+                  means adding an app to settings.py once makes it available in
+                  all environments automatically.
+                </p>
+              </div>
+
+              <div
+                class="p-5 rounded-xl bg-surface border border-surface-border"
+              >
+                <h3
+                  class="text-white font-semibold mb-2 flex items-center gap-2"
+                >
+                  <span class="text-accent font-mono text-sm">04</span> Write
+                  the Text Extraction Logic
+                </h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                  Three separate functions were written in views.py — one for
+                  each file type. A dispatcher function then checks the file
+                  extension and routes to the correct extraction function. This
+                  pattern keeps the code clean and easy to debug.
+                </p>
+              </div>
+
+              <div
+                class="p-5 rounded-xl bg-surface border border-surface-border"
+              >
+                <h3
+                  class="text-white font-semibold mb-2 flex items-center gap-2"
+                >
+                  <span class="text-accent font-mono text-sm">05</span> Write
+                  the Claude API Call
+                </h3>
+                <p class="text-gray-400 text-sm leading-relaxed mb-3">
+                  The extracted text is trimmed to 10,000 characters to control
+                  API costs, then sent to Claude with a carefully structured
+                  prompt. The prompt gives Claude a role, specific instructions,
+                  and a strict output format so the response can be reliably
+                  parsed:
+                </p>
+                <pre
+                  class="text-sm text-gray-300 font-mono bg-dark-900 rounded-lg p-3"
+                >
+SUMMARY:
+Your summary here
+
+KEY POINTS:
+- Key point 1
+- Key point 2</pre
+                >
+                <p class="text-gray-400 text-sm leading-relaxed mt-3">
+                  The response is then split on the KEY POINTS: label and each
+                  section is parsed separately into Python variables.
+                </p>
+              </div>
+
+              <div
+                class="p-5 rounded-xl bg-surface border border-surface-border"
+              >
+                <h3
+                  class="text-white font-semibold mb-2 flex items-center gap-2"
+                >
+                  <span class="text-accent font-mono text-sm">06</span> Connect
+                  URLs and Deploy
+                </h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                  A urls.py file was created in the summariser app and connected
+                  to the main mysite/urls.py. The tool was tested locally first,
+                  then pushed to GitHub which triggered an automatic Vercel
+                  deployment.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- 5. Key Concepts -->
+          <section id="concepts" class="doc-section">
+            <div class="flex items-center gap-3 mb-6">
+              <div
+                class="w-8 h-8 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0"
+              >
+                <span class="text-accent font-mono text-sm font-bold">5</span>
+              </div>
+              <h2 class="text-2xl font-bold text-white">
+                Key Concepts Learned
+              </h2>
+            </div>
+            <div class="space-y-4">
+              <div
+                class="p-4 rounded-xl bg-surface border border-surface-border"
+              >
+                <h3 class="text-white font-semibold mb-1">
+                  request.FILES vs request.POST
+                </h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                  Uploaded files are stored in request.FILES, not request.POST.
+                  request.POST only contains text data. The form must also
+                  include enctype="multipart/form-data" otherwise the file is
+                  never actually sent to Django.
+                </p>
+              </div>
+
+              <div
+                class="p-4 rounded-xl bg-surface border border-surface-border"
+              >
+                <h3 class="text-white font-semibold mb-1">CSRF Protection</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                  Every POST form in Django requires a {% csrf_token %} tag.
+                  This protects against Cross Site Request Forgery attacks where
+                  a malicious site tricks a user's browser into submitting a
+                  form without their knowledge.
+                </p>
+              </div>
+
+              <div
+                class="p-4 rounded-xl bg-surface border border-surface-border"
+              >
+                <h3 class="text-white font-semibold mb-1">
+                  Prompt Engineering
+                </h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                  The quality and consistency of Claude's output depends heavily
+                  on how the prompt is written. Giving Claude a clear role,
+                  specific constraints, and a strict output format produces
+                  reliable results that can be parsed programmatically.
+                </p>
+              </div>
+
+              <div
+                class="p-4 rounded-xl bg-surface border border-surface-border"
+              >
+                <h3 class="text-white font-semibold mb-1">Bytes vs Strings</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                  When Django receives an uploaded file it stores the contents
+                  as raw bytes. These must be decoded into a Python string using
+                  decode('utf-8') before they can be processed as text.
+                </p>
+              </div>
+
+              <div
+                class="p-4 rounded-xl bg-surface border border-surface-border"
+              >
+                <h3 class="text-white font-semibold mb-1">
+                  Environment Variables
+                </h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                  Sensitive values like API keys are stored in a .env file
+                  locally and in Vercel's environment variables in production.
+                  They are never committed to GitHub. The python-dotenv library
+                  loads the .env file automatically when the server starts.
+                </p>
+              </div>
+
+              <div
+                class="p-4 rounded-xl bg-surface border border-surface-border"
+              >
+                <h3 class="text-white font-semibold mb-1">
+                  Separation of Concerns
+                </h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                  Each Django app should do one thing and do it well. Building
+                  the summariser as its own app rather than adding it to the
+                  main myapp keeps the codebase organised, maintainable, and
+                  scalable as more projects are added.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- 6. Problems & Solutions -->
+          <section id="problems" class="doc-section">
+            <div class="flex items-center gap-3 mb-6">
+              <div
+                class="w-8 h-8 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0"
+              >
+                <span class="text-accent font-mono text-sm font-bold">6</span>
+              </div>
+              <h2 class="text-2xl font-bold text-white">
+                Problems & Solutions
+              </h2>
+            </div>
+            <p class="text-gray-400 leading-relaxed mb-6">
+              Every problem below was encountered during the real build of this
+              project. Debugging these issues was as valuable as writing the
+              code itself.
+            </p>
+            <div class="space-y-6">
+              <div class="rounded-xl overflow-hidden border border-white/5">
+                <div
+                  class="px-5 py-3 bg-red-500/10 border-b border-white/5 flex items-center gap-2"
+                >
+                  <i
+                    data-lucide="alert-circle"
+                    class="w-4 h-4 text-red-400"
+                  ></i>
+                  <span class="text-red-400 text-sm font-semibold"
+                    >Problem 1 — requirements.txt encoding error</span
+                  >
+                </div>
+                <div class="p-5 bg-surface space-y-3">
+                  <div>
+                    <p
+                      class="text-xs text-gray-500 uppercase tracking-wider mb-1"
+                    >
+                      Error
+                    </p>
+                    <pre
+                      class="text-sm text-gray-300 font-mono bg-dark-900 rounded-lg p-3"
+                    >
+Could not parse requirements.txt: Unexpected '?'</pre
+                    >
+                  </div>
+                  <div>
+                    <p
+                      class="text-xs text-gray-500 uppercase tracking-wider mb-1"
+                    >
+                      Cause
+                    </p>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                      Running pip freeze > requirements.txt in Windows
+                      PowerShell saves the file as UTF-16 encoding. Vercel
+                      expects UTF-8 and cannot read the file, displaying an
+                      invisible byte character at the start.
+                    </p>
+                  </div>
+                  <div>
+                    <p
+                      class="text-xs text-gray-500 uppercase tracking-wider mb-1"
+                    >
+                      Solution
+                    </p>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                      Manually created a new requirements.txt file in VS Code
+                      and pasted the package list directly into it. VS Code
+                      saves files as UTF-8 by default, which Vercel can read
+                      correctly.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="rounded-xl overflow-hidden border border-white/5">
+                <div
+                  class="px-5 py-3 bg-red-500/10 border-b border-white/5 flex items-center gap-2"
+                >
+                  <i
+                    data-lucide="alert-circle"
+                    class="w-4 h-4 text-red-400"
+                  ></i>
+                  <span class="text-red-400 text-sm font-semibold"
+                    >Problem 2 — Static files returning 404 on Vercel</span
+                  >
+                </div>
+                <div class="p-5 bg-surface space-y-3">
+                  <div>
+                    <p
+                      class="text-xs text-gray-500 uppercase tracking-wider mb-1"
+                    >
+                      Error
+                    </p>
+                    <pre
+                      class="text-sm text-gray-300 font-mono bg-dark-900 rounded-lg p-3"
+                    >
+404 — /static/myapp/style.css not found</pre
+                    >
+                  </div>
+                  <div>
+                    <p
+                      class="text-xs text-gray-500 uppercase tracking-wider mb-1"
+                    >
+                      Cause
+                    </p>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                      The staticfiles/ folder was listed in .gitignore which
+                      meant it was never pushed to GitHub. Vercel had no static
+                      files to serve. Additionally WhiteNoise was not wrapped
+                      around the application in wsgi.py.
+                    </p>
+                  </div>
+                  <div>
+                    <p
+                      class="text-xs text-gray-500 uppercase tracking-wider mb-1"
+                    >
+                      Solution
+                    </p>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-2">
+                      Three fixes were required. First, staticfiles/ was removed
+                      from .gitignore. Second, WhiteNoise was added to wsgi.py.
+                      Third, Git's cached ignore rules were cleared:
+                    </p>
+                    <pre
+                      class="text-sm text-gray-300 font-mono bg-dark-900 rounded-lg p-3"
+                    >
+git rm -r --cached staticfiles/
+git add staticfiles/
+git commit -m "Include staticfiles for Vercel"
+git push</pre
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div class="rounded-xl overflow-hidden border border-white/5">
+                <div
+                  class="px-5 py-3 bg-red-500/10 border-b border-white/5 flex items-center gap-2"
+                >
+                  <i
+                    data-lucide="alert-circle"
+                    class="w-4 h-4 text-red-400"
+                  ></i>
+                  <span class="text-red-400 text-sm font-semibold"
+                    >Problem 3 — Secret key exposed in Git diff</span
+                  >
+                </div>
+                <div class="p-5 bg-surface space-y-3">
+                  <div>
+                    <p
+                      class="text-xs text-gray-500 uppercase tracking-wider mb-1"
+                    >
+                      Problem
+                    </p>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                      When moving the Django SECRET_KEY to an environment
+                      variable, Git showed the old key value in the diff before
+                      it was removed from settings.py.
+                    </p>
+                  </div>
+                  <div>
+                    <p
+                      class="text-xs text-gray-500 uppercase tracking-wider mb-1"
+                    >
+                      Solution
+                    </p>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                      A new secret key was generated immediately using Django's
+                      built in utility and the old key was considered
+                      compromised. The new key was stored in .env locally and in
+                      Vercel's environment variables. The .env file was
+                      confirmed to be in .gitignore.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- 7. Future Improvements -->
+          <section id="improvements" class="doc-section">
+            <div class="flex items-center gap-3 mb-6">
+              <div
+                class="w-8 h-8 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0"
+              >
+                <span class="text-accent font-mono text-sm font-bold">7</span>
+              </div>
+              <h2 class="text-2xl font-bold text-white">Future Improvements</h2>
+            </div>
+            <div class="space-y-3">
+              <div
+                class="flex items-start gap-3 p-4 rounded-xl bg-surface border border-surface-border"
+              >
+                <i
+                  data-lucide="user-check"
+                  class="w-5 h-5 text-accent flex-shrink-0 mt-0.5"
+                ></i>
+                <div>
+                  <h3 class="text-white font-medium mb-1">
+                    User Authentication
+                  </h3>
+                  <p class="text-gray-400 text-sm leading-relaxed">
+                    Add Django's built in user authentication system so only
+                    registered users can access the tool. Include a free tier
+                    with a monthly usage limit to control API costs.
+                  </p>
+                </div>
+              </div>
+              <div
+                class="flex items-start gap-3 p-4 rounded-xl bg-surface border border-surface-border"
+              >
+                <i
+                  data-lucide="history"
+                  class="w-5 h-5 text-accent flex-shrink-0 mt-0.5"
+                ></i>
+                <div>
+                  <h3 class="text-white font-medium mb-1">Summary History</h3>
+                  <p class="text-gray-400 text-sm leading-relaxed">
+                    Store past summaries in a database so users can revisit
+                    previous documents without uploading them again.
+                  </p>
+                </div>
+              </div>
+              <div
+                class="flex items-start gap-3 p-4 rounded-xl bg-surface border border-surface-border"
+              >
+                <i
+                  data-lucide="download"
+                  class="w-5 h-5 text-accent flex-shrink-0 mt-0.5"
+                ></i>
+                <div>
+                  <h3 class="text-white font-medium mb-1">Export Options</h3>
+                  <p class="text-gray-400 text-sm leading-relaxed">
+                    Allow users to download the summary and key points as a PDF
+                    or Word document directly from the results page.
+                  </p>
+                </div>
+              </div>
+              <div
+                class="flex items-start gap-3 p-4 rounded-xl bg-surface border border-surface-border"
+              >
+                <i
+                  data-lucide="message-square"
+                  class="w-5 h-5 text-accent flex-shrink-0 mt-0.5"
+                ></i>
+                <div>
+                  <h3 class="text-white font-medium mb-1">
+                    Ask Questions About the Document
+                  </h3>
+                  <p class="text-gray-400 text-sm leading-relaxed">
+                    Add a chat interface below the summary so users can ask
+                    follow up questions about the document content using the
+                    same Claude API session.
+                  </p>
+                </div>
+              </div>
+              <div
+                class="flex items-start gap-3 p-4 rounded-xl bg-surface border border-surface-border"
+              >
+                <i
+                  data-lucide="file-stack"
+                  class="w-5 h-5 text-accent flex-shrink-0 mt-0.5"
+                ></i>
+                <div>
+                  <h3 class="text-white font-medium mb-1">
+                    Smarter Text Chunking
+                  </h3>
+                  <p class="text-gray-400 text-sm leading-relaxed">
+                    Replace the simple 10,000 character trim with intelligent
+                    chunking that splits large documents into sections,
+                    summarises each, and combines the results for a more
+                    accurate overall summary.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="relative py-12 border-t border-white/5 mt-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+          class="flex flex-col md:flex-row items-center justify-between gap-6"
+        >
+          <div class="flex items-center gap-2">
+            <div
+              class="w-7 h-7 rounded-md bg-accent/10 border border-accent/30 flex items-center justify-center"
+            >
+              <span class="text-accent font-mono font-semibold text-xs"
+                >&lt;/&gt;</span
+              >
+            </div>
+            <span class="text-white font-semibold tracking-tight"
+              >PyDev<span class="text-accent">.</span></span
+            >
+          </div>
+          <p class="text-sm text-gray-600">
+            &copy; <span id="current-year"></span> Anthony Stevens. Built with
+            Python &amp; Passion.
+          </p>
+          <a
+            href="/"
+            class="text-sm text-gray-500 hover:text-white transition-colors duration-300"
+            >Back to Portfolio</a
+          >
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      lucide.createIcons();
+      document.getElementById("current-year").textContent =
+        new Date().getFullYear();
+
+      // Navbar scroll effect
+      const navbar = document.getElementById("navbar");
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 20) {
+          navbar.classList.add("scrolled");
+        } else {
+          navbar.classList.remove("scrolled");
+        }
+      });
+
+      // Active sidebar link on scroll
+      const sections = document.querySelectorAll(".doc-section");
+      const sidebarLinks = document.querySelectorAll(".sidebar-link");
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              sidebarLinks.forEach((link) => link.classList.remove("active"));
+              const activeLink = document.querySelector(
+                `.sidebar-link[href="#${entry.target.id}"]`,
+              );
+              if (activeLink) activeLink.classList.add("active");
+            }
+          });
+        },
+        { rootMargin: "-20% 0px -70% 0px" },
+      );
+
+      sections.forEach((section) => observer.observe(section));
+    </script>
+  </body>
+</html>
