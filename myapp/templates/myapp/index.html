@@ -19,6 +19,8 @@
       type="image/png"
       href="{% static 'myapp/images/snake.png' %}"
     />
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script>
       tailwind.config = {
         theme: {
@@ -73,10 +75,12 @@
             </div>
             <span
               class="text-white font-semibold text-lg tracking-tight hidden sm:block"
-              >Anthony <span class="text-accent">Stevens</span></span
             >
+              Anthony <span class="text-accent">Stevens</span>
+            </span>
           </a>
 
+          <!-- Desktop Menu -->
           <div class="hidden md:flex items-center gap-1">
             <a
               href="#about"
@@ -99,10 +103,41 @@
               >Contact</a
             >
             <a
-              href="#contact"
-              class="ml-3 px-5 py-2 rounded-lg text-sm font-semibold bg-accent/10 text-accent border border-accent/30 hover:bg-accent hover:text-dark-950 transition-all duration-300"
-              >Let's Talk</a
+              href="/docs"
+              class="nav-link px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300"
+              >Docs</a
             >
+            {% if request.user.is_authenticated %}
+            <a
+              href="/accounts/profile"
+              class="nav-link px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300 flex items-center gap-2"
+            >
+              <i data-lucide="user" class="w-4 h-4"></i>
+              {{ request.user.username }}
+            </a>
+            <a
+              href="/accounts/logout"
+              class="ml-3 px-5 py-2 rounded-lg text-sm font-semibold bg-accent/10 text-accent border border-accent/30 hover:bg-accent hover:text-dark-950 transition-all duration-300 flex items-center gap-2"
+            >
+              <i data-lucide="log-out" class="w-4 h-4"></i>
+              Sign Out
+            </a>
+            {% else %}
+            <a
+              href="/accounts/login"
+              class="nav-link px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300 flex items-center gap-2"
+            >
+              <i data-lucide="log-in" class="w-4 h-4"></i>
+              Sign In
+            </a>
+            <a
+              href="/accounts/register"
+              class="ml-3 px-5 py-2 rounded-lg text-sm font-semibold bg-accent/10 text-accent border border-accent/30 hover:bg-accent hover:text-dark-950 transition-all duration-300 flex items-center gap-2"
+            >
+              <i data-lucide="user-plus" class="w-4 h-4"></i>
+              Register
+            </a>
+            {% endif %}
           </div>
 
           <button
@@ -142,10 +177,43 @@
             >Contact</a
           >
           <a
-            href="#contact"
-            class="block px-4 py-3 rounded-lg text-center text-accent bg-accent/10 border border-accent/30 font-semibold mt-3 hover:bg-accent hover:text-dark-950 transition-all duration-300"
-            >Let's Talk</a
+            href="/docs"
+            class="mobile-nav-link block px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300"
+            >Docs</a
           >
+          <div class="border-t border-white/5 mt-3 pt-3 space-y-1">
+            {% if request.user.is_authenticated %}
+            <a
+              href="/accounts/profile"
+              class="flex items-center gap-2 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300"
+            >
+              <i data-lucide="user" class="w-4 h-4"></i>
+              {{ request.user.username }}
+            </a>
+            <a
+              href="/accounts/logout"
+              class="flex items-center gap-2 px-4 py-3 rounded-lg text-accent bg-accent/10 border border-accent/30 font-semibold hover:bg-accent hover:text-dark-950 transition-all duration-300"
+            >
+              <i data-lucide="log-out" class="w-4 h-4"></i>
+              Sign Out
+            </a>
+            {% else %}
+            <a
+              href="/accounts/login"
+              class="flex items-center gap-2 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300"
+            >
+              <i data-lucide="log-in" class="w-4 h-4"></i>
+              Sign In
+            </a>
+            <a
+              href="/accounts/register"
+              class="flex items-center gap-2 px-4 py-3 rounded-lg text-accent bg-accent/10 border border-accent/30 font-semibold hover:bg-accent hover:text-dark-950 transition-all duration-300"
+            >
+              <i data-lucide="user-plus" class="w-4 h-4"></i>
+              Register
+            </a>
+            {% endif %}
+          </div>
         </div>
       </div>
     </nav>
@@ -258,15 +326,7 @@
 
       <div
         class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-bounce-slow"
-      >
-        <a
-          href="#about"
-          class="flex flex-col items-center gap-2 text-gray-600 hover:text-accent transition-colors duration-300"
-        >
-          <span class="text-xs font-medium">Scroll</span>
-          <i data-lucide="chevron-down" class="w-5 h-5"></i>
-        </a>
-      </div>
+      ></div>
     </section>
 
     <!-- About Section -->
@@ -1142,6 +1202,20 @@
                   >Tailwind CSS</span
                 >
               </div>
+
+              <div
+                class="flex items-center gap-2 mb-6 pt-2 border-t border-white/5"
+              >
+                <i
+                  data-lucide="shield-check"
+                  class="w-4 h-4 text-accent flex-shrink-0"
+                ></i>
+                <p class="text-xs text-gray-500">
+                  Includes user authentication, PostgreSQL database, and usage
+                  tracking
+                </p>
+              </div>
+
               <div class="flex items-center gap-4">
                 <a
                   href="/summariser"
@@ -1151,7 +1225,7 @@
                   Live Demo
                 </a>
                 <a
-                  href="/summariser/documentation"
+                  href="/docs/summariser"
                   class="flex items-center gap-2 text-gray-400 text-sm font-medium hover:text-white transition-colors duration-300"
                 >
                   <i data-lucide="" class="w-4 h-4"></i>
@@ -1380,14 +1454,14 @@
               <div class="space-y-5">
                 <div>
                   <label
-                    for="name"
+                    for="from_name"
                     class="block text-sm font-medium text-gray-400 mb-2"
                     >Full Name</label
                   >
                   <input
                     type="text"
-                    id="name"
-                    name="name"
+                    id="from_name"
+                    name="from_name"
                     required
                     class="w-full px-4 py-3 rounded-xl bg-dark-800 border border-white/5 text-white placeholder-gray-600 focus:border-accent/50 focus:ring-1 focus:ring-accent/20 focus:outline-none transition-all duration-300"
                     placeholder="Hello, World!"
@@ -1396,14 +1470,14 @@
 
                 <div>
                   <label
-                    for="email"
+                    for="from_email"
                     class="block text-sm font-medium text-gray-400 mb-2"
                     >Email Address</label
                   >
                   <input
                     type="email"
-                    id="email"
-                    name="email"
+                    id="from_email"
+                    name="from_email"
                     required
                     class="w-full px-4 py-3 rounded-xl bg-dark-800 border border-white/5 text-white placeholder-gray-600 focus:border-accent/50 focus:ring-1 focus:ring-accent/20 focus:outline-none transition-all duration-300"
                     placeholder="hello@world.py"
@@ -1422,16 +1496,16 @@
                     class="w-full px-4 py-3 rounded-xl bg-dark-800 border border-white/5 text-white focus:border-accent/50 focus:ring-1 focus:ring-accent/20 focus:outline-none transition-all duration-300 appearance-none cursor-pointer"
                   >
                     <option value="" class="bg-dark-800">Select a topic</option>
-                    <option value="job" class="bg-dark-800">
+                    <option value="Job Opportunity" class="bg-dark-800">
                       Job Opportunity
                     </option>
-                    <option value="project" class="bg-dark-800">
+                    <option value="Project Collaboration" class="bg-dark-800">
                       Project Collaboration
                     </option>
-                    <option value="freelance" class="bg-dark-800">
+                    <option value="Freelance Work" class="bg-dark-800">
                       Freelance Work
                     </option>
-                    <option value="general" class="bg-dark-800">
+                    <option value="General Enquiry" class="bg-dark-800">
                       General Enquiry
                     </option>
                   </select>
@@ -1453,18 +1527,50 @@
                   ></textarea>
                 </div>
 
+                <!-- reCAPTCHA -->
+                <div>
+                  <div
+                    class="g-recaptcha"
+                    data-sitekey="6Lc40vMsAAAAABoiMxmndkOfK7dNs8bRysw8Wl_0"
+                  ></div>
+                </div>
+
+                <!-- Success Message -->
+                <div
+                  id="success-message"
+                  class="hidden p-4 rounded-xl bg-accent/10 border border-accent/20 flex items-center gap-3"
+                >
+                  <i
+                    data-lucide="check-circle"
+                    class="w-5 h-5 text-accent flex-shrink-0"
+                  ></i>
+                  <p class="text-accent text-sm">
+                    Message sent successfully! I will get back to you soon.
+                  </p>
+                </div>
+
+                <!-- Error Message -->
+                <div
+                  id="error-message"
+                  class="hidden p-4 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center gap-3"
+                >
+                  <i
+                    data-lucide="alert-circle"
+                    class="w-5 h-5 text-red-400 flex-shrink-0"
+                  ></i>
+                  <p id="error-text" class="text-red-400 text-sm">
+                    Something went wrong. Please try again or email me directly.
+                  </p>
+                </div>
+
                 <button
                   type="submit"
+                  id="submit-btn"
                   class="w-full px-8 py-4 rounded-xl bg-accent text-dark-950 font-semibold text-base hover:bg-accent-light transition-all duration-300 shadow-lg shadow-accent/25 hover:shadow-accent/40 flex items-center justify-center gap-2"
                 >
                   <span>Send Message</span>
                   <i data-lucide="send" class="w-4 h-4"></i>
                 </button>
-
-                <div
-                  id="form-status"
-                  class="hidden text-center text-sm font-medium py-3 rounded-xl"
-                ></div>
               </div>
             </form>
           </div>
@@ -1530,5 +1636,77 @@
     </footer>
 
     <script src="{% static 'myapp/script.js' %}"></script>
+
+    <script>
+      // Initialise EmailJS
+      emailjs.init("bdArFJWrsdPizn507");
+
+      document
+        .getElementById("contact-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          // Check reCAPTCHA
+          const recaptchaResponse = grecaptcha.getResponse();
+          if (!recaptchaResponse) {
+            document.getElementById("error-text").textContent =
+              "Please complete the reCAPTCHA check.";
+            document.getElementById("error-message").classList.remove("hidden");
+            document.getElementById("success-message").classList.add("hidden");
+            return;
+          }
+
+          // Check subject is selected
+          const subject = document.getElementById("subject").value;
+          if (!subject) {
+            document.getElementById("error-text").textContent =
+              "Please select a subject.";
+            document.getElementById("error-message").classList.remove("hidden");
+            document.getElementById("success-message").classList.add("hidden");
+            return;
+          }
+
+          // Update button state
+          const btn = document.getElementById("submit-btn");
+          btn.innerHTML =
+            '<svg class="w-4 h-4 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path></svg><span>Sending...</span>';
+          btn.disabled = true;
+
+          // Hide previous messages
+          document.getElementById("success-message").classList.add("hidden");
+          document.getElementById("error-message").classList.add("hidden");
+
+          // Send the email
+          emailjs
+            .send("service_6654khm", "template_cx5ntuh", {
+              from_name: document.getElementById("from_name").value,
+              from_email: document.getElementById("from_email").value,
+              subject: subject,
+              message: document.getElementById("message").value,
+            })
+            .then(function () {
+              document
+                .getElementById("success-message")
+                .classList.remove("hidden");
+              document.getElementById("contact-form").reset();
+              grecaptcha.reset();
+              btn.innerHTML =
+                '<span>Send Message</span><i data-lucide="send" class="w-4 h-4"></i>';
+              btn.disabled = false;
+              lucide.createIcons();
+            })
+            .catch(function () {
+              document.getElementById("error-text").textContent =
+                "Something went wrong. Please try again or email me directly.";
+              document
+                .getElementById("error-message")
+                .classList.remove("hidden");
+              btn.innerHTML =
+                '<span>Send Message</span><i data-lucide="send" class="w-4 h-4"></i>';
+              btn.disabled = false;
+              lucide.createIcons();
+            });
+        });
+    </script>
   </body>
 </html>

@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Documentation — Smart Document Summariser</title>
+    <title>Authentication System — Documentation</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -39,12 +39,9 @@
                 DEFAULT: "#00d4aa",
                 light: "#33e0be",
                 dark: "#00a888",
-                glow: "rgba(0, 212, 170, 0.15)",
-                subtle: "rgba(0, 212, 170, 0.08)",
               },
               surface: {
                 DEFAULT: "rgba(255, 255, 255, 0.03)",
-                hover: "rgba(255, 255, 255, 0.06)",
                 border: "rgba(255, 255, 255, 0.06)",
               },
             },
@@ -91,22 +88,13 @@
               Anthony <span class="text-accent">Stevens</span>
             </span>
           </a>
-          <div class="flex items-center gap-3">
-            <a
-              href="/summariser"
-              class="flex items-center gap-2 text-accent text-sm font-medium hover:text-accent-light transition-colors duration-300"
-            >
-              <i data-lucide="external-link" class="w-4 h-4"></i>
-              Live Demo
-            </a>
-            <a
-              href="/"
-              class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300"
-            >
-              <i data-lucide="arrow-left" class="w-4 h-4"></i>
-              Back to Portfolio
-            </a>
-          </div>
+          <a
+            href="/docs"
+            class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300"
+          >
+            <i data-lucide="arrow-left" class="w-4 h-4"></i>
+            Back to Docs
+          </a>
         </div>
       </div>
     </nav>
@@ -123,69 +111,68 @@
                 >Documentation</span
               >
               <h2 class="text-white font-bold text-lg mt-1">
-                Smart Document Summariser
+                Authentication System
               </h2>
             </div>
             <nav class="space-y-1">
               <a
                 href="#overview"
                 class="sidebar-link block px-4 py-2.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/5 border-l-2 border-transparent transition-all duration-200"
+                >Overview</a
               >
-                Overview
-              </a>
               <a
                 href="#tech-stack"
                 class="sidebar-link block px-4 py-2.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/5 border-l-2 border-transparent transition-all duration-200"
+                >Tech Stack</a
               >
-                Tech Stack
-              </a>
               <a
                 href="#architecture"
                 class="sidebar-link block px-4 py-2.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/5 border-l-2 border-transparent transition-all duration-200"
+                >Architecture</a
               >
-                Project Architecture
-              </a>
               <a
                 href="#steps"
                 class="sidebar-link block px-4 py-2.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/5 border-l-2 border-transparent transition-all duration-200"
+                >Step by Step Build</a
               >
-                Step by Step Build
-              </a>
               <a
                 href="#concepts"
                 class="sidebar-link block px-4 py-2.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/5 border-l-2 border-transparent transition-all duration-200"
+                >Key Concepts Learned</a
               >
-                Key Concepts Learned
-              </a>
               <a
                 href="#problems"
                 class="sidebar-link block px-4 py-2.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/5 border-l-2 border-transparent transition-all duration-200"
+                >Problems & Solutions</a
               >
-                Problems & Solutions
-              </a>
               <a
                 href="#improvements"
                 class="sidebar-link block px-4 py-2.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/5 border-l-2 border-transparent transition-all duration-200"
+                >Future Improvements</a
               >
-                Future Improvements
-              </a>
             </nav>
 
-            <!-- Back Links -->
             <div class="mt-8 pt-6 border-t border-white/5 space-y-2">
               <a
-                href="/summariser"
+                href="/docs"
                 class="flex items-center gap-2 text-sm text-gray-500 hover:text-accent transition-colors duration-300"
               >
-                <i data-lucide="external-link" class="w-4 h-4"></i>
-                Try the live tool
+                <i data-lucide="book-open" class="w-4 h-4"></i>
+                All Documentation
+              </a>
+              <a
+                href="/accounts/register"
+                class="flex items-center gap-2 text-sm text-gray-500 hover:text-accent transition-colors duration-300"
+              >
+                <i data-lucide="user-plus" class="w-4 h-4"></i>
+                Create an Account
               </a>
               <a
                 href="/"
                 class="flex items-center gap-2 text-sm text-gray-500 hover:text-accent transition-colors duration-300"
               >
                 <i data-lucide="home" class="w-4 h-4"></i>
-                Back to portfolio
+                Back to Portfolio
               </a>
             </div>
           </div>
@@ -202,12 +189,12 @@
               Project Documentation
             </div>
             <h1 class="text-4xl font-bold text-white mb-4">
-              Smart Document Summariser
+              Authentication System
             </h1>
             <p class="text-gray-400 text-lg leading-relaxed max-w-2xl">
-              A full walkthrough of how this AI powered tool was designed,
-              built, deployed, and debugged — including every problem
-              encountered along the way and how it was solved.
+              A full walkthrough of how the site wide user authentication system
+              was designed, built, and deployed — including every problem
+              encountered and how it was solved.
             </p>
           </div>
 
@@ -223,22 +210,25 @@
             </div>
             <div class="space-y-4 text-gray-400 leading-relaxed">
               <p>
-                The Smart Document Summariser is a web based AI tool that allows
-                users to upload a document — either a PDF, Word file, or plain
-                text file — and receive an instant AI generated summary along
-                with five key points extracted from the content.
+                The authentication system is a site wide feature that powers all
+                tools on this portfolio. It allows visitors to register for a
+                free account, log in, and access AI tools with unlimited usage.
+                Unregistered guests can try each tool up to 3 times before being
+                prompted to create an account.
               </p>
               <p>
-                This was built as my first portfolio project to demonstrate real
-                world AI integration using the Anthropic Claude API, file
-                handling in Python, and full stack Django development. The goal
-                was to build something genuinely useful rather than a tutorial
-                clone.
+                Rather than using a third party authentication service, this was
+                built using Django's built in authentication framework — giving
+                full control over the registration flow, session management, and
+                usage tracking. User data is stored in a PostgreSQL database
+                hosted on Neon and connected to the Django project via an
+                environment variable.
               </p>
               <p>
-                The tool is built into my main portfolio site as a standalone
-                Django app, styled to match the existing design system, and
-                deployed live on Vercel.
+                The system was designed to be reusable across all five portfolio
+                projects. Any new app simply checks whether the user is
+                authenticated before granting access, without duplicating any
+                authentication logic.
               </p>
             </div>
           </section>
@@ -258,74 +248,77 @@
                 class="p-4 rounded-xl bg-surface border border-surface-border"
               >
                 <div class="flex items-center gap-3 mb-2">
-                  <i data-lucide="code-2" class="w-5 h-5 text-accent"></i>
-                  <span class="text-white font-semibold">Python</span>
+                  <i data-lucide="shield" class="w-5 h-5 text-accent"></i>
+                  <span class="text-white font-semibold">Django Auth</span>
                 </div>
                 <p class="text-gray-400 text-sm">
-                  Core programming language used for all backend logic, file
-                  processing, and API communication.
+                  Django's built in authentication system handling login,
+                  logout, registration, password hashing, and session
+                  management.
                 </p>
               </div>
               <div
                 class="p-4 rounded-xl bg-surface border border-surface-border"
               >
                 <div class="flex items-center gap-3 mb-2">
-                  <i data-lucide="layers" class="w-5 h-5 text-accent"></i>
-                  <span class="text-white font-semibold">Django</span>
+                  <i data-lucide="database" class="w-5 h-5 text-accent"></i>
+                  <span class="text-white font-semibold">PostgreSQL</span>
                 </div>
                 <p class="text-gray-400 text-sm">
-                  Web framework used to handle routing, file uploads, template
-                  rendering, and the request response cycle.
+                  Industry standard relational database used to store user
+                  accounts, passwords, and usage tracking records in production.
                 </p>
               </div>
               <div
                 class="p-4 rounded-xl bg-surface border border-surface-border"
               >
                 <div class="flex items-center gap-3 mb-2">
-                  <i data-lucide="sparkles" class="w-5 h-5 text-accent"></i>
-                  <span class="text-white font-semibold"
-                    >Claude API (Anthropic)</span
-                  >
+                  <i data-lucide="cloud" class="w-5 h-5 text-accent"></i>
+                  <span class="text-white font-semibold">Neon</span>
                 </div>
                 <p class="text-gray-400 text-sm">
-                  AI model used to generate document summaries and key points
-                  from extracted text content.
+                  Serverless PostgreSQL hosting platform built specifically for
+                  Vercel deployments. Provides a free tier generous enough for a
+                  portfolio project.
                 </p>
               </div>
               <div
                 class="p-4 rounded-xl bg-surface border border-surface-border"
               >
                 <div class="flex items-center gap-3 mb-2">
-                  <i data-lucide="file-text" class="w-5 h-5 text-accent"></i>
-                  <span class="text-white font-semibold">PyPDF2</span>
+                  <i data-lucide="cookie" class="w-5 h-5 text-accent"></i>
+                  <span class="text-white font-semibold">Django Sessions</span>
                 </div>
                 <p class="text-gray-400 text-sm">
-                  Python library used to extract raw text from uploaded PDF
-                  files page by page.
+                  Used to track guest usage across multiple page loads without
+                  requiring an account. Stores the usage count in a browser
+                  cookie.
                 </p>
               </div>
               <div
                 class="p-4 rounded-xl bg-surface border border-surface-border"
               >
                 <div class="flex items-center gap-3 mb-2">
-                  <i data-lucide="file" class="w-5 h-5 text-accent"></i>
-                  <span class="text-white font-semibold">python-docx</span>
+                  <i data-lucide="link" class="w-5 h-5 text-accent"></i>
+                  <span class="text-white font-semibold">psycopg2</span>
                 </div>
                 <p class="text-gray-400 text-sm">
-                  Python library used to extract text from Word documents
-                  paragraph by paragraph.
+                  Python driver that acts as the translator between Django and
+                  PostgreSQL. Required for Django to communicate with the Neon
+                  database.
                 </p>
               </div>
               <div
                 class="p-4 rounded-xl bg-surface border border-surface-border"
               >
                 <div class="flex items-center gap-3 mb-2">
-                  <i data-lucide="paintbrush" class="w-5 h-5 text-accent"></i>
-                  <span class="text-white font-semibold">Tailwind CSS</span>
+                  <i data-lucide="settings" class="w-5 h-5 text-accent"></i>
+                  <span class="text-white font-semibold">dj-database-url</span>
                 </div>
                 <p class="text-gray-400 text-sm">
-                  Utility first CSS framework used to style the summariser page
-                  to match the existing portfolio design.
+                  Converts the Neon connection string stored in the environment
+                  variable into the format Django expects for its database
+                  configuration.
                 </p>
               </div>
             </div>
@@ -339,16 +332,14 @@
               >
                 <span class="text-accent font-mono text-sm font-bold">3</span>
               </div>
-              <h2 class="text-2xl font-bold text-white">
-                Project Architecture
-              </h2>
+              <h2 class="text-2xl font-bold text-white">Architecture</h2>
             </div>
             <div class="space-y-6">
               <p class="text-gray-400 leading-relaxed">
-                The summariser was built as a separate Django app inside the
-                existing portfolio project. This follows Django's separation of
-                concerns principle — each distinct feature lives in its own self
-                contained app.
+                Authentication lives in its own dedicated Django app called
+                accounts. This keeps all authentication logic, views, templates,
+                and models in one self contained place that any other app can
+                reference without duplicating code.
               </p>
 
               <div class="p-5 rounded-xl bg-dark-900 border border-white/5">
@@ -358,13 +349,15 @@
                   Folder Structure
                 </p>
                 <pre class="text-sm text-gray-300 font-mono leading-relaxed">
-summariser/
+accounts/
+  models.py          — UsageTracking model
+  views.py           — register, login, logout, profile
+  urls.py            — URL routing for auth pages
   templates/
-    summariser/
-      summariser.html      — upload form and results page
-      documentation.html   — this page
-  views.py                 — file extraction and API logic
-  urls.py                  — URL routing for the app</pre
+    accounts/
+      register.html  — registration form
+      login.html     — login form
+      profile.html   — user dashboard</pre
                 >
               </div>
 
@@ -372,22 +365,39 @@ summariser/
                 <p
                   class="text-xs text-accent font-mono uppercase tracking-widest mb-3"
                 >
-                  Request Flow
+                  Guest vs Registered User Flow
                 </p>
                 <pre class="text-sm text-gray-300 font-mono leading-relaxed">
-User uploads file
+Guest visits a tool
       ↓
-Django receives file via request.FILES
+Django checks session for usage count
       ↓
-Python extracts text based on file type
+Under 3 uses → allow access, increment session count
+Over 3 uses  → redirect to register page
       ↓
-Text is sent to Claude API with a prompt
+User registers → UsageTracking record created
       ↓
-Claude returns a summary and key points
-      ↓
-Django passes results to the HTML template
-      ↓
-User sees the summary on the page</pre
+Registered user → unlimited access
+Usage count stored in database, shown on profile</pre
+                >
+              </div>
+
+              <div class="p-5 rounded-xl bg-dark-900 border border-white/5">
+                <p
+                  class="text-xs text-accent font-mono uppercase tracking-widest mb-3"
+                >
+                  Database Models
+                </p>
+                <pre class="text-sm text-gray-300 font-mono leading-relaxed">
+Django's built in User model:
+  username, email, password (hashed), date_joined
+
+Custom UsageTracking model:
+  user          — OneToOneField to User
+  summariser_uses — IntegerField (default 0)
+  sentiment_uses  — IntegerField (default 0)
+  created_at    — DateTimeField (auto)
+  updated_at    — DateTimeField (auto)</pre
                 >
               </div>
             </div>
@@ -410,14 +420,15 @@ User sees the summary on the page</pre
                 <h3
                   class="text-white font-semibold mb-2 flex items-center gap-2"
                 >
-                  <span class="text-accent font-mono text-sm">01</span> Get the
-                  Anthropic API Key
+                  <span class="text-accent font-mono text-sm">01</span> Set Up
+                  Neon PostgreSQL Database
                 </h3>
                 <p class="text-gray-400 text-sm leading-relaxed">
-                  Created an account at console.anthropic.com and generated an
-                  API key. The key was stored in the local .env file and added
-                  to Vercel's environment variables for production. It is never
-                  committed to GitHub.
+                  Created a free account on neon.tech and set up a new
+                  PostgreSQL project. The connection string was saved to the
+                  .env file locally and added to Vercel's environment variables
+                  for production. This connection string contains the database
+                  credentials and must never be committed to GitHub.
                 </p>
               </div>
 
@@ -427,22 +438,26 @@ User sees the summary on the page</pre
                 <h3
                   class="text-white font-semibold mb-2 flex items-center gap-2"
                 >
-                  <span class="text-accent font-mono text-sm">02</span> Install
-                  Required Libraries
+                  <span class="text-accent font-mono text-sm">02</span> Connect
+                  Django to PostgreSQL
                 </h3>
                 <p class="text-gray-400 text-sm leading-relaxed mb-3">
-                  Three libraries were installed to handle AI communication and
-                  file reading:
+                  Installed psycopg2-binary and dj-database-url. Updated
+                  settings.py to replace the default SQLite configuration with a
+                  PostgreSQL connection driven by the DATABASE_URL environment
+                  variable:
                 </p>
                 <pre
                   class="text-sm text-gray-300 font-mono bg-dark-900 rounded-lg p-3"
                 >
-pip install anthropic PyPDF2 python-docx</pre
+DATABASES = {
+    'default': dj_database_url.config(
+        default=os.environ.get('DATABASE_URL'),
+        conn_max_age=600,
+        ssl_require=True
+    )
+}</pre
                 >
-                <p class="text-gray-400 text-sm leading-relaxed mt-3">
-                  After installing, requirements.txt was updated with pip freeze
-                  so Vercel could install the same packages during deployment.
-                </p>
               </div>
 
               <div
@@ -452,27 +467,64 @@ pip install anthropic PyPDF2 python-docx</pre
                   class="text-white font-semibold mb-2 flex items-center gap-2"
                 >
                   <span class="text-accent font-mono text-sm">03</span> Create
-                  the Summariser Django App
+                  the Accounts App
+                </h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                  Created a dedicated accounts app using python manage.py
+                  startapp accounts and registered it in settings.py. A custom
+                  UsageTracking model was created to store per user tool usage
+                  counts. This model has a OneToOneField relationship with
+                  Django's built in User model, meaning each user gets exactly
+                  one usage record.
+                </p>
+              </div>
+
+              <div
+                class="p-5 rounded-xl bg-surface border border-surface-border"
+              >
+                <h3
+                  class="text-white font-semibold mb-2 flex items-center gap-2"
+                >
+                  <span class="text-accent font-mono text-sm">04</span> Build
+                  Registration and Login Views
+                </h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                  Wrote four views in accounts/views.py — register_view,
+                  login_view, logout_view, and profile_view. The registration
+                  view validates all input server side before creating the user,
+                  automatically creates a UsageTracking record, and logs the
+                  user in immediately after registration. The login view uses
+                  Django's built in authenticate() function which handles
+                  password verification securely.
+                </p>
+              </div>
+
+              <div
+                class="p-5 rounded-xl bg-surface border border-surface-border"
+              >
+                <h3
+                  class="text-white font-semibold mb-2 flex items-center gap-2"
+                >
+                  <span class="text-accent font-mono text-sm">05</span>
+                  Implement the 3 Free Uses System
                 </h3>
                 <p class="text-gray-400 text-sm leading-relaxed mb-3">
-                  Rather than adding the tool to the existing myapp, a dedicated
-                  summariser app was created to keep concerns separated:
+                  For guest users, usage is tracked in Django's session system
+                  rather than the database since they do not have an account.
+                  Each tool view checks the session count before allowing
+                  access. After 3 uses, guests are redirected to the register
+                  page with an explanatory message. Registered users always have
+                  unlimited access and their usage is tracked in the database
+                  for display on their profile page.
                 </p>
                 <pre
                   class="text-sm text-gray-300 font-mono bg-dark-900 rounded-lg p-3"
                 >
-python manage.py startapp summariser</pre
+session_uses = request.session.get('summariser_uses', 0)
+if session_uses >= FREE_USES:
+    return redirect('/accounts/register')
+request.session['summariser_uses'] = session_uses + 1</pre
                 >
-                <p class="text-gray-400 text-sm leading-relaxed mt-3">
-                  The app was registered in settings.py under INSTALLED_APPS.
-                  This project uses three settings files — settings.py as a
-                  shared base, settings_dev.py for local development, and
-                  settings_prod.py for production. Both dev and prod files
-                  import everything from settings.py and only override what
-                  needs to be different, such as DEBUG and ALLOWED_HOSTS. This
-                  means adding an app to settings.py once makes it available in
-                  all environments automatically.
-                </p>
               </div>
 
               <div
@@ -481,63 +533,16 @@ python manage.py startapp summariser</pre
                 <h3
                   class="text-white font-semibold mb-2 flex items-center gap-2"
                 >
-                  <span class="text-accent font-mono text-sm">04</span> Write
-                  the Text Extraction Logic
+                  <span class="text-accent font-mono text-sm">06</span> Add Auth
+                  Links to Navbar
                 </h3>
                 <p class="text-gray-400 text-sm leading-relaxed">
-                  Three separate functions were written in views.py — one for
-                  each file type. A dispatcher function then checks the file
-                  extension and routes to the correct extraction function. This
-                  pattern keeps the code clean and easy to debug.
-                </p>
-              </div>
-
-              <div
-                class="p-5 rounded-xl bg-surface border border-surface-border"
-              >
-                <h3
-                  class="text-white font-semibold mb-2 flex items-center gap-2"
-                >
-                  <span class="text-accent font-mono text-sm">05</span> Write
-                  the Claude API Call
-                </h3>
-                <p class="text-gray-400 text-sm leading-relaxed mb-3">
-                  The extracted text is trimmed to 10,000 characters to control
-                  API costs, then sent to Claude with a carefully structured
-                  prompt. The prompt gives Claude a role, specific instructions,
-                  and a strict output format so the response can be reliably
-                  parsed:
-                </p>
-                <pre
-                  class="text-sm text-gray-300 font-mono bg-dark-900 rounded-lg p-3"
-                >
-SUMMARY:
-Your summary here
-
-KEY POINTS:
-- Key point 1
-- Key point 2</pre
-                >
-                <p class="text-gray-400 text-sm leading-relaxed mt-3">
-                  The response is then split on the KEY POINTS: label and each
-                  section is parsed separately into Python variables.
-                </p>
-              </div>
-
-              <div
-                class="p-5 rounded-xl bg-surface border border-surface-border"
-              >
-                <h3
-                  class="text-white font-semibold mb-2 flex items-center gap-2"
-                >
-                  <span class="text-accent font-mono text-sm">06</span> Connect
-                  URLs and Deploy
-                </h3>
-                <p class="text-gray-400 text-sm leading-relaxed">
-                  A urls.py file was created in the summariser app and connected
-                  to the main mysite/urls.py. The tool was tested locally first,
-                  then pushed to GitHub which triggered an automatic Vercel
-                  deployment.
+                  Added conditional auth links to the navbar on all pages using
+                  Django's template language. When a user is logged in, their
+                  username and a sign out link are shown. When they are not
+                  logged in, sign in and register links are displayed instead.
+                  The same logic was applied to both the desktop and mobile
+                  navbar menus.
                 </p>
               </div>
             </div>
@@ -560,25 +565,26 @@ KEY POINTS:
                 class="p-4 rounded-xl bg-surface border border-surface-border"
               >
                 <h3 class="text-white font-semibold mb-1">
-                  request.FILES vs request.POST
+                  Django's Built In Authentication
                 </h3>
                 <p class="text-gray-400 text-sm leading-relaxed">
-                  Uploaded files are stored in request.FILES, not request.POST.
-                  request.POST only contains text data. The form must also
-                  include enctype="multipart/form-data" otherwise the file is
-                  never actually sent to Django.
+                  Django ships with a complete authentication system including a
+                  User model, password hashing, login and logout functions, and
+                  session management. None of this needs to be built from
+                  scratch — it is configured and extended rather than written.
                 </p>
               </div>
 
               <div
                 class="p-4 rounded-xl bg-surface border border-surface-border"
               >
-                <h3 class="text-white font-semibold mb-1">CSRF Protection</h3>
+                <h3 class="text-white font-semibold mb-1">Password Hashing</h3>
                 <p class="text-gray-400 text-sm leading-relaxed">
-                  Every POST form in Django requires a {% csrf_token %} tag.
-                  This protects against Cross Site Request Forgery attacks where
-                  a malicious site tricks a user's browser into submitting a
-                  form without their knowledge.
+                  Django never stores passwords as plain text. When a user
+                  registers, the password is passed through a one way hashing
+                  algorithm before being saved to the database. This means even
+                  if the database was compromised, the original passwords could
+                  not be recovered.
                 </p>
               </div>
 
@@ -586,24 +592,14 @@ KEY POINTS:
                 class="p-4 rounded-xl bg-surface border border-surface-border"
               >
                 <h3 class="text-white font-semibold mb-1">
-                  Prompt Engineering
+                  Database Migrations
                 </h3>
                 <p class="text-gray-400 text-sm leading-relaxed">
-                  The quality and consistency of Claude's output depends heavily
-                  on how the prompt is written. Giving Claude a clear role,
-                  specific constraints, and a strict output format produces
-                  reliable results that can be parsed programmatically.
-                </p>
-              </div>
-
-              <div
-                class="p-4 rounded-xl bg-surface border border-surface-border"
-              >
-                <h3 class="text-white font-semibold mb-1">Bytes vs Strings</h3>
-                <p class="text-gray-400 text-sm leading-relaxed">
-                  When Django receives an uploaded file it stores the contents
-                  as raw bytes. These must be decoded into a Python string using
-                  decode('utf-8') before they can be processed as text.
+                  Every time a model is created or changed, two commands are
+                  needed. makemigrations creates a migration file describing
+                  what changed. migrate applies that change to the actual
+                  database. Forgetting to run migrate after makemigrations is
+                  one of the most common Django mistakes.
                 </p>
               </div>
 
@@ -611,13 +607,14 @@ KEY POINTS:
                 class="p-4 rounded-xl bg-surface border border-surface-border"
               >
                 <h3 class="text-white font-semibold mb-1">
-                  Environment Variables
+                  OneToOneField Relationships
                 </h3>
                 <p class="text-gray-400 text-sm leading-relaxed">
-                  Sensitive values like API keys are stored in a .env file
-                  locally and in Vercel's environment variables in production.
-                  They are never committed to GitHub. The python-dotenv library
-                  loads the .env file automatically when the server starts.
+                  The UsageTracking model uses a OneToOneField to link to
+                  Django's User model. This enforces that each user gets exactly
+                  one usage record — never more. It is a way of extending the
+                  built in User model with custom data without modifying
+                  Django's core code.
                 </p>
               </div>
 
@@ -625,13 +622,44 @@ KEY POINTS:
                 class="p-4 rounded-xl bg-surface border border-surface-border"
               >
                 <h3 class="text-white font-semibold mb-1">
-                  Separation of Concerns
+                  Sessions vs Database Storage
                 </h3>
                 <p class="text-gray-400 text-sm leading-relaxed">
-                  Each Django app should do one thing and do it well. Building
-                  the summariser as its own app rather than adding it to the
-                  main myapp keeps the codebase organised, maintainable, and
-                  scalable as more projects are added.
+                  Guest usage is tracked in Django's session system — temporary
+                  storage tied to a browser cookie. Registered user usage is
+                  tracked in the database permanently. This distinction is
+                  important: sessions are temporary and can be cleared, while
+                  database records persist indefinitely.
+                </p>
+              </div>
+
+              <div
+                class="p-4 rounded-xl bg-surface border border-surface-border"
+              >
+                <h3 class="text-white font-semibold mb-1">
+                  The @login_required Decorator
+                </h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                  Adding @login_required above any view function instantly
+                  protects that page — unauthenticated users are automatically
+                  redirected to the login page. This is how Django protects
+                  pages that require authentication without writing any manual
+                  redirect logic.
+                </p>
+              </div>
+
+              <div
+                class="p-4 rounded-xl bg-surface border border-surface-border"
+              >
+                <h3 class="text-white font-semibold mb-1">
+                  Environment Variables for Database Credentials
+                </h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                  The database connection string contains sensitive credentials
+                  and is stored in the .env file locally and in Vercel's
+                  environment variables in production. It is never committed to
+                  GitHub. This follows the same pattern established for the
+                  Django secret key and Anthropic API key.
                 </p>
               </div>
             </div>
@@ -651,8 +679,7 @@ KEY POINTS:
             </div>
             <p class="text-gray-400 leading-relaxed mb-6">
               Every problem below was encountered during the real build of this
-              project. Debugging these issues was as valuable as writing the
-              code itself.
+              feature.
             </p>
             <div class="space-y-6">
               <div class="rounded-xl overflow-hidden border border-white/5">
@@ -664,7 +691,7 @@ KEY POINTS:
                     class="w-4 h-4 text-red-400"
                   ></i>
                   <span class="text-red-400 text-sm font-semibold"
-                    >Problem 1 — requirements.txt encoding error</span
+                    >Problem 1 — AttributeError before views were written</span
                   >
                 </div>
                 <div class="p-5 bg-surface space-y-3">
@@ -677,7 +704,7 @@ KEY POINTS:
                     <pre
                       class="text-sm text-gray-300 font-mono bg-dark-900 rounded-lg p-3"
                     >
-Could not parse requirements.txt: Unexpected '?'</pre
+AttributeError: module 'accounts.views' has no attribute 'register_view'</pre
                     >
                   </div>
                   <div>
@@ -687,10 +714,10 @@ Could not parse requirements.txt: Unexpected '?'</pre
                       Cause
                     </p>
                     <p class="text-gray-400 text-sm leading-relaxed">
-                      Running pip freeze > requirements.txt in Windows
-                      PowerShell saves the file as UTF-16 encoding. Vercel
-                      expects UTF-8 and cannot read the file, displaying an
-                      invisible byte character at the start.
+                      The urls.py file was created and referenced view functions
+                      before those functions were written in views.py. Django
+                      tried to load the URLs on server start and could not find
+                      the functions.
                     </p>
                   </div>
                   <div>
@@ -700,10 +727,12 @@ Could not parse requirements.txt: Unexpected '?'</pre
                       Solution
                     </p>
                     <p class="text-gray-400 text-sm leading-relaxed">
-                      Manually created a new requirements.txt file in VS Code
-                      and pasted the package list directly into it. VS Code
-                      saves files as UTF-8 by default, which Vercel can read
-                      correctly.
+                      Added placeholder view functions to views.py immediately
+                      after creating the URL file. This allowed the server to
+                      start while the real views were built one by one.
+                      Importantly the migrations had already completed
+                      successfully before this error appeared — the two
+                      processes are completely separate.
                     </p>
                   </div>
                 </div>
@@ -718,7 +747,7 @@ Could not parse requirements.txt: Unexpected '?'</pre
                     class="w-4 h-4 text-red-400"
                   ></i>
                   <span class="text-red-400 text-sm font-semibold"
-                    >Problem 2 — Static files returning 404 on Vercel</span
+                    >Problem 2 — UsageTracking table did not exist</span
                   >
                 </div>
                 <div class="p-5 bg-surface space-y-3">
@@ -731,7 +760,7 @@ Could not parse requirements.txt: Unexpected '?'</pre
                     <pre
                       class="text-sm text-gray-300 font-mono bg-dark-900 rounded-lg p-3"
                     >
-404 — /static/myapp/style.css not found</pre
+ProgrammingError: relation "accounts_usagetracking" does not exist</pre
                     >
                   </div>
                   <div>
@@ -741,10 +770,10 @@ Could not parse requirements.txt: Unexpected '?'</pre
                       Cause
                     </p>
                     <p class="text-gray-400 text-sm leading-relaxed">
-                      The staticfiles/ folder was listed in .gitignore which
-                      meant it was never pushed to GitHub. Vercel had no static
-                      files to serve. Additionally WhiteNoise was not wrapped
-                      around the application in wsgi.py.
+                      The migration for the UsageTracking model had not been
+                      applied to the Neon database. The makemigrations command
+                      creates the migration file but migrate must also be run to
+                      apply it to the actual database.
                     </p>
                   </div>
                   <div>
@@ -753,18 +782,11 @@ Could not parse requirements.txt: Unexpected '?'</pre
                     >
                       Solution
                     </p>
-                    <p class="text-gray-400 text-sm leading-relaxed mb-2">
-                      Three fixes were required. First, staticfiles/ was removed
-                      from .gitignore. Second, WhiteNoise was added to wsgi.py.
-                      Third, Git's cached ignore rules were cleared:
-                    </p>
                     <pre
                       class="text-sm text-gray-300 font-mono bg-dark-900 rounded-lg p-3"
                     >
-git rm -r --cached staticfiles/
-git add staticfiles/
-git commit -m "Include staticfiles for Vercel"
-git push</pre
+python manage.py makemigrations accounts
+python manage.py migrate</pre
                     >
                   </div>
                 </div>
@@ -779,7 +801,8 @@ git push</pre
                     class="w-4 h-4 text-red-400"
                   ></i>
                   <span class="text-red-400 text-sm font-semibold"
-                    >Problem 3 — Secret key exposed in Git diff</span
+                    >Problem 3 — Tailwind CDN not rendering conditional banner
+                    classes</span
                   >
                 </div>
                 <div class="p-5 bg-surface space-y-3">
@@ -790,9 +813,24 @@ git push</pre
                       Problem
                     </p>
                     <p class="text-gray-400 text-sm leading-relaxed">
-                      When moving the Django SECRET_KEY to an environment
-                      variable, Git showed the old key value in the diff before
-                      it was removed from settings.py.
+                      The guest usage banner was present in the HTML but
+                      completely invisible because it had no visible styling.
+                      The banner used Django template tags inside Tailwind class
+                      attributes to conditionally apply background and border
+                      colours.
+                    </p>
+                  </div>
+                  <div>
+                    <p
+                      class="text-xs text-gray-500 uppercase tracking-wider mb-1"
+                    >
+                      Cause
+                    </p>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                      The Tailwind CDN version only generates CSS for classes it
+                      can see as plain text in the HTML. Classes hidden inside
+                      Django template tags are invisible to the Tailwind scanner
+                      so no CSS is generated for them.
                     </p>
                   </div>
                   <div>
@@ -802,11 +840,118 @@ git push</pre
                       Solution
                     </p>
                     <p class="text-gray-400 text-sm leading-relaxed">
-                      A new secret key was generated immediately using Django's
-                      built in utility and the old key was considered
-                      compromised. The new key was stored in .env locally and in
-                      Vercel's environment variables. The .env file was
-                      confirmed to be in .gitignore.
+                      Replaced all conditional Tailwind classes with inline
+                      style attributes. Inline styles bypass Tailwind entirely
+                      and are applied directly by the browser regardless of what
+                      the CDN scanner can see.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="rounded-xl overflow-hidden border border-white/5">
+                <div
+                  class="px-5 py-3 bg-red-500/10 border-b border-white/5 flex items-center gap-2"
+                >
+                  <i
+                    data-lucide="alert-circle"
+                    class="w-4 h-4 text-red-400"
+                  ></i>
+                  <span class="text-red-400 text-sm font-semibold"
+                    >Problem 4 — Debug print statement in wrong function</span
+                  >
+                </div>
+                <div class="p-5 bg-surface space-y-3">
+                  <div>
+                    <p
+                      class="text-xs text-gray-500 uppercase tracking-wider mb-1"
+                    >
+                      Problem
+                    </p>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                      A debug print statement added to diagnose the banner issue
+                      never appeared in the terminal even when visiting the
+                      summariser page.
+                    </p>
+                  </div>
+                  <div>
+                    <p
+                      class="text-xs text-gray-500 uppercase tracking-wider mb-1"
+                    >
+                      Cause
+                    </p>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                      The print statement had accidentally been placed inside
+                      the documentation view function rather than the summariser
+                      view function. Since the documentation page was not being
+                      visited, the print statement never ran.
+                    </p>
+                  </div>
+                  <div>
+                    <p
+                      class="text-xs text-gray-500 uppercase tracking-wider mb-1"
+                    >
+                      Solution
+                    </p>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                      Moved the print statement to the correct function. This
+                      highlighted the importance of always checking which
+                      function your code is actually inside, especially in files
+                      with multiple functions.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="rounded-xl overflow-hidden border border-white/5">
+                <div
+                  class="px-5 py-3 bg-red-500/10 border-b border-white/5 flex items-center gap-2"
+                >
+                  <i
+                    data-lucide="alert-circle"
+                    class="w-4 h-4 text-red-400"
+                  ></i>
+                  <span class="text-red-400 text-sm font-semibold"
+                    >Problem 5 — Django template filter breaking across multiple
+                    lines</span
+                  >
+                </div>
+                <div class="p-5 bg-surface space-y-3">
+                  <div>
+                    <p
+                      class="text-xs text-gray-500 uppercase tracking-wider mb-1"
+                    >
+                      Problem
+                    </p>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                      The banner was showing the raw text "remaining" instead of
+                      the actual number. The pluralize filter was also
+                      displaying as literal text rather than being processed.
+                    </p>
+                  </div>
+                  <div>
+                    <p
+                      class="text-xs text-gray-500 uppercase tracking-wider mb-1"
+                    >
+                      Cause
+                    </p>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                      Django template tags and filters break when split across
+                      multiple lines in the HTML. The auto formatter in VS Code
+                      had wrapped the template tags across lines which caused
+                      Django to stop processing them correctly.
+                    </p>
+                  </div>
+                  <div>
+                    <p
+                      class="text-xs text-gray-500 uppercase tracking-wider mb-1"
+                    >
+                      Solution
+                    </p>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                      Moved all template tags onto a single line. Django
+                      template tags must never be broken across multiple lines —
+                      even if it makes the HTML harder to read.
                     </p>
                   </div>
                 </div>
@@ -829,17 +974,17 @@ git push</pre
                 class="flex items-start gap-3 p-4 rounded-xl bg-surface border border-surface-border"
               >
                 <i
-                  data-lucide="user-check"
+                  data-lucide="mail"
                   class="w-5 h-5 text-accent flex-shrink-0 mt-0.5"
                 ></i>
                 <div>
                   <h3 class="text-white font-medium mb-1">
-                    User Authentication
+                    Email Verification
                   </h3>
                   <p class="text-gray-400 text-sm leading-relaxed">
-                    Add Django's built in user authentication system so only
-                    registered users can access the tool. Include a free tier
-                    with a monthly usage limit to control API costs.
+                    Send a verification email after registration to confirm the
+                    user owns the email address they provided. Django has built
+                    in support for this via its email framework.
                   </p>
                 </div>
               </div>
@@ -847,14 +992,15 @@ git push</pre
                 class="flex items-start gap-3 p-4 rounded-xl bg-surface border border-surface-border"
               >
                 <i
-                  data-lucide="history"
+                  data-lucide="key"
                   class="w-5 h-5 text-accent flex-shrink-0 mt-0.5"
                 ></i>
                 <div>
-                  <h3 class="text-white font-medium mb-1">Summary History</h3>
+                  <h3 class="text-white font-medium mb-1">Password Reset</h3>
                   <p class="text-gray-400 text-sm leading-relaxed">
-                    Store past summaries in a database so users can revisit
-                    previous documents without uploading them again.
+                    Allow users to reset their password via email if they forget
+                    it. Django's built in password reset views make this
+                    straightforward to implement.
                   </p>
                 </div>
               </div>
@@ -862,14 +1008,15 @@ git push</pre
                 class="flex items-start gap-3 p-4 rounded-xl bg-surface border border-surface-border"
               >
                 <i
-                  data-lucide="download"
+                  data-lucide="bar-chart-2"
                   class="w-5 h-5 text-accent flex-shrink-0 mt-0.5"
                 ></i>
                 <div>
-                  <h3 class="text-white font-medium mb-1">Export Options</h3>
+                  <h3 class="text-white font-medium mb-1">Usage History</h3>
                   <p class="text-gray-400 text-sm leading-relaxed">
-                    Allow users to download the summary and key points as a PDF
-                    or Word document directly from the results page.
+                    Track individual tool uses with timestamps so users can see
+                    a full history of what they have summarised or analysed, not
+                    just a total count.
                   </p>
                 </div>
               </div>
@@ -877,36 +1024,18 @@ git push</pre
                 class="flex items-start gap-3 p-4 rounded-xl bg-surface border border-surface-border"
               >
                 <i
-                  data-lucide="message-square"
+                  data-lucide="shield"
                   class="w-5 h-5 text-accent flex-shrink-0 mt-0.5"
                 ></i>
                 <div>
                   <h3 class="text-white font-medium mb-1">
-                    Ask Questions About the Document
+                    Harder Usage Limits
                   </h3>
                   <p class="text-gray-400 text-sm leading-relaxed">
-                    Add a chat interface below the summary so users can ask
-                    follow up questions about the document content using the
-                    same Claude API session.
-                  </p>
-                </div>
-              </div>
-              <div
-                class="flex items-start gap-3 p-4 rounded-xl bg-surface border border-surface-border"
-              >
-                <i
-                  data-lucide="file-stack"
-                  class="w-5 h-5 text-accent flex-shrink-0 mt-0.5"
-                ></i>
-                <div>
-                  <h3 class="text-white font-medium mb-1">
-                    Smarter Text Chunking
-                  </h3>
-                  <p class="text-gray-400 text-sm leading-relaxed">
-                    Replace the simple 10,000 character trim with intelligent
-                    chunking that splits large documents into sections,
-                    summarises each, and combines the results for a more
-                    accurate overall summary.
+                    The current guest limit is session based and can be bypassed
+                    by clearing cookies. A more robust approach would tie limits
+                    to IP addresses combined with sessions, making it harder to
+                    circumvent without an account.
                   </p>
                 </div>
               </div>
@@ -931,7 +1060,7 @@ git push</pre
               >
             </div>
             <span class="text-white font-semibold tracking-tight"
-              >PyDev<span class="text-accent">.</span></span
+              >AS<span class="text-accent">.</span></span
             >
           </div>
           <p class="text-sm text-gray-600">
@@ -952,7 +1081,6 @@ git push</pre
       document.getElementById("current-year").textContent =
         new Date().getFullYear();
 
-      // Navbar scroll effect
       const navbar = document.getElementById("navbar");
       window.addEventListener("scroll", () => {
         if (window.scrollY > 20) {
@@ -962,7 +1090,6 @@ git push</pre
         }
       });
 
-      // Active sidebar link on scroll
       const sections = document.querySelectorAll(".doc-section");
       const sidebarLinks = document.querySelectorAll(".sidebar-link");
 

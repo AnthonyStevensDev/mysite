@@ -81,7 +81,7 @@
 
           <div class="flex items-center gap-3">
             <a
-              href="/summariser/documentation"
+              href="/docs/summariser"
               class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300"
             >
               <i data-lucide="book-open" class="w-4 h-4"></i>
@@ -152,6 +152,55 @@
             <i data-lucide="upload" class="w-5 h-5 text-accent"></i>
             Upload Your Document
           </h2>
+
+          {% if not is_authenticated %}
+          <div
+            class="mb-6 p-4 rounded-xl flex items-center justify-between gap-3"
+            style="{% if remaining == 0 %}background:rgba(255,50,50,0.1); border:1px solid rgba(255,50,50,0.2);{% else %}background:rgba(0,212,170,0.05); border:1px solid rgba(0,212,170,0.2);{% endif %}"
+          >
+            <div class="flex items-center gap-2">
+              <i
+                data-lucide="{% if remaining == 0 %}lock{% else %}info{% endif %}"
+                class="w-4 h-4 flex-shrink-0"
+                style="{% if remaining == 0 %}color:#f87171;{% else %}color:#00d4aa;{% endif %}"
+              ></i>
+              <p
+                class="text-sm"
+                style="{% if remaining == 0 %}color:#f87171;{% else %}color:#00d4aa;{% endif %}"
+              >
+                <p class="text-sm" style="{% if remaining == 0 %}color:#f87171;{% else %}color:#00d4aa;{% endif %}">{% if remaining == 0 %}You have used all your free summarisations.{% else %}You have <strong>{{ remaining }}</strong> free summarisations remaining.{% endif %}</p>
+              </p>
+            </div>
+
+            <a
+              href="/accounts/register"
+              style="
+                white-space: nowrap;
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                padding: 6px 14px;
+                border-radius: 8px;
+                background: rgba(0, 212, 170, 0.1);
+                color: #00d4aa;
+                border: 1px solid rgba(0, 212, 170, 0.3);
+                font-size: 13px;
+                font-weight: 600;
+                text-decoration: none;
+              "
+              onmouseover="
+                this.style.background = '#00d4aa';
+                this.style.color = '#050508';
+              "
+              onmouseout="
+                this.style.background = 'rgba(0,212,170,0.1)';
+                this.style.color = '#00d4aa';
+              "
+            >
+              Register free
+            </a>
+          </div>
+          {% endif %}
 
           <form method="POST" enctype="multipart/form-data" id="upload-form">
             {% csrf_token %}
@@ -324,7 +373,7 @@
               >
             </div>
             <span class="text-white font-semibold tracking-tight"
-              >PyDev<span class="text-accent">.</span></span
+              >AS<span class="text-accent">.</span></span
             >
           </div>
           <p class="text-sm text-gray-600">

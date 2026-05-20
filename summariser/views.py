@@ -1,10 +1,11 @@
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from accounts.models import UsageTracking
 import os
 import PyPDF2
 import docx
 from anthropic import Anthropic
-from django.shortcuts import render
 
-# Initialise the Anthropic client
 client = Anthropic(api_key=os.environ.get('ANTHROPIC_API_KEY'))
 
 
@@ -40,7 +41,6 @@ def extract_text(file, filename):
 
 
 def get_summary_from_claude(text):
-    # Trim text to avoid hitting API limits
     trimmed_text = text[:10000]
 
     message = client.messages.create(
@@ -49,8 +49,8 @@ def get_summary_from_claude(text):
         messages=[
             {
                 "role": "user",
-                "content": f"""You are a professional document summariser. 
-                
+                "content": f"""You are a professional document summariser.
+
 Please analyse the following document and provide:
 
 1. A clear and concise summary in 3 to 5 sentences
@@ -74,10 +74,7 @@ Here is the document:
         ]
     )
 
-    # Extract the response text
     response_text = message.content[0].text
-
-    # Split the response into summary and key points
     parts = response_text.split('KEY POINTS:')
     summary = parts[0].replace('SUMMARY:', '').strip()
     key_points_text = parts[1].strip()
@@ -89,29 +86,64 @@ Here is the document:
 
     return summary, key_points
 
+
 def summariser(request):
     summary = None
     key_points = []
     error = None
+    FREE_USES = 3
 
+    # Check usage limits
     if request.method == 'POST':
         uploaded_file = request.FILES.get('document')
 
         if not uploaded_file:
             error = 'Please upload a file.'
         else:
-            text = extract_text(uploaded_file, uploaded_file.name)
+            # Check if user is authenticated
+            if request.user.is_authenticated:
+                # Registered user — get or create their usage record
+                usage, created = UsageTracking.objects.get_or_create(
+                    user=request.user
+                )
+                # Registered users have unlimited access
+                text = extract_text(uploaded_file, uploaded_file.name)
+                if not text:
+                    error = 'Sorry, we could not read that file type.'
+                else:
+                    summary, key_points = get_summary_from_claude(text)
+                    usage.summariser_uses += 1
+                    usage.save()
 
-            if not text:
-                error = 'Sorry, we could not read that file type.'
             else:
-                summary, key_points = get_summary_from_claude(text)
+                # Guest user — track uses in session
+                session_uses = request.session.get('summariser_uses', 0)
+
+                if session_uses >= FREE_USES:
+                    # Redirect to register page with a message
+                    messages.info(
+                        request,
+                        'You have used your 3 free summarisations. Create a free account for unlimited access.'
+                    )
+                    return redirect('/accounts/register')
+
+                text = extract_text(uploaded_file, uploaded_file.name)
+                if not text:
+                    error = 'Sorry, we could not read that file type.'
+                else:
+                    summary, key_points = get_summary_from_claude(text)
+                    request.session['summariser_uses'] = session_uses + 1
+
+    # Work out remaining free uses for guests
+    session_uses = request.session.get('summariser_uses', 0)
+    remaining = max(0, FREE_USES - session_uses)
 
     return render(request, 'summariser/summariser.html', {
         'summary': summary,
         'key_points': key_points,
         'error': error,
+        'remaining': remaining,
+        'is_authenticated': request.user.is_authenticated,
     })
 
-def documentation(request):
-    return render(request, 'summariser/documentation.html')
+

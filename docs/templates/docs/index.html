@@ -1,0 +1,397 @@
+{% load static %}
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Documentation — Anthony Stevens</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'myapp/style.css' %}" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="{% static 'myapp/images/snake.png' %}"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+              mono: ["JetBrains Mono", "monospace"],
+            },
+            colors: {
+              dark: {
+                950: "#050508",
+                900: "#0a0a0f",
+                800: "#0f0f18",
+                700: "#151522",
+                600: "#1a1a2e",
+              },
+              accent: {
+                DEFAULT: "#00d4aa",
+                light: "#33e0be",
+                dark: "#00a888",
+              },
+              surface: {
+                DEFAULT: "rgba(255, 255, 255, 0.03)",
+                border: "rgba(255, 255, 255, 0.06)",
+              },
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+
+  <body
+    class="bg-dark-950 text-gray-300 font-sans antialiased overflow-x-hidden"
+  >
+    <!-- Navigation -->
+    <nav
+      id="navbar"
+      class="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16 md:h-20">
+          <a href="/" class="flex items-center gap-2 group">
+            <div
+              class="w-8 h-8 rounded-lg bg-accent/10 border border-accent/30 flex items-center justify-center group-hover:bg-accent/20 transition-all duration-300"
+            >
+              <span class="text-accent font-mono font-semibold text-sm"
+                >&lt;/&gt;</span
+              >
+            </div>
+            <span
+              class="text-white font-semibold text-lg tracking-tight hidden sm:block"
+            >
+              Anthony <span class="text-accent">Stevens</span>
+            </span>
+          </a>
+          <a
+            href="/"
+            class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300"
+          >
+            <i data-lucide="arrow-left" class="w-4 h-4"></i>
+            Back to Portfolio
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="relative pt-32 pb-16 overflow-hidden">
+      <div
+        class="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[300px] bg-accent/5 rounded-full blur-[120px] z-0"
+      ></div>
+      <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-center">
+        <div
+          class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/5 border border-accent/20 text-accent text-sm font-medium mb-6"
+        >
+          <i data-lucide="book-open" class="w-4 h-4"></i>
+          Documentation
+        </div>
+        <h1
+          class="text-4xl sm:text-5xl font-bold text-white leading-tight mb-6"
+        >
+          How Everything<br /><span class="text-accent">Was Built</span>
+        </h1>
+        <p class="text-lg text-gray-400 max-w-2xl mx-auto">
+          A transparent look at every project, feature, and technical decision
+          on this site — including the problems encountered and how they were
+          solved.
+        </p>
+      </div>
+    </section>
+
+    <!-- Documentation Cards -->
+    <section class="pb-24">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6">
+        <!-- Section Label -->
+        <div class="flex items-center gap-3 mb-8">
+          <div class="h-px flex-1 bg-white/5"></div>
+          <span
+            class="text-xs font-semibold text-gray-500 uppercase tracking-widest"
+            >Available Documentation</span
+          >
+          <div class="h-px flex-1 bg-white/5"></div>
+        </div>
+
+        <div class="space-y-4">
+          <!-- Smart Document Summariser -->
+          <a
+            href="/docs/summariser"
+            class="group block p-6 rounded-2xl bg-surface border border-surface-border hover:border-accent/20 transition-all duration-300"
+          >
+            <div class="flex items-start gap-4">
+              <div
+                class="w-12 h-12 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0 group-hover:bg-accent/20 transition-all duration-300"
+              >
+                <i data-lucide="file-text" class="w-5 h-5 text-accent"></i>
+              </div>
+              <div class="flex-1">
+                <div class="flex items-center justify-between mb-2">
+                  <h2 class="text-white font-semibold text-lg">
+                    Smart Document Summariser
+                  </h2>
+                  <span
+                    class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent/5 border border-accent/20 text-accent text-xs font-medium"
+                  >
+                    <span class="w-1.5 h-1.5 rounded-full bg-accent"></span>
+                    Live
+                  </span>
+                </div>
+                <p class="text-gray-400 text-sm leading-relaxed mb-3">
+                  How the AI powered document summariser was built using Django,
+                  the Anthropic Claude API, PyPDF2, and python-docx. Includes
+                  file handling, prompt engineering, and deployment.
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  <span
+                    class="px-2.5 py-1 rounded-md bg-dark-800 border border-white/5 text-gray-400 text-xs font-mono"
+                    >Python</span
+                  >
+                  <span
+                    class="px-2.5 py-1 rounded-md bg-dark-800 border border-white/5 text-gray-400 text-xs font-mono"
+                    >Django</span
+                  >
+                  <span
+                    class="px-2.5 py-1 rounded-md bg-dark-800 border border-white/5 text-gray-400 text-xs font-mono"
+                    >Claude API</span
+                  >
+                  <span
+                    class="px-2.5 py-1 rounded-md bg-dark-800 border border-white/5 text-gray-400 text-xs font-mono"
+                    >PyPDF2</span
+                  >
+                </div>
+              </div>
+              <i
+                data-lucide="arrow-right"
+                class="w-5 h-5 text-gray-600 group-hover:text-accent group-hover:translate-x-1 transition-all duration-300 flex-shrink-0 mt-1"
+              ></i>
+            </div>
+          </a>
+
+          <!-- Authentication System -->
+          <a
+            href="/docs/authentication"
+            class="group block p-6 rounded-2xl bg-surface border border-surface-border hover:border-accent/20 transition-all duration-300"
+          >
+            <div class="flex items-start gap-4">
+              <div
+                class="w-12 h-12 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0 group-hover:bg-accent/20 transition-all duration-300"
+              >
+                <i data-lucide="shield-check" class="w-5 h-5 text-accent"></i>
+              </div>
+              <div class="flex-1">
+                <div class="flex items-center justify-between mb-2">
+                  <h2 class="text-white font-semibold text-lg">
+                    Authentication System
+                  </h2>
+                  <span
+                    class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent/5 border border-accent/20 text-accent text-xs font-medium"
+                  >
+                    <span class="w-1.5 h-1.5 rounded-full bg-accent"></span>
+                    Live
+                  </span>
+                </div>
+                <p class="text-gray-400 text-sm leading-relaxed mb-3">
+                  How the site wide user authentication system was built using
+                  Django's built in auth framework, PostgreSQL hosted on Neon,
+                  session based usage tracking, and a 3 free uses guest tier.
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  <span
+                    class="px-2.5 py-1 rounded-md bg-dark-800 border border-white/5 text-gray-400 text-xs font-mono"
+                    >Django Auth</span
+                  >
+                  <span
+                    class="px-2.5 py-1 rounded-md bg-dark-800 border border-white/5 text-gray-400 text-xs font-mono"
+                    >PostgreSQL</span
+                  >
+                  <span
+                    class="px-2.5 py-1 rounded-md bg-dark-800 border border-white/5 text-gray-400 text-xs font-mono"
+                    >Neon</span
+                  >
+                  <span
+                    class="px-2.5 py-1 rounded-md bg-dark-800 border border-white/5 text-gray-400 text-xs font-mono"
+                    >Sessions</span
+                  >
+                </div>
+              </div>
+              <i
+                data-lucide="arrow-right"
+                class="w-5 h-5 text-gray-600 group-hover:text-accent group-hover:translate-x-1 transition-all duration-300 flex-shrink-0 mt-1"
+              ></i>
+            </div>
+          </a>
+
+          <!-- Sentiment Dashboard — Coming Soon -->
+          <div
+            class="block p-6 rounded-2xl bg-surface border border-surface-border opacity-50 cursor-not-allowed"
+          >
+            <div class="flex items-start gap-4">
+              <div
+                class="w-12 h-12 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center flex-shrink-0"
+              >
+                <i data-lucide="bar-chart-2" class="w-5 h-5 text-gray-500"></i>
+              </div>
+              <div class="flex-1">
+                <div class="flex items-center justify-between mb-2">
+                  <h2 class="text-gray-400 font-semibold text-lg">
+                    Sentiment Dashboard
+                  </h2>
+                  <span
+                    class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gray-500 text-xs font-medium"
+                  >
+                    Coming Soon
+                  </span>
+                </div>
+                <p class="text-gray-600 text-sm leading-relaxed">
+                  Documentation will be added when this project is complete.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Job Application Assistant — Coming Soon -->
+          <div
+            class="block p-6 rounded-2xl bg-surface border border-surface-border opacity-50 cursor-not-allowed"
+          >
+            <div class="flex items-start gap-4">
+              <div
+                class="w-12 h-12 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center flex-shrink-0"
+              >
+                <i data-lucide="briefcase" class="w-5 h-5 text-gray-500"></i>
+              </div>
+              <div class="flex-1">
+                <div class="flex items-center justify-between mb-2">
+                  <h2 class="text-gray-400 font-semibold text-lg">
+                    Job Application Assistant
+                  </h2>
+                  <span
+                    class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gray-500 text-xs font-medium"
+                  >
+                    Coming Soon
+                  </span>
+                </div>
+                <p class="text-gray-600 text-sm leading-relaxed">
+                  Documentation will be added when this project is complete.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Predictive Analytics — Coming Soon -->
+          <div
+            class="block p-6 rounded-2xl bg-surface border border-surface-border opacity-50 cursor-not-allowed"
+          >
+            <div class="flex items-start gap-4">
+              <div
+                class="w-12 h-12 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center flex-shrink-0"
+              >
+                <i data-lucide="trending-up" class="w-5 h-5 text-gray-500"></i>
+              </div>
+              <div class="flex-1">
+                <div class="flex items-center justify-between mb-2">
+                  <h2 class="text-gray-400 font-semibold text-lg">
+                    Predictive Analytics Tool
+                  </h2>
+                  <span
+                    class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gray-500 text-xs font-medium"
+                  >
+                    Coming Soon
+                  </span>
+                </div>
+                <p class="text-gray-600 text-sm leading-relaxed">
+                  Documentation will be added when this project is complete.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Price Comparison Scraper — Coming Soon -->
+          <div
+            class="block p-6 rounded-2xl bg-surface border border-surface-border opacity-50 cursor-not-allowed"
+          >
+            <div class="flex items-start gap-4">
+              <div
+                class="w-12 h-12 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center flex-shrink-0"
+              >
+                <i data-lucide="search" class="w-5 h-5 text-gray-500"></i>
+              </div>
+              <div class="flex-1">
+                <div class="flex items-center justify-between mb-2">
+                  <h2 class="text-gray-400 font-semibold text-lg">
+                    Price Comparison Scraper
+                  </h2>
+                  <span
+                    class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gray-500 text-xs font-medium"
+                  >
+                    Coming Soon
+                  </span>
+                </div>
+                <p class="text-gray-600 text-sm leading-relaxed">
+                  Documentation will be added when this project is complete.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="relative py-12 border-t border-white/5">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+          class="flex flex-col md:flex-row items-center justify-between gap-6"
+        >
+          <div class="flex items-center gap-2">
+            <div
+              class="w-7 h-7 rounded-md bg-accent/10 border border-accent/30 flex items-center justify-center"
+            >
+              <span class="text-accent font-mono font-semibold text-xs"
+                >&lt;/&gt;</span
+              >
+            </div>
+            <span class="text-white font-semibold tracking-tight"
+              >anthonystevens<span class="text-accent">.dev</span></span
+            >
+          </div>
+          <p class="text-sm text-gray-600">
+            &copy; <span id="current-year"></span> Anthony Stevens. Built with
+            Python &amp; Passion.
+          </p>
+          <a
+            href="/"
+            class="text-sm text-gray-500 hover:text-white transition-colors duration-300"
+            >Back to Portfolio</a
+          >
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      lucide.createIcons();
+      document.getElementById("current-year").textContent =
+        new Date().getFullYear();
+
+      const navbar = document.getElementById("navbar");
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 20) {
+          navbar.classList.add("scrolled");
+        } else {
+          navbar.classList.remove("scrolled");
+        }
+      });
+    </script>
+  </body>
+</html>

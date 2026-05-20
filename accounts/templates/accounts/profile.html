@@ -1,0 +1,270 @@
+{% load static %}
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Profile — Anthony Stevens</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'myapp/style.css' %}" />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+              mono: ["JetBrains Mono", "monospace"],
+            },
+            colors: {
+              dark: {
+                950: "#050508",
+                900: "#0a0a0f",
+                800: "#0f0f18",
+                700: "#151522",
+                600: "#1a1a2e",
+              },
+              accent: {
+                DEFAULT: "#00d4aa",
+                light: "#33e0be",
+                dark: "#00a888",
+              },
+              surface: {
+                DEFAULT: "rgba(255, 255, 255, 0.03)",
+                border: "rgba(255, 255, 255, 0.06)",
+              },
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+
+  <body class="bg-dark-950 text-gray-300 font-sans antialiased min-h-screen">
+    <!-- Navigation -->
+    <nav
+      id="navbar"
+      class="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16 md:h-20">
+          <a href="/" class="flex items-center gap-2 group">
+            <div
+              class="w-8 h-8 rounded-lg bg-accent/10 border border-accent/30 flex items-center justify-center group-hover:bg-accent/20 transition-all duration-300"
+            >
+              <span class="text-accent font-mono font-semibold text-sm"
+                >&lt;/&gt;</span
+              >
+            </div>
+            <span
+              class="text-white font-semibold text-lg tracking-tight hidden sm:block"
+            >
+              Anthony <span class="text-accent">Stevens</span>
+            </span>
+          </a>
+          <a
+            href="/accounts/logout"
+            class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300"
+          >
+            <i data-lucide="log-out" class="w-4 h-4"></i>
+            Sign Out
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 pt-32 pb-24">
+      <!-- Header -->
+      <div class="mb-10">
+        <div
+          class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/5 border border-accent/20 text-accent text-xs font-medium mb-4"
+        >
+          <i data-lucide="user" class="w-3.5 h-3.5"></i>
+          My Account
+        </div>
+        <h1 class="text-3xl font-bold text-white mb-2">
+          Welcome back,
+          <span class="text-accent">{{ request.user.username }}</span>
+        </h1>
+        <p class="text-gray-400">
+          Here is a summary of your account and tool usage.
+        </p>
+      </div>
+
+      <!-- Account Details Card -->
+      <div class="p-6 rounded-2xl bg-surface border border-surface-border mb-6">
+        <h2 class="text-white font-semibold mb-4 flex items-center gap-2">
+          <i data-lucide="shield" class="w-4 h-4 text-accent"></i>
+          Account Details
+        </h2>
+        <div class="space-y-3">
+          <div
+            class="flex items-center justify-between py-2 border-b border-white/5"
+          >
+            <span class="text-gray-500 text-sm">Username</span>
+            <span class="text-white text-sm font-medium"
+              >{{ request.user.username }}</span
+            >
+          </div>
+          <div
+            class="flex items-center justify-between py-2 border-b border-white/5"
+          >
+            <span class="text-gray-500 text-sm">Email</span>
+            <span class="text-white text-sm font-medium"
+              >{{ request.user.email }}</span
+            >
+          </div>
+          <div class="flex items-center justify-between py-2">
+            <span class="text-gray-500 text-sm">Member since</span>
+            <span class="text-white text-sm font-medium"
+              >{{ request.user.date_joined|date:"d M Y" }}</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- Usage Card -->
+      <div class="p-6 rounded-2xl bg-surface border border-surface-border mb-6">
+        <h2 class="text-white font-semibold mb-4 flex items-center gap-2">
+          <i data-lucide="bar-chart-2" class="w-4 h-4 text-accent"></i>
+          Tool Usage
+        </h2>
+        <div class="space-y-4">
+          <!-- Summariser -->
+          <div class="p-4 rounded-xl bg-dark-800 border border-white/5">
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center gap-2">
+                <i data-lucide="file-text" class="w-4 h-4 text-accent"></i>
+                <span class="text-white text-sm font-medium"
+                  >Smart Document Summariser</span
+                >
+              </div>
+              <span class="text-xs font-mono text-accent"
+                >{{ usage.summariser_uses }} / 3 free uses</span
+              >
+            </div>
+            <div class="w-full h-1.5 rounded-full bg-dark-700 overflow-hidden">
+              <div
+                class="h-full rounded-full bg-gradient-to-r from-accent to-accent-light transition-all duration-700"
+                style="width: {% widthratio usage.summariser_uses 3 100 %}%"
+              ></div>
+            </div>
+            {% if usage.summariser_uses >= 3 %}
+            <p class="text-xs text-yellow-400 mt-2 flex items-center gap-1">
+              <i data-lucide="alert-triangle" class="w-3 h-3"></i>
+              Free uses exhausted — unlimited access as a registered user
+            </p>
+            {% endif %}
+          </div>
+
+          <!-- Sentiment — coming soon -->
+          <div
+            class="p-4 rounded-xl bg-dark-800 border border-white/5 opacity-50"
+          >
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center gap-2">
+                <i data-lucide="bar-chart-2" class="w-4 h-4 text-accent"></i>
+                <span class="text-white text-sm font-medium"
+                  >Sentiment Dashboard</span
+                >
+              </div>
+              <span class="text-xs font-mono text-gray-500">Coming soon</span>
+            </div>
+            <div class="w-full h-1.5 rounded-full bg-dark-700"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="p-6 rounded-2xl bg-surface border border-surface-border">
+        <h2 class="text-white font-semibold mb-4 flex items-center gap-2">
+          <i data-lucide="zap" class="w-4 h-4 text-accent"></i>
+          Quick Access
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <a
+            href="/summariser"
+            class="flex items-center gap-3 p-3 rounded-xl bg-dark-800 border border-white/5 hover:border-accent/20 transition-all duration-300 group"
+          >
+            <div
+              class="w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-all duration-300"
+            >
+              <i data-lucide="file-text" class="w-4 h-4 text-accent"></i>
+            </div>
+            <span
+              class="text-sm text-gray-300 group-hover:text-white transition-colors duration-300"
+              >Document Summariser</span
+            >
+          </a>
+          <a
+            href="/"
+            class="flex items-center gap-3 p-3 rounded-xl bg-dark-800 border border-white/5 hover:border-accent/20 transition-all duration-300 group"
+          >
+            <div
+              class="w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-all duration-300"
+            >
+              <i data-lucide="home" class="w-4 h-4 text-accent"></i>
+            </div>
+            <span
+              class="text-sm text-gray-300 group-hover:text-white transition-colors duration-300"
+              >Back to Portfolio</span
+            >
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="relative py-12 border-t border-white/5">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+          class="flex flex-col md:flex-row items-center justify-between gap-6"
+        >
+          <div class="flex items-center gap-2">
+            <div
+              class="w-7 h-7 rounded-md bg-accent/10 border border-accent/30 flex items-center justify-center"
+            >
+              <span class="text-accent font-mono font-semibold text-xs"
+                >&lt;/&gt;</span
+              >
+            </div>
+            <span class="text-white font-semibold tracking-tight"
+              >anthonystevens<span class="text-accent">.dev</span></span
+            >
+          </div>
+          <p class="text-sm text-gray-600">
+            &copy; <span id="current-year"></span> Anthony Stevens. Built with
+            Python &amp; Passion.
+          </p>
+          <a
+            href="/"
+            class="text-sm text-gray-500 hover:text-white transition-colors duration-300"
+            >Back to Portfolio</a
+          >
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      lucide.createIcons();
+      document.getElementById("current-year").textContent =
+        new Date().getFullYear();
+
+      const navbar = document.getElementById("navbar");
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 20) {
+          navbar.classList.add("scrolled");
+        } else {
+          navbar.classList.remove("scrolled");
+        }
+      });
+    </script>
+  </body>
+</html>
