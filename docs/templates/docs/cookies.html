@@ -1,0 +1,727 @@
+{% load static %}
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookie Consent & Data Privacy — Documentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'myapp/style.css' %}" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="{% static 'myapp/images/snake.png' %}"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+              mono: ["JetBrains Mono", "monospace"],
+            },
+            colors: {
+              dark: {
+                950: "#050508",
+                900: "#0a0a0f",
+                800: "#0f0f18",
+                700: "#151522",
+                600: "#1a1a2e",
+              },
+              accent: {
+                DEFAULT: "#00d4aa",
+                light: "#33e0be",
+                dark: "#00a888",
+              },
+              surface: {
+                DEFAULT: "rgba(255, 255, 255, 0.03)",
+                border: "rgba(255, 255, 255, 0.06)",
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .sidebar-link.active {
+        color: #00d4aa;
+        background: rgba(0, 212, 170, 0.08);
+        border-left: 2px solid #00d4aa;
+      }
+      .doc-section {
+        scroll-margin-top: 100px;
+      }
+      pre {
+        overflow-x: auto;
+      }
+    </style>
+  </head>
+
+  <body
+    class="bg-dark-950 text-gray-300 font-sans antialiased overflow-x-hidden"
+  >
+    <!-- Navigation -->
+    <nav
+      id="navbar"
+      class="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16 md:h-20">
+          <a href="/" class="flex items-center gap-2 group">
+            <div
+              class="w-8 h-8 rounded-lg bg-accent/10 border border-accent/30 flex items-center justify-center group-hover:bg-accent/20 transition-all duration-300"
+            >
+              <span class="text-accent font-mono font-semibold text-sm"
+                >&lt;/&gt;</span
+              >
+            </div>
+            <span
+              class="text-white font-semibold text-lg tracking-tight hidden sm:block"
+            >
+              Anthony <span class="text-accent">Stevens</span>
+            </span>
+          </a>
+          <a
+            href="/docs"
+            class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300"
+          >
+            <i data-lucide="arrow-left" class="w-4 h-4"></i>
+            Back to Docs
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Layout -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-24">
+      <div class="lg:grid lg:grid-cols-4 lg:gap-12">
+        <!-- Sidebar -->
+        <aside class="hidden lg:block col-span-1">
+          <div class="sticky top-28">
+            <div class="mb-6">
+              <span
+                class="text-xs font-semibold text-accent uppercase tracking-widest"
+                >Documentation</span
+              >
+              <h2 class="text-white font-bold text-lg mt-1">
+                Cookie Consent & Data Privacy
+              </h2>
+            </div>
+            <nav class="space-y-1">
+              <a
+                href="#overview"
+                class="sidebar-link block px-4 py-2.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/5 border-l-2 border-transparent transition-all duration-200"
+                >Overview</a
+              >
+              <a
+                href="#uk-law"
+                class="sidebar-link block px-4 py-2.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/5 border-l-2 border-transparent transition-all duration-200"
+                >UK Law</a
+              >
+              <a
+                href="#cookies-used"
+                class="sidebar-link block px-4 py-2.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/5 border-l-2 border-transparent transition-all duration-200"
+                >Cookies Used</a
+              >
+              <a
+                href="#implementation"
+                class="sidebar-link block px-4 py-2.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/5 border-l-2 border-transparent transition-all duration-200"
+                >Technical Implementation</a
+              >
+              <a
+                href="#concepts"
+                class="sidebar-link block px-4 py-2.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/5 border-l-2 border-transparent transition-all duration-200"
+                >Key Concepts Learned</a
+              >
+              <a
+                href="#improvements"
+                class="sidebar-link block px-4 py-2.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/5 border-l-2 border-transparent transition-all duration-200"
+                >Future Improvements</a
+              >
+            </nav>
+
+            <div class="mt-8 pt-6 border-t border-white/5 space-y-2">
+              <a
+                href="/docs"
+                class="flex items-center gap-2 text-sm text-gray-500 hover:text-accent transition-colors duration-300"
+              >
+                <i data-lucide="book-open" class="w-4 h-4"></i>
+                All Documentation
+              </a>
+              <a
+                href="/"
+                class="flex items-center gap-2 text-sm text-gray-500 hover:text-accent transition-colors duration-300"
+              >
+                <i data-lucide="home" class="w-4 h-4"></i>
+                Back to Portfolio
+              </a>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="col-span-3 space-y-16">
+          <!-- Page Header -->
+          <div class="border-b border-white/5 pb-10">
+            <div
+              class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/5 border border-accent/20 text-accent text-xs font-medium mb-4"
+            >
+              <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
+              Site Documentation
+            </div>
+            <h1 class="text-4xl font-bold text-white mb-4">
+              Cookie Consent & Data Privacy
+            </h1>
+            <p class="text-gray-400 text-lg leading-relaxed max-w-2xl">
+              A full walkthrough of how cookie consent was implemented to comply
+              with UK PECR and UK GDPR — including the legal reasoning,
+              technical decisions, and why third party scripts require explicit
+              user consent.
+            </p>
+          </div>
+
+          <!-- 1. Overview -->
+          <section id="overview" class="doc-section">
+            <div class="flex items-center gap-3 mb-6">
+              <div
+                class="w-8 h-8 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0"
+              >
+                <span class="text-accent font-mono text-sm font-bold">1</span>
+              </div>
+              <h2 class="text-2xl font-bold text-white">Overview</h2>
+            </div>
+            <div class="space-y-4 text-gray-400 leading-relaxed">
+              <p>
+                A cookie consent banner was added to this site to comply with UK
+                data privacy law. The banner appears on a visitor's first visit
+                and gives them a clear choice to accept or decline non-essential
+                cookies before any third party scripts are loaded.
+              </p>
+              <p>
+                The decision to implement this was driven by two things — legal
+                compliance under UK PECR, and a recognition that employers
+                visiting this portfolio would notice the presence or absence of
+                proper data privacy handling. Implementing it correctly
+                demonstrates commercial and legal awareness that is rare at
+                junior developer level.
+              </p>
+              <p>
+                The implementation was deliberately kept simple and transparent.
+                Rather than using a third party cookie management library, the
+                entire system was built from scratch in plain JavaScript —
+                making it easier to understand, document, and explain in an
+                interview.
+              </p>
+            </div>
+          </section>
+
+          <!-- 2. UK Law -->
+          <section id="uk-law" class="doc-section">
+            <div class="flex items-center gap-3 mb-6">
+              <div
+                class="w-8 h-8 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0"
+              >
+                <span class="text-accent font-mono text-sm font-bold">2</span>
+              </div>
+              <h2 class="text-2xl font-bold text-white">
+                UK Law — PECR & UK GDPR
+              </h2>
+            </div>
+            <div class="space-y-4 text-gray-400 leading-relaxed">
+              <p>
+                Two pieces of legislation are relevant to cookies on UK
+                websites. The Privacy and Electronic Communications Regulations
+                (PECR) specifically govern cookies and similar tracking
+                technologies. UK GDPR (the UK's post-Brexit version of the EU's
+                GDPR) governs how personal data is collected and processed more
+                broadly.
+              </p>
+              <p>
+                Under PECR, websites must obtain informed consent before setting
+                any non-essential cookies on a user's device. Essential cookies
+                — those strictly necessary for the site to function — are
+                exempt. Non-essential cookies, including those set by third
+                party services like Google reCAPTCHA, require explicit opt-in
+                consent before they are allowed to run.
+              </p>
+              <p>
+                The Information Commissioner's Office (ICO) is the UK's data
+                protection regulator and publishes guidance on what constitutes
+                valid consent. Valid consent must be freely given, specific,
+                informed, and unambiguous. Pre-ticked boxes or implied consent
+                do not meet this standard.
+              </p>
+
+              <div
+                class="p-5 rounded-xl bg-dark-900 border border-white/5 mt-4"
+              >
+                <p
+                  class="text-xs text-accent font-mono uppercase tracking-widest mb-3"
+                >
+                  Essential vs Non-Essential Cookies
+                </p>
+                <pre class="text-sm text-gray-300 font-mono leading-relaxed">
+Essential (no consent required):
+  — Session cookies needed for core functionality
+  — Security cookies
+  — Load balancing cookies
+
+Non-Essential (consent required):
+  — Analytics cookies (Google Analytics)
+  — Advertising cookies
+  — Third party scripts (Google reCAPTCHA)
+  — Social media tracking pixels</pre
+                >
+              </div>
+            </div>
+          </section>
+
+          <!-- 3. Cookies Used -->
+          <section id="cookies-used" class="doc-section">
+            <div class="flex items-center gap-3 mb-6">
+              <div
+                class="w-8 h-8 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0"
+              >
+                <span class="text-accent font-mono text-sm font-bold">3</span>
+              </div>
+              <h2 class="text-2xl font-bold text-white">
+                Cookies Used on This Site
+              </h2>
+            </div>
+            <div class="space-y-4">
+              <div
+                class="p-4 rounded-xl bg-surface border border-surface-border"
+              >
+                <div class="flex items-center justify-between mb-2">
+                  <h3 class="text-white font-semibold">
+                    Django Session Cookie
+                  </h3>
+                  <span
+                    class="px-2.5 py-1 rounded-md bg-dark-800 border border-white/5 text-gray-400 text-xs font-mono"
+                    >Functional</span
+                  >
+                </div>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                  Set by Django to track guest usage of AI tools across page
+                  loads. Without this cookie, the 3 free uses system would not
+                  work for unregistered visitors. This is borderline essential
+                  as it serves a core functional purpose on the site.
+                </p>
+              </div>
+
+              <div
+                class="p-4 rounded-xl bg-surface border border-surface-border"
+              >
+                <div class="flex items-center justify-between mb-2">
+                  <h3 class="text-white font-semibold">Google reCAPTCHA</h3>
+                  <span
+                    class="px-2.5 py-1 rounded-md bg-dark-800 border border-white/5 text-gray-400 text-xs font-mono"
+                    >Non-Essential</span
+                  >
+                </div>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                  Set by Google when the reCAPTCHA script loads on the contact
+                  form. Google uses this data across their wider network for
+                  fraud detection and potentially advertising purposes. This is
+                  clearly non-essential and requires explicit consent before the
+                  script is allowed to load.
+                </p>
+              </div>
+
+              <div
+                class="p-4 rounded-xl bg-surface border border-surface-border"
+              >
+                <div class="flex items-center justify-between mb-2">
+                  <h3 class="text-white font-semibold">
+                    Cookie Consent Preference
+                  </h3>
+                  <span
+                    class="px-2.5 py-1 rounded-md bg-dark-800 border border-white/5 text-gray-400 text-xs font-mono"
+                    >Essential</span
+                  >
+                </div>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                  Stored in localStorage (not a cookie) to remember whether the
+                  visitor has accepted or declined cookies. This does not
+                  require consent itself under ICO guidance as it is strictly
+                  necessary to remember the user's own privacy preference.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- 4. Technical Implementation -->
+          <section id="implementation" class="doc-section">
+            <div class="flex items-center gap-3 mb-6">
+              <div
+                class="w-8 h-8 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0"
+              >
+                <span class="text-accent font-mono text-sm font-bold">4</span>
+              </div>
+              <h2 class="text-2xl font-bold text-white">
+                Technical Implementation
+              </h2>
+            </div>
+            <div class="space-y-6">
+              <p class="text-gray-400 leading-relaxed">
+                The consent system was built entirely in plain JavaScript
+                without any third party cookie management library. This keeps
+                the implementation transparent, lightweight, and easy to
+                explain.
+              </p>
+
+              <div
+                class="p-5 rounded-xl bg-surface border border-surface-border"
+              >
+                <h3 class="text-white font-semibold mb-3">
+                  How the banner works
+                </h3>
+                <div class="space-y-3 text-gray-400 text-sm leading-relaxed">
+                  <p>
+                    On first visit, localStorage is checked for a stored consent
+                    preference. If none exists, the banner appears after a 1.5
+                    second delay giving the page time to load fully. The delay
+                    prevents the banner from being the very first thing a
+                    visitor sees.
+                  </p>
+                  <p>
+                    When the user clicks Accept, the preference is saved to
+                    localStorage and the reCAPTCHA script is dynamically
+                    injected into the page. When they click Decline, the
+                    preference is saved and the reCAPTCHA widget is hidden.
+                  </p>
+                  <p>
+                    On subsequent visits, the banner does not appear. If the
+                    stored preference is accepted, reCAPTCHA loads immediately.
+                    If declined, it remains hidden.
+                  </p>
+                </div>
+              </div>
+
+              <div class="p-5 rounded-xl bg-dark-900 border border-white/5">
+                <p
+                  class="text-xs text-accent font-mono uppercase tracking-widest mb-3"
+                >
+                  Dynamic reCAPTCHA Loading
+                </p>
+                <pre class="text-sm text-gray-300 font-mono leading-relaxed">
+function loadRecaptcha() {
+  if (!document.querySelector('script[src*="recaptcha"]')) {
+    const script = document.createElement('script');
+    script.src = 'https://www.google.com/recaptcha/api.js';
+    script.async = true;
+    script.defer = true;
+    document.head.appendChild(script);
+  }
+}</pre
+                >
+              </div>
+
+              <div
+                class="p-5 rounded-xl bg-surface border border-surface-border"
+              >
+                <h3 class="text-white font-semibold mb-3">
+                  Why localStorage instead of a cookie
+                </h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                  Storing the consent preference in localStorage rather than a
+                  cookie was a deliberate decision. localStorage data never
+                  leaves the browser — it is never sent to any server and cannot
+                  be read by third parties. It is also exempt from the cookie
+                  consent requirement itself under ICO guidance, making it the
+                  correct tool for storing a privacy preference. Using a cookie
+                  to store cookie consent would be circular and potentially
+                  non-compliant.
+                </p>
+              </div>
+
+              <div
+                class="p-5 rounded-xl bg-surface border border-surface-border"
+              >
+                <h3 class="text-white font-semibold mb-3">
+                  Why reCAPTCHA is loaded dynamically
+                </h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                  The reCAPTCHA script was removed from the HTML head section
+                  where it had originally been placed. If left in the head it
+                  would load automatically on every page visit before the user
+                  had any opportunity to consent. By removing it and only
+                  injecting it via JavaScript after the user clicks Accept, the
+                  site is fully compliant — Google's script only runs when the
+                  user has explicitly permitted it.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- 5. Key Concepts -->
+          <section id="concepts" class="doc-section">
+            <div class="flex items-center gap-3 mb-6">
+              <div
+                class="w-8 h-8 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0"
+              >
+                <span class="text-accent font-mono text-sm font-bold">5</span>
+              </div>
+              <h2 class="text-2xl font-bold text-white">
+                Key Concepts Learned
+              </h2>
+            </div>
+            <div class="space-y-4">
+              <div
+                class="p-4 rounded-xl bg-surface border border-surface-border"
+              >
+                <h3 class="text-white font-semibold mb-1">PECR and UK GDPR</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                  Two separate pieces of UK legislation govern data privacy on
+                  websites. PECR specifically covers cookies and electronic
+                  communications. UK GDPR covers personal data processing more
+                  broadly. Both must be considered when handling user data on a
+                  UK website.
+                </p>
+              </div>
+
+              <div
+                class="p-4 rounded-xl bg-surface border border-surface-border"
+              >
+                <h3 class="text-white font-semibold mb-1">
+                  Essential vs Non-Essential Cookies
+                </h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                  Not all cookies require consent. Essential cookies that are
+                  strictly necessary for the site to function are exempt.
+                  Non-essential cookies — particularly those set by third party
+                  services — require explicit opt-in consent before they are
+                  allowed to run.
+                </p>
+              </div>
+
+              <div
+                class="p-4 rounded-xl bg-surface border border-surface-border"
+              >
+                <h3 class="text-white font-semibold mb-1">
+                  Third Party Scripts and Consent
+                </h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                  Any third party script that loads from an external server has
+                  the potential to set cookies and collect data. The site owner
+                  is responsible for ensuring these scripts only load after the
+                  user has consented, even though the site owner has no control
+                  over what the third party does with the data once their script
+                  runs.
+                </p>
+              </div>
+
+              <div
+                class="p-4 rounded-xl bg-surface border border-surface-border"
+              >
+                <h3 class="text-white font-semibold mb-1">
+                  Dynamic Script Loading
+                </h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                  JavaScript can create and inject script tags into the page
+                  dynamically at any point after load. This technique is used
+                  here to delay the loading of the reCAPTCHA script until after
+                  the user has consented. It is a powerful pattern used across
+                  many real world applications for performance and compliance
+                  reasons.
+                </p>
+              </div>
+
+              <div
+                class="p-4 rounded-xl bg-surface border border-surface-border"
+              >
+                <h3 class="text-white font-semibold mb-1">
+                  localStorage vs Cookies
+                </h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                  localStorage and cookies both store data in the browser but
+                  behave differently. Cookies are sent to the server on every
+                  request and can be read by third parties. localStorage stays
+                  in the browser, is never transmitted, and can only be read by
+                  the site that set it. For storing a consent preference,
+                  localStorage is the correct and compliant choice.
+                </p>
+              </div>
+
+              <div
+                class="p-4 rounded-xl bg-surface border border-surface-border"
+              >
+                <h3 class="text-white font-semibold mb-1">DOMContentLoaded</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                  JavaScript that interacts with HTML elements must wait until
+                  the page has fully loaded before running. The DOMContentLoaded
+                  event fires when the browser has finished parsing the HTML.
+                  Wrapping JavaScript in this event prevents null errors caused
+                  by scripts trying to access elements that do not yet exist in
+                  the page.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- 6. Future Improvements -->
+          <section id="improvements" class="doc-section">
+            <div class="flex items-center gap-3 mb-6">
+              <div
+                class="w-8 h-8 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0"
+              >
+                <span class="text-accent font-mono text-sm font-bold">6</span>
+              </div>
+              <h2 class="text-2xl font-bold text-white">Future Improvements</h2>
+            </div>
+            <div class="space-y-3">
+              <div
+                class="flex items-start gap-3 p-4 rounded-xl bg-surface border border-surface-border"
+              >
+                <i
+                  data-lucide="sliders"
+                  class="w-5 h-5 text-accent flex-shrink-0 mt-0.5"
+                ></i>
+                <div>
+                  <h3 class="text-white font-medium mb-1">
+                    Granular Cookie Preferences
+                  </h3>
+                  <p class="text-gray-400 text-sm leading-relaxed">
+                    Allow users to accept or decline specific categories of
+                    cookies separately — for example accepting functional
+                    cookies but declining analytics. This is the approach used
+                    by larger sites and gives users more meaningful control.
+                  </p>
+                </div>
+              </div>
+              <div
+                class="flex items-start gap-3 p-4 rounded-xl bg-surface border border-surface-border"
+              >
+                <i
+                  data-lucide="settings"
+                  class="w-5 h-5 text-accent flex-shrink-0 mt-0.5"
+                ></i>
+                <div>
+                  <h3 class="text-white font-medium mb-1">
+                    Cookie Preference Centre
+                  </h3>
+                  <p class="text-gray-400 text-sm leading-relaxed">
+                    A dedicated page where users can review and change their
+                    cookie preferences at any time after their initial choice.
+                    Under UK GDPR users have the right to withdraw consent as
+                    easily as they gave it.
+                  </p>
+                </div>
+              </div>
+              <div
+                class="flex items-start gap-3 p-4 rounded-xl bg-surface border border-surface-border"
+              >
+                <i
+                  data-lucide="file-text"
+                  class="w-5 h-5 text-accent flex-shrink-0 mt-0.5"
+                ></i>
+                <div>
+                  <h3 class="text-white font-medium mb-1">
+                    Privacy Policy Page
+                  </h3>
+                  <p class="text-gray-400 text-sm leading-relaxed">
+                    A full privacy policy page explaining in plain English what
+                    data is collected, how it is used, how long it is retained,
+                    and what rights users have under UK GDPR. This is
+                    technically required for any site that processes personal
+                    data.
+                  </p>
+                </div>
+              </div>
+              <div
+                class="flex items-start gap-3 p-4 rounded-xl bg-surface border border-surface-border"
+              >
+                <i
+                  data-lucide="refresh-cw"
+                  class="w-5 h-5 text-accent flex-shrink-0 mt-0.5"
+                ></i>
+                <div>
+                  <h3 class="text-white font-medium mb-1">Consent Expiry</h3>
+                  <p class="text-gray-400 text-sm leading-relaxed">
+                    Store a timestamp alongside the consent preference and
+                    re-show the banner after a set period — typically 12 months.
+                    ICO guidance suggests consent should be refreshed
+                    periodically rather than stored indefinitely.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="relative py-12 border-t border-white/5 mt-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+          class="flex flex-col md:flex-row items-center justify-between gap-6"
+        >
+          <div class="flex items-center gap-2">
+            <div
+              class="w-7 h-7 rounded-md bg-accent/10 border border-accent/30 flex items-center justify-center"
+            >
+              <span class="text-accent font-mono font-semibold text-xs"
+                >&lt;/&gt;</span
+              >
+            </div>
+            <span class="text-white font-semibold tracking-tight"
+              >AS<span class="text-accent">.</span></span
+            >
+          </div>
+          <p class="text-sm text-gray-600">
+            &copy; <span id="current-year"></span> Anthony Stevens. Built with
+            Python &amp; Passion.
+          </p>
+          <a
+            href="/"
+            class="text-sm text-gray-500 hover:text-white transition-colors duration-300"
+            >Back to Portfolio</a
+          >
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      lucide.createIcons();
+      document.getElementById("current-year").textContent =
+        new Date().getFullYear();
+
+      const navbar = document.getElementById("navbar");
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 20) {
+          navbar.classList.add("scrolled");
+        } else {
+          navbar.classList.remove("scrolled");
+        }
+      });
+
+      const sections = document.querySelectorAll(".doc-section");
+      const sidebarLinks = document.querySelectorAll(".sidebar-link");
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              sidebarLinks.forEach((link) => link.classList.remove("active"));
+              const activeLink = document.querySelector(
+                `.sidebar-link[href="#${entry.target.id}"]`,
+              );
+              if (activeLink) activeLink.classList.add("active");
+            }
+          });
+        },
+        { rootMargin: "-20% 0px -70% 0px" },
+      );
+
+      sections.forEach((section) => observer.observe(section));
+    </script>
+  </body>
+</html>

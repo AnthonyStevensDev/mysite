@@ -20,7 +20,7 @@
       href="{% static 'myapp/images/snake.png' %}"
     />
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
     <script>
       tailwind.config = {
         theme: {
@@ -1710,5 +1710,106 @@
             });
         });
     </script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const cookieBanner = document.getElementById("cookie-banner");
+        const cookieAccept = document.getElementById("cookie-accept");
+        const cookieDecline = document.getElementById("cookie-decline");
+
+        const cookieConsent = localStorage.getItem("cookie-consent");
+
+        function loadRecaptcha() {
+          if (!document.querySelector('script[src*="recaptcha"]')) {
+            const script = document.createElement("script");
+            script.src = "https://www.google.com/recaptcha/api.js";
+            script.async = true;
+            script.defer = true;
+            document.head.appendChild(script);
+          }
+        }
+
+        if (!cookieConsent) {
+          setTimeout(() => {
+            cookieBanner.classList.remove("hidden");
+          }, 1500);
+        }
+
+        if (cookieConsent === "accepted") {
+          loadRecaptcha();
+        }
+
+        if (cookieConsent === "declined") {
+          const recaptcha = document.querySelector(".g-recaptcha");
+          if (recaptcha) recaptcha.style.display = "none";
+        }
+
+        cookieAccept.addEventListener("click", function () {
+          localStorage.setItem("cookie-consent", "accepted");
+          cookieBanner.classList.add("hidden");
+          loadRecaptcha();
+        });
+
+        cookieDecline.addEventListener("click", function () {
+          localStorage.setItem("cookie-consent", "declined");
+          cookieBanner.classList.add("hidden");
+          const recaptcha = document.querySelector(".g-recaptcha");
+          if (recaptcha) recaptcha.style.display = "none";
+        });
+      });
+    </script>
+
+    <!-- Cookie Consent Banner -->
+    <div
+      id="cookie-banner"
+      class="fixed bottom-0 left-0 right-0 z-50 p-4 md:p-6 hidden"
+    >
+      <div
+        class="max-w-4xl mx-auto p-5 md:p-6 rounded-2xl bg-dark-900 border border-white/10 shadow-2xl"
+      >
+        <div
+          class="flex flex-col md:flex-row items-start md:items-center gap-4"
+        >
+          <div class="flex-1">
+            <div class="flex items-center gap-2 mb-2">
+              <i
+                data-lucide="cookie"
+                class="w-4 h-4 text-accent flex-shrink-0"
+              ></i>
+              <h3 class="text-white font-semibold text-sm">
+                This site uses cookies
+              </h3>
+            </div>
+            <p class="text-gray-400 text-xs leading-relaxed">
+              This site uses cookies for essential functionality and Google
+              reCAPTCHA on the contact form. reCAPTCHA helps prevent spam but
+              sends data to Google. You can
+              <a
+                href="https://policies.google.com/privacy"
+                target="_blank"
+                class="text-accent hover:text-accent-light underline transition-colors duration-200"
+                >read Google's privacy policy here</a
+              >. Declining will disable reCAPTCHA but the contact form will
+              still work.
+            </p>
+          </div>
+
+          <div class="flex items-center gap-3 flex-shrink-0">
+            <button
+              id="cookie-decline"
+              class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 transition-all duration-300"
+            >
+              Decline
+            </button>
+            <button
+              id="cookie-accept"
+              class="px-4 py-2 rounded-lg text-sm font-medium bg-accent text-dark-950 hover:bg-accent-light transition-all duration-300"
+            >
+              Accept
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

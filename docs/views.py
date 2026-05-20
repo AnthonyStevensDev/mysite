@@ -8,3 +8,6 @@ def docs_authentication(request):
 
 def docs_summariser(request):
     return render(request, 'docs/summariser.html')
+
+def docs_cookies(request):
+    return render(request, 'docs/cookies.html')
