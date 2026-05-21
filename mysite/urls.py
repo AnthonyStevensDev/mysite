@@ -23,4 +23,5 @@ urlpatterns = [
     path('summariser/', include('summariser.urls')),
     path('accounts/', include('accounts.urls')),
     path('docs/', include('docs.urls')),
+    path('sentiment/', include('sentiment.urls')),
 ]

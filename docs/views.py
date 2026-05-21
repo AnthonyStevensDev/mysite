@@ -11,3 +11,6 @@ def docs_summariser(request):
 
 def docs_cookies(request):
     return render(request, 'docs/cookies.html')
+
+def docs_sentiment(request):
+    return render(request, 'docs/sentiment.html')

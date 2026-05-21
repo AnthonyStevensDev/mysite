@@ -1,0 +1,1024 @@
+{% load static %}
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sentiment Dashboard — Documentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'myapp/style.css' %}" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="{% static 'myapp/images/snake.png' %}"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+              mono: ["JetBrains Mono", "monospace"],
+            },
+            colors: {
+              dark: {
+                950: "#050508",
+                900: "#0a0a0f",
+                800: "#0f0f18",
+                700: "#151522",
+                600: "#1a1a2e",
+              },
+              accent: { DEFAULT: "#00d4aa", light: "#33e0be", dark: "#00a888" },
+              surface: {
+                DEFAULT: "rgba(255, 255, 255, 0.03)",
+                border: "rgba(255, 255, 255, 0.06)",
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .sidebar-link.active {
+        color: #00d4aa;
+        background: rgba(0, 212, 170, 0.08);
+        border-left: 2px solid #00d4aa;
+      }
+      .doc-section {
+        scroll-margin-top: 100px;
+      }
+      pre {
+        overflow-x: auto;
+      }
+    </style>
+  </head>
+
+  <body
+    class="bg-dark-950 text-gray-300 font-sans antialiased overflow-x-hidden"
+  >
+    <nav
+      id="navbar"
+      class="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16 md:h-20">
+          <a href="/" class="flex items-center gap-2 group">
+            <div
+              class="w-8 h-8 rounded-lg bg-accent/10 border border-accent/30 flex items-center justify-center group-hover:bg-accent/20 transition-all duration-300"
+            >
+              <span class="text-accent font-mono font-semibold text-sm"
+                >&lt;/&gt;</span
+              >
+            </div>
+            <span
+              class="text-white font-semibold text-lg tracking-tight hidden sm:block"
+            >
+              Anthony <span class="text-accent">Stevens</span>
+            </span>
+          </a>
+          <div class="flex items-center gap-3">
+            <a
+              href="/sentiment"
+              class="flex items-center gap-2 text-accent text-sm font-medium hover:text-accent-light transition-colors duration-300"
+            >
+              <i data-lucide="external-link" class="w-4 h-4"></i>
+              Live Demo
+            </a>
+            <a
+              href="/docs"
+              class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300"
+            >
+              <i data-lucide="arrow-left" class="w-4 h-4"></i>
+              Back to Docs
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-24">
+      <div class="lg:grid lg:grid-cols-4 lg:gap-12">
+        <aside class="hidden lg:block col-span-1">
+          <div class="sticky top-28">
+            <div class="mb-6">
+              <span
+                class="text-xs font-semibold text-accent uppercase tracking-widest"
+                >Documentation</span
+              >
+              <h2 class="text-white font-bold text-lg mt-1">
+                Sentiment Dashboard
+              </h2>
+            </div>
+            <nav class="space-y-1">
+              <a
+                href="#overview"
+                class="sidebar-link block px-4 py-2.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/5 border-l-2 border-transparent transition-all duration-200"
+                >Overview</a
+              >
+              <a
+                href="#tech-stack"
+                class="sidebar-link block px-4 py-2.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/5 border-l-2 border-transparent transition-all duration-200"
+                >Tech Stack</a
+              >
+              <a
+                href="#architecture"
+                class="sidebar-link block px-4 py-2.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/5 border-l-2 border-transparent transition-all duration-200"
+                >Architecture</a
+              >
+              <a
+                href="#steps"
+                class="sidebar-link block px-4 py-2.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/5 border-l-2 border-transparent transition-all duration-200"
+                >Step by Step Build</a
+              >
+              <a
+                href="#concepts"
+                class="sidebar-link block px-4 py-2.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/5 border-l-2 border-transparent transition-all duration-200"
+                >Key Concepts Learned</a
+              >
+              <a
+                href="#limitations"
+                class="sidebar-link block px-4 py-2.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/5 border-l-2 border-transparent transition-all duration-200"
+                >Known Limitations</a
+              >
+              <a
+                href="#problems"
+                class="sidebar-link block px-4 py-2.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/5 border-l-2 border-transparent transition-all duration-200"
+                >Problems & Solutions</a
+              >
+              <a
+                href="#improvements"
+                class="sidebar-link block px-4 py-2.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/5 border-l-2 border-transparent transition-all duration-200"
+                >Future Improvements</a
+              >
+            </nav>
+            <div class="mt-8 pt-6 border-t border-white/5 space-y-2">
+              <a
+                href="/sentiment"
+                class="flex items-center gap-2 text-sm text-gray-500 hover:text-accent transition-colors duration-300"
+              >
+                <i data-lucide="external-link" class="w-4 h-4"></i>
+                Try the live tool
+              </a>
+              <a
+                href="/docs"
+                class="flex items-center gap-2 text-sm text-gray-500 hover:text-accent transition-colors duration-300"
+              >
+                <i data-lucide="book-open" class="w-4 h-4"></i>
+                All Documentation
+              </a>
+              <a
+                href="/"
+                class="flex items-center gap-2 text-sm text-gray-500 hover:text-accent transition-colors duration-300"
+              >
+                <i data-lucide="home" class="w-4 h-4"></i>
+                Back to Portfolio
+              </a>
+            </div>
+          </div>
+        </aside>
+
+        <main class="col-span-3 space-y-16">
+          <div class="border-b border-white/5 pb-10">
+            <div
+              class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/5 border border-accent/20 text-accent text-xs font-medium mb-4"
+            >
+              <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
+              Project Documentation
+            </div>
+            <h1 class="text-4xl font-bold text-white mb-4">
+              Real Time Sentiment Dashboard
+            </h1>
+            <p class="text-gray-400 text-lg leading-relaxed max-w-2xl">
+              A full walkthrough of how this AI powered sentiment analysis tool
+              was designed, built, and deployed — including the API choices
+              made, content moderation approach, and known limitations of
+              keyword based news searching.
+            </p>
+          </div>
+
+          <!-- 1. Overview -->
+          <section id="overview" class="doc-section">
+            <div class="flex items-center gap-3 mb-6">
+              <div
+                class="w-8 h-8 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0"
+              >
+                <span class="text-accent font-mono text-sm font-bold">1</span>
+              </div>
+              <h2 class="text-2xl font-bold text-white">Overview</h2>
+            </div>
+            <div class="space-y-4 text-gray-400 leading-relaxed">
+              <p>
+                The Real Time Sentiment Dashboard allows users to enter any
+                topic or keyword and instantly see the current sentiment in the
+                news — broken down into positive, negative, and neutral
+                categories with interactive charts and an AI generated summary.
+              </p>
+              <p>
+                This was built as the second portfolio project to demonstrate
+                real world data retrieval, natural language processing, and data
+                visualisation skills. Rather than analysing static data, this
+                tool pulls live news articles at the moment of each search,
+                making the results genuinely current and dynamic.
+              </p>
+              <p>
+                The tool uses a two layer approach — NewsAPI retrieves recent
+                articles and Claude AI analyses their sentiment and generates a
+                contextual summary. This combination means the results are not
+                just raw scores but include intelligent commentary on what the
+                data actually means.
+              </p>
+            </div>
+          </section>
+
+          <!-- 2. Tech Stack -->
+          <section id="tech-stack" class="doc-section">
+            <div class="flex items-center gap-3 mb-6">
+              <div
+                class="w-8 h-8 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0"
+              >
+                <span class="text-accent font-mono text-sm font-bold">2</span>
+              </div>
+              <h2 class="text-2xl font-bold text-white">Tech Stack</h2>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div
+                class="p-4 rounded-xl bg-surface border border-surface-border"
+              >
+                <div class="flex items-center gap-3 mb-2">
+                  <i data-lucide="newspaper" class="w-5 h-5 text-accent"></i
+                  ><span class="text-white font-semibold">NewsAPI</span>
+                </div>
+                <p class="text-gray-400 text-sm">
+                  Retrieves up to 10 recent English language news articles for
+                  any keyword, sorted by publication date. Free tier allows 100
+                  requests per day.
+                </p>
+              </div>
+              <div
+                class="p-4 rounded-xl bg-surface border border-surface-border"
+              >
+                <div class="flex items-center gap-3 mb-2">
+                  <i data-lucide="sparkles" class="w-5 h-5 text-accent"></i
+                  ><span class="text-white font-semibold"
+                    >Claude API (Anthropic)</span
+                  >
+                </div>
+                <p class="text-gray-400 text-sm">
+                  Analyses the sentiment of retrieved articles, assigns
+                  positive, negative, or neutral labels, filters irrelevant
+                  content, and generates a contextual summary.
+                </p>
+              </div>
+              <div
+                class="p-4 rounded-xl bg-surface border border-surface-border"
+              >
+                <div class="flex items-center gap-3 mb-2">
+                  <i data-lucide="bar-chart-2" class="w-5 h-5 text-accent"></i
+                  ><span class="text-white font-semibold">Chart.js</span>
+                </div>
+                <p class="text-gray-400 text-sm">
+                  Renders two interactive charts — a doughnut chart showing the
+                  sentiment breakdown as percentages and a bar chart showing the
+                  raw article count per category.
+                </p>
+              </div>
+              <div
+                class="p-4 rounded-xl bg-surface border border-surface-border"
+              >
+                <div class="flex items-center gap-3 mb-2">
+                  <i data-lucide="layers" class="w-5 h-5 text-accent"></i
+                  ><span class="text-white font-semibold">Django</span>
+                </div>
+                <p class="text-gray-400 text-sm">
+                  Handles routing, form processing, session based usage tracking
+                  for guests, and database usage tracking for registered users.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- 3. Architecture -->
+          <section id="architecture" class="doc-section">
+            <div class="flex items-center gap-3 mb-6">
+              <div
+                class="w-8 h-8 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0"
+              >
+                <span class="text-accent font-mono text-sm font-bold">3</span>
+              </div>
+              <h2 class="text-2xl font-bold text-white">Architecture</h2>
+            </div>
+            <div class="space-y-6">
+              <p class="text-gray-400 leading-relaxed">
+                The dashboard is built as a separate Django app called
+                sentiment. The logic is split into four clean functions — each
+                doing one specific job. This makes the code easy to debug and
+                easy to swap out individual components, such as replacing
+                NewsAPI with a different news source in the future.
+              </p>
+              <div class="p-5 rounded-xl bg-dark-900 border border-white/5">
+                <p
+                  class="text-xs text-accent font-mono uppercase tracking-widest mb-3"
+                >
+                  Request Flow
+                </p>
+                <pre class="text-sm text-gray-300 font-mono leading-relaxed">
+User enters a keyword
+      ↓
+Django validates input and checks blocked terms list
+      ↓
+Guest: check session usage count (max 3 free)
+Registered: unlimited access
+      ↓
+NewsAPI fetches up to 10 recent articles
+      ↓
+Articles formatted and sent to Claude with structured prompt
+      ↓
+Claude returns sentiment scores and summary
+      ↓
+Scores converted to percentages
+      ↓
+Usage count incremented in session or database
+      ↓
+Results passed to template
+      ↓
+Chart.js renders doughnut and bar charts in the browser</pre
+                >
+              </div>
+              <div class="p-5 rounded-xl bg-dark-900 border border-white/5">
+                <p
+                  class="text-xs text-accent font-mono uppercase tracking-widest mb-3"
+                >
+                  Function Structure
+                </p>
+                <pre class="text-sm text-gray-300 font-mono leading-relaxed">
+load_blocked_terms()           — reads blocked_terms.txt file
+get_news_articles(keyword)     — fetches articles from NewsAPI
+analyse_sentiment_with_claude() — sends articles to Claude API
+parse_claude_response()        — extracts scores and summary
+sentiment(request)             — main view tying everything together</pre
+                >
+              </div>
+            </div>
+          </section>
+
+          <!-- 4. Step by Step -->
+          <section id="steps" class="doc-section">
+            <div class="flex items-center gap-3 mb-6">
+              <div
+                class="w-8 h-8 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0"
+              >
+                <span class="text-accent font-mono text-sm font-bold">4</span>
+              </div>
+              <h2 class="text-2xl font-bold text-white">Step by Step Build</h2>
+            </div>
+            <div class="space-y-6">
+              <div
+                class="p-5 rounded-xl bg-surface border border-surface-border"
+              >
+                <h3
+                  class="text-white font-semibold mb-2 flex items-center gap-2"
+                >
+                  <span class="text-accent font-mono text-sm">01</span> Set Up
+                  NewsAPI
+                </h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                  Created a free account at newsapi.org and obtained an API key.
+                  The key was added to the .env file locally and to Vercel's
+                  environment variables for production. The newsapi-python
+                  library was installed to provide a clean Python interface to
+                  the API.
+                </p>
+              </div>
+
+              <div
+                class="p-5 rounded-xl bg-surface border border-surface-border"
+              >
+                <h3
+                  class="text-white font-semibold mb-2 flex items-center gap-2"
+                >
+                  <span class="text-accent font-mono text-sm">02</span> Create
+                  the Sentiment Django App
+                </h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                  Created a dedicated sentiment app following the same pattern
+                  as the summariser — its own views.py, urls.py, and templates
+                  folder. This keeps all sentiment logic self contained and
+                  separate from the rest of the site.
+                </p>
+              </div>
+
+              <div
+                class="p-5 rounded-xl bg-surface border border-surface-border"
+              >
+                <h3
+                  class="text-white font-semibold mb-2 flex items-center gap-2"
+                >
+                  <span class="text-accent font-mono text-sm">03</span> Build
+                  the Content Moderation System
+                </h3>
+                <p class="text-gray-400 text-sm leading-relaxed mb-3">
+                  Rather than hardcoding a list of blocked terms in the Python
+                  code, a separate blocked_terms.txt file was created in the
+                  project root. The view reads this file on every request,
+                  meaning the list can be updated without touching the code or
+                  restarting the server.
+                </p>
+                <pre
+                  class="text-sm text-gray-300 font-mono bg-dark-900 rounded-lg p-3"
+                >
+def load_blocked_terms():
+    with open('blocked_terms.txt', 'r') as f:
+        return [line.strip().lower() for line in f if line.strip()]</pre
+                >
+              </div>
+
+              <div
+                class="p-5 rounded-xl bg-surface border border-surface-border"
+              >
+                <h3
+                  class="text-white font-semibold mb-2 flex items-center gap-2"
+                >
+                  <span class="text-accent font-mono text-sm">04</span> Write
+                  the Sentiment Analysis Logic
+                </h3>
+                <p class="text-gray-400 text-sm leading-relaxed mb-3">
+                  Articles from NewsAPI are formatted into a numbered list and
+                  sent to Claude with a carefully structured prompt. The prompt
+                  instructs Claude to label each article, ignore irrelevant
+                  ones, and return scores in a strict format that can be
+                  reliably parsed:
+                </p>
+                <pre
+                  class="text-sm text-gray-300 font-mono bg-dark-900 rounded-lg p-3"
+                >
+SCORES:
+positive: [number]
+negative: [number]
+neutral: [number]
+
+SUMMARY:
+Summary text here</pre
+                >
+              </div>
+
+              <div
+                class="p-5 rounded-xl bg-surface border border-surface-border"
+              >
+                <h3
+                  class="text-white font-semibold mb-2 flex items-center gap-2"
+                >
+                  <span class="text-accent font-mono text-sm">05</span> Build
+                  the Charts with Chart.js
+                </h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                  Django passes the sentiment scores to the HTML template as
+                  template variables. JavaScript reads these values and uses
+                  Chart.js to render a doughnut chart showing percentage
+                  breakdown and a bar chart showing raw article counts. Both
+                  charts are responsive and styled to match the site's dark
+                  theme.
+                </p>
+              </div>
+
+              <div
+                class="p-5 rounded-xl bg-surface border border-surface-border"
+              >
+                <h3
+                  class="text-white font-semibold mb-2 flex items-center gap-2"
+                >
+                  <span class="text-accent font-mono text-sm">06</span> Add the
+                  3 Free Uses System
+                </h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                  The same session based guest limit used on the summariser was
+                  applied here. Guest users get 3 free analyses before being
+                  redirected to the register page. Registered users have
+                  unlimited access and their usage is tracked in the database
+                  and displayed on their profile page.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- 5. Key Concepts -->
+          <section id="concepts" class="doc-section">
+            <div class="flex items-center gap-3 mb-6">
+              <div
+                class="w-8 h-8 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0"
+              >
+                <span class="text-accent font-mono text-sm font-bold">5</span>
+              </div>
+              <h2 class="text-2xl font-bold text-white">
+                Key Concepts Learned
+              </h2>
+            </div>
+            <div class="space-y-4">
+              <div
+                class="p-4 rounded-xl bg-surface border border-surface-border"
+              >
+                <h3 class="text-white font-semibold mb-1">
+                  Third Party API Integration
+                </h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                  NewsAPI is the first data retrieval API used in this project —
+                  different from the Claude API which processes data. Combining
+                  a data source API with an AI processing API is a pattern used
+                  across many real world applications including financial
+                  dashboards, social media monitoring tools, and market research
+                  platforms.
+                </p>
+              </div>
+
+              <div
+                class="p-4 rounded-xl bg-surface border border-surface-border"
+              >
+                <h3 class="text-white font-semibold mb-1">
+                  Sentiment Analysis
+                </h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                  Sentiment analysis is one of the most common real world
+                  applications of natural language processing. It is used in
+                  customer feedback systems, brand monitoring, financial trading
+                  signals, and social media analysis. Using Claude to perform
+                  sentiment analysis rather than a traditional NLP library gives
+                  more contextual and nuanced results.
+                </p>
+              </div>
+
+              <div
+                class="p-4 rounded-xl bg-surface border border-surface-border"
+              >
+                <h3 class="text-white font-semibold mb-1">
+                  Data Visualisation with Chart.js
+                </h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                  Chart.js renders charts directly in the browser using HTML
+                  canvas elements. Django passes the data as template variables
+                  which JavaScript reads and uses to configure the charts. This
+                  pattern — server generates data, client renders visualisation
+                  — is the standard approach for web based dashboards.
+                </p>
+              </div>
+
+              <div
+                class="p-4 rounded-xl bg-surface border border-surface-border"
+              >
+                <h3 class="text-white font-semibold mb-1">
+                  Content Moderation via External File
+                </h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                  Storing the blocked terms list in a separate text file rather
+                  than hardcoding it in the Python code follows the principle of
+                  separating configuration from logic. This makes the moderation
+                  list easier to update, review, and manage without risking
+                  changes to the application code.
+                </p>
+              </div>
+
+              <div
+                class="p-4 rounded-xl bg-surface border border-surface-border"
+              >
+                <h3 class="text-white font-semibold mb-1">Loose Coupling</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                  Each function in views.py does exactly one job. The news
+                  retrieval, sentiment analysis, and response parsing are
+                  completely separate from each other. This means the news
+                  source could be swapped from NewsAPI to Bing News Search by
+                  changing only the get_news_articles function — nothing else
+                  would need to change.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- 6. Known Limitations -->
+          <section id="limitations" class="doc-section">
+            <div class="flex items-center gap-3 mb-6">
+              <div
+                class="w-8 h-8 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0"
+              >
+                <span class="text-accent font-mono text-sm font-bold">6</span>
+              </div>
+              <h2 class="text-2xl font-bold text-white">Known Limitations</h2>
+            </div>
+            <div class="space-y-4">
+              <div
+                class="p-4 rounded-xl bg-surface border border-surface-border"
+              >
+                <h3 class="text-white font-semibold mb-1">
+                  Keyword Matching Accuracy
+                </h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                  NewsAPI uses keyword matching rather than semantic
+                  understanding. A search for "weather" may return articles
+                  where the word appears metaphorically — for example
+                  "weathering the economic storm". Claude's prompt instructs it
+                  to identify and ignore irrelevant articles in the summary, but
+                  they may still appear in the source articles list. Exact
+                  phrase matching using quoted keywords was implemented to
+                  reduce but not eliminate this issue.
+                </p>
+              </div>
+
+              <div
+                class="p-4 rounded-xl bg-surface border border-surface-border"
+              >
+                <h3 class="text-white font-semibold mb-1">
+                  NewsAPI Free Tier Restrictions
+                </h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                  The free tier of NewsAPI is limited to 100 requests per day
+                  and only returns articles from the last month. It also does
+                  not provide access to full article content — only titles and
+                  descriptions. This means sentiment analysis is based on
+                  headlines and short summaries rather than complete articles,
+                  which may not fully represent the article's overall tone.
+                </p>
+              </div>
+
+              <div
+                class="p-4 rounded-xl bg-surface border border-surface-border"
+              >
+                <h3 class="text-white font-semibold mb-1">Small Sample Size</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                  Results are based on a maximum of 10 articles. For topics with
+                  limited news coverage this means the sentiment scores may not
+                  be statistically representative. A production version would
+                  analyse significantly more articles and weight results by
+                  source credibility and recency.
+                </p>
+              </div>
+
+              <div
+                class="p-4 rounded-xl bg-surface border border-surface-border"
+              >
+                <h3 class="text-white font-semibold mb-1">
+                  Better News APIs Available
+                </h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                  NewsAPI was chosen for its simplicity and free tier. More
+                  accurate alternatives include Bing News Search API (1,000 free
+                  requests per month, better relevance ranking), The Guardian
+                  API (free, editorially tagged articles, no irrelevant
+                  results), and the New York Times API (free, high quality
+                  journalism). A future version of this tool would use one of
+                  these alternatives.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- 7. Problems & Solutions -->
+          <section id="problems" class="doc-section">
+            <div class="flex items-center gap-3 mb-6">
+              <div
+                class="w-8 h-8 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0"
+              >
+                <span class="text-accent font-mono text-sm font-bold">7</span>
+              </div>
+              <h2 class="text-2xl font-bold text-white">
+                Problems & Solutions
+              </h2>
+            </div>
+            <div class="space-y-6">
+              <div class="rounded-xl overflow-hidden border border-white/5">
+                <div
+                  class="px-5 py-3 bg-red-500/10 border-b border-white/5 flex items-center gap-2"
+                >
+                  <i
+                    data-lucide="alert-circle"
+                    class="w-4 h-4 text-red-400"
+                  ></i>
+                  <span class="text-red-400 text-sm font-semibold"
+                    >Problem 1 — Source articles showing raw HTML instead of
+                    rendered links</span
+                  >
+                </div>
+                <div class="p-5 bg-surface space-y-3">
+                  <div>
+                    <p
+                      class="text-xs text-gray-500 uppercase tracking-wider mb-1"
+                    >
+                      Problem
+                    </p>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                      The source articles section was displaying raw HTML
+                      attribute text instead of rendered clickable links. The
+                      href, class, and other attributes were visible as plain
+                      text on the page.
+                    </p>
+                  </div>
+                  <div>
+                    <p
+                      class="text-xs text-gray-500 uppercase tracking-wider mb-1"
+                    >
+                      Cause
+                    </p>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                      VS Code's Prettier formatter was splitting HTML anchor
+                      tags across multiple lines. Django's template engine
+                      misinterpreted the split attributes and escaped them as
+                      plain text rather than rendering them as HTML.
+                    </p>
+                  </div>
+                  <div>
+                    <p
+                      class="text-xs text-gray-500 uppercase tracking-wider mb-1"
+                    >
+                      Solution
+                    </p>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                      Created a .prettierignore file in the project root
+                      containing **/*.html to prevent Prettier from formatting
+                      Django HTML templates. All anchor tags were moved onto
+                      single lines. This is a permanent fix — Prettier now
+                      leaves all HTML files untouched.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="rounded-xl overflow-hidden border border-white/5">
+                <div
+                  class="px-5 py-3 bg-red-500/10 border-b border-white/5 flex items-center gap-2"
+                >
+                  <i
+                    data-lucide="alert-circle"
+                    class="w-4 h-4 text-red-400"
+                  ></i>
+                  <span class="text-red-400 text-sm font-semibold"
+                    >Problem 2 — Template tag error from mismatched if and
+                    endif</span
+                  >
+                </div>
+                <div class="p-5 bg-surface space-y-3">
+                  <div>
+                    <p
+                      class="text-xs text-gray-500 uppercase tracking-wider mb-1"
+                    >
+                      Error
+                    </p>
+                    <pre
+                      class="text-sm text-gray-300 font-mono bg-dark-900 rounded-lg p-3"
+                    >
+Invalid block tag on line 350: 'endif', expected 'empty' or 'endfor'</pre
+                    >
+                  </div>
+                  <div>
+                    <p
+                      class="text-xs text-gray-500 uppercase tracking-wider mb-1"
+                    >
+                      Cause
+                    </p>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                      Prettier had placed the &#123;% if %&#125; and &#123;%
+                      endif %&#125; tags on the same line as surrounding
+                      content. Django's template parser could not correctly
+                      identify the block structure when tags were not on their
+                      own separate lines.
+                    </p>
+                  </div>
+                  <div>
+                    <p
+                      class="text-xs text-gray-500 uppercase tracking-wider mb-1"
+                    >
+                      Solution
+                    </p>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                      Ensured every Django template tag was on its own separate
+                      line. Django template tags must never be split across
+                      lines or merged onto the same line as other content. The
+                      .prettierignore fix prevents this from happening again
+                      automatically.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="rounded-xl overflow-hidden border border-white/5">
+                <div
+                  class="px-5 py-3 bg-red-500/10 border-b border-white/5 flex items-center gap-2"
+                >
+                  <i
+                    data-lucide="alert-circle"
+                    class="w-4 h-4 text-red-400"
+                  ></i>
+                  <span class="text-red-400 text-sm font-semibold"
+                    >Problem 3 — Irrelevant articles appearing in search
+                    results</span
+                  >
+                </div>
+                <div class="p-5 bg-surface space-y-3">
+                  <div>
+                    <p
+                      class="text-xs text-gray-500 uppercase tracking-wider mb-1"
+                    >
+                      Problem
+                    </p>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                      Searching for "weather" returned articles about sports,
+                      politics, and technology where the word "weather" appeared
+                      metaphorically in the text rather than as the main topic.
+                    </p>
+                  </div>
+                  <div>
+                    <p
+                      class="text-xs text-gray-500 uppercase tracking-wider mb-1"
+                    >
+                      Cause
+                    </p>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                      NewsAPI uses simple keyword matching across article
+                      titles, descriptions, and content. It has no understanding
+                      of context or relevance — it returns any article
+                      containing the search term regardless of whether it is the
+                      main subject.
+                    </p>
+                  </div>
+                  <div>
+                    <p
+                      class="text-xs text-gray-500 uppercase tracking-wider mb-1"
+                    >
+                      Solution
+                    </p>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                      Two measures were implemented. First the Claude prompt was
+                      updated to instruct Claude to identify and ignore
+                      irrelevant articles in its summary and scores. Second
+                      exact phrase matching was enabled in the NewsAPI query by
+                      wrapping the keyword in quotes. This reduced but did not
+                      fully eliminate irrelevant results — a known limitation of
+                      keyword based news APIs documented in the limitations
+                      section above.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- 8. Future Improvements -->
+          <section id="improvements" class="doc-section">
+            <div class="flex items-center gap-3 mb-6">
+              <div
+                class="w-8 h-8 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0"
+              >
+                <span class="text-accent font-mono text-sm font-bold">8</span>
+              </div>
+              <h2 class="text-2xl font-bold text-white">Future Improvements</h2>
+            </div>
+            <div class="space-y-3">
+              <div
+                class="flex items-start gap-3 p-4 rounded-xl bg-surface border border-surface-border"
+              >
+                <i
+                  data-lucide="refresh-cw"
+                  class="w-5 h-5 text-accent flex-shrink-0 mt-0.5"
+                ></i>
+                <div>
+                  <h3 class="text-white font-medium mb-1">
+                    Switch to Bing News Search API
+                  </h3>
+                  <p class="text-gray-400 text-sm leading-relaxed">
+                    Bing News Search provides better relevance ranking and more
+                    accurate keyword matching than NewsAPI. Because the news
+                    retrieval logic is isolated in a single function, switching
+                    APIs would require changing only that one function with no
+                    impact on the rest of the codebase.
+                  </p>
+                </div>
+              </div>
+              <div
+                class="flex items-start gap-3 p-4 rounded-xl bg-surface border border-surface-border"
+              >
+                <i
+                  data-lucide="history"
+                  class="w-5 h-5 text-accent flex-shrink-0 mt-0.5"
+                ></i>
+                <div>
+                  <h3 class="text-white font-medium mb-1">Search History</h3>
+                  <p class="text-gray-400 text-sm leading-relaxed">
+                    Store past searches and their results in the database so
+                    registered users can revisit previous analyses without
+                    making a new API call. This would also enable trend tracking
+                    — showing how sentiment around a topic changes over time.
+                  </p>
+                </div>
+              </div>
+              <div
+                class="flex items-start gap-3 p-4 rounded-xl bg-surface border border-surface-border"
+              >
+                <i
+                  data-lucide="trending-up"
+                  class="w-5 h-5 text-accent flex-shrink-0 mt-0.5"
+                ></i>
+                <div>
+                  <h3 class="text-white font-medium mb-1">
+                    Sentiment Trend Over Time
+                  </h3>
+                  <p class="text-gray-400 text-sm leading-relaxed">
+                    Add a line chart showing how sentiment around a keyword has
+                    changed day by day over the past week or month. This would
+                    require storing historical results and is a significant step
+                    towards a proper market intelligence tool.
+                  </p>
+                </div>
+              </div>
+              <div
+                class="flex items-start gap-3 p-4 rounded-xl bg-surface border border-surface-border"
+              >
+                <i
+                  data-lucide="layers"
+                  class="w-5 h-5 text-accent flex-shrink-0 mt-0.5"
+                ></i>
+                <div>
+                  <h3 class="text-white font-medium mb-1">
+                    Analyse More Articles
+                  </h3>
+                  <p class="text-gray-400 text-sm leading-relaxed">
+                    Currently limited to 10 articles due to API costs and token
+                    limits. A smarter approach would retrieve more articles,
+                    summarise them in batches, and combine the results for a
+                    more statistically representative sentiment score.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <footer class="relative py-12 border-t border-white/5 mt-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+          class="flex flex-col md:flex-row items-center justify-between gap-6"
+        >
+          <div class="flex items-center gap-2">
+            <div
+              class="w-7 h-7 rounded-md bg-accent/10 border border-accent/30 flex items-center justify-center"
+            >
+              <span class="text-accent font-mono font-semibold text-xs"
+                >&lt;/&gt;</span
+              >
+            </div>
+            <span class="text-white font-semibold tracking-tight"
+              >AS<span class="text-accent">.</span></span
+            >
+          </div>
+          <p class="text-sm text-gray-600">
+            &copy; <span id="current-year"></span> Anthony Stevens. Built with
+            Python &amp; Passion.
+          </p>
+          <a
+            href="/"
+            class="text-sm text-gray-500 hover:text-white transition-colors duration-300"
+            >Back to Portfolio</a
+          >
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      lucide.createIcons();
+      document.getElementById("current-year").textContent =
+        new Date().getFullYear();
+
+      const navbar = document.getElementById("navbar");
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 20) {
+          navbar.classList.add("scrolled");
+        } else {
+          navbar.classList.remove("scrolled");
+        }
+      });
+
+      const sections = document.querySelectorAll(".doc-section");
+      const sidebarLinks = document.querySelectorAll(".sidebar-link");
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              sidebarLinks.forEach((link) => link.classList.remove("active"));
+              const activeLink = document.querySelector(
+                `.sidebar-link[href="#${entry.target.id}"]`,
+              );
+              if (activeLink) activeLink.classList.add("active");
+            }
+          });
+        },
+        { rootMargin: "-20% 0px -70% 0px" },
+      );
+
+      sections.forEach((section) => observer.observe(section));
+    </script>
+  </body>
+</html>

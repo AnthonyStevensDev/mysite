@@ -130,7 +130,7 @@
         </div>
       </div>
 
-      <!-- Usage Card -->
+      <!-- Tool Usage Card -->
       <div class="p-6 rounded-2xl bg-surface border border-surface-border mb-6">
         <h2 class="text-white font-semibold mb-4 flex items-center gap-2">
           <i data-lucide="bar-chart-2" class="w-4 h-4 text-accent"></i>
@@ -139,7 +139,7 @@
         <div class="space-y-4">
           <!-- Summariser -->
           <div class="p-4 rounded-xl bg-dark-800 border border-white/5">
-            <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center justify-between">
               <div class="flex items-center gap-2">
                 <i data-lucide="file-text" class="w-4 h-4 text-accent"></i>
                 <span class="text-white text-sm font-medium"
@@ -147,37 +147,24 @@
                 >
               </div>
               <span class="text-xs font-mono text-accent"
-                >{{ usage.summariser_uses }} / 3 free uses</span
+                >{{ usage.summariser_uses }} uses</span
               >
             </div>
-            <div class="w-full h-1.5 rounded-full bg-dark-700 overflow-hidden">
-              <div
-                class="h-full rounded-full bg-gradient-to-r from-accent to-accent-light transition-all duration-700"
-                style="width: {% widthratio usage.summariser_uses 3 100 %}%"
-              ></div>
-            </div>
-            {% if usage.summariser_uses >= 3 %}
-            <p class="text-xs text-yellow-400 mt-2 flex items-center gap-1">
-              <i data-lucide="alert-triangle" class="w-3 h-3"></i>
-              Free uses exhausted — unlimited access as a registered user
-            </p>
-            {% endif %}
           </div>
 
-          <!-- Sentiment — coming soon -->
-          <div
-            class="p-4 rounded-xl bg-dark-800 border border-white/5 opacity-50"
-          >
-            <div class="flex items-center justify-between mb-3">
+          <!-- Sentiment Dashboard -->
+          <div class="p-4 rounded-xl bg-dark-800 border border-white/5">
+            <div class="flex items-center justify-between">
               <div class="flex items-center gap-2">
                 <i data-lucide="bar-chart-2" class="w-4 h-4 text-accent"></i>
                 <span class="text-white text-sm font-medium"
                   >Sentiment Dashboard</span
                 >
               </div>
-              <span class="text-xs font-mono text-gray-500">Coming soon</span>
+              <span class="text-xs font-mono text-accent"
+                >{{ usage.sentiment_uses }} uses</span
+              >
             </div>
-            <div class="w-full h-1.5 rounded-full bg-dark-700"></div>
           </div>
         </div>
       </div>
@@ -201,6 +188,20 @@
             <span
               class="text-sm text-gray-300 group-hover:text-white transition-colors duration-300"
               >Document Summariser</span
+            >
+          </a>
+          <a
+            href="/sentiment"
+            class="flex items-center gap-3 p-3 rounded-xl bg-dark-800 border border-white/5 hover:border-accent/20 transition-all duration-300 group"
+          >
+            <div
+              class="w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-all duration-300"
+            >
+              <i data-lucide="bar-chart-2" class="w-4 h-4 text-accent"></i>
+            </div>
+            <span
+              class="text-sm text-gray-300 group-hover:text-white transition-colors duration-300"
+              >Sentiment Dashboard</span
             >
           </a>
           <a

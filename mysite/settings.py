@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'summariser',
     'accounts',
     'docs',
+    'sentiment',
 ]
 
 MIDDLEWARE = [
